@@ -52,7 +52,7 @@ public class Vector {
 	public Vector crossProduct(Vector vector){
 		Point3D crossproduct = new Point3D(this.head.getY_value()*vector.getHead().getZ_value()-this.head.getZ_value()*vector.getHead().getY_value(),
 				-(this.head.getX_value()*vector.getHead().getZ_value()-this.head.getZ_value()*vector.getHead().getX_value()),
-				this.head.getY_value()*vector.getHead().getX_value()-this.head.getX_value()*vector.getHead().getY_value()
+				this.head.getX_value()*vector.getHead().getY_value()-this.head.getY_value()*vector.getHead().getX_value()
 				);
 		return new Vector(crossproduct);
 	}

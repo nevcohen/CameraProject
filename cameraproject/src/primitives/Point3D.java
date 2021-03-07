@@ -50,7 +50,7 @@ public class Point3D {
 
 	}
 	public Vector subtract(Point3D point){
-		return new Vector(this.x.coord-point.getX_value(),this.y.coord-point.getY_value(),this.z.coord-point.getX_value());
+		return new Vector(this.x.coord-point.getX_value(),this.y.coord-point.getY_value(),this.z.coord-point.getZ_value());
 	}
 	public double distanceSquared(Point3D point){
 		return ((this.x.coord-point.getX_value())*(this.x.coord-point.getX_value())+ 
