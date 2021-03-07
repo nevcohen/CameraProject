@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 public class Point3D {
 
 	private Coordinate x;
@@ -44,20 +46,27 @@ public class Point3D {
 
 	
 	public Point3D add(Vector v){
-		
+	return new Point3D(this.x.coord+v.getHead().getX_value(),this.y.coord+v.getHead().getY_value(),this.z.coord+v.getHead().getZ_value());
+
 	}
 	public Vector subtract(Point3D point){
-		
+		return new Vector(this.x.coord-point.getX_value(),this.y.coord-point.getY_value(),this.z.coord-point.getX_value());
 	}
 	public double distanceSquared(Point3D point){
-		
+		return ((this.x.coord-point.getX_value())*(this.x.coord-point.getX_value())+ 
+				(this.y.coord-point.getY_value())*(this.y.coord-point.getY_value())+
+				(this.z.coord-point.getZ_value())*(this.z.coord-point.getZ_value()));
 	}
 	public double distance(Point3D point){
-		
+	return Math.sqrt(this.distanceSquared(point));
 	}
 	@Override
-	public boolean equals(Object object){
-		
+	public boolean equals(Object obj){
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Point3D)) return false;
+        Point3D other = (Point3D)obj;
+        return this.x.equals(other.x)&&this.y.equals(other.y)&&this.z.equals(other.z);
 	}
 	
 	
