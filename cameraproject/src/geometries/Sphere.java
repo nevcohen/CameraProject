@@ -24,12 +24,17 @@ public class Sphere implements Geometry {
 		return radius;
 	}
 
-
-
 	@Override
 	public Vector getNormal(Point3D point) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "Sphere [center=" + center + ", radius=" + radius + "]";
+	}
+	
+	
 
 }

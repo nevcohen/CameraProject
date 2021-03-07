@@ -33,4 +33,12 @@ public class Tube implements Geometry{
 		return null;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Tube [axisRay=" + axisRay + ", radius=" + radius + "]";
+	}
+
+	
+	
 }

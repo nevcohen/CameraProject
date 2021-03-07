@@ -34,6 +34,11 @@ public Plane(Point3D point1,Point3D point2,Point3D point3) {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		Point3D head = normal.getHead();
+		return head.getX_value()+"x +"+head.getY_value()+"y +"+head.getZ_value()+"z +"+(-normal.dotProduct(new Vector(q0))+" = 0");
+	}
 	
 	
 }
