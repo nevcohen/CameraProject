@@ -36,16 +36,13 @@ public class Vector {
 
 	public Vector add(Vector vector){
 		
-		Point3D addidtionCoordinates = new Point3D(this.head.getX_value()+vector.getHead().getX_value(), this.head.getY_value()+vector.getHead().getY_value(),this.head.getZ_value()+vector.getHead().getZ_value());
-		
-		return new Vector(addidtionCoordinates);
+		return new Vector(vector.getHead().add(this));
 	}
 	
 
 	public Vector subtract(Vector vector){
-		Point3D subtractionCoordinates = new Point3D(this.head.getX_value()-vector.getHead().getX_value(), this.head.getY_value()-vector.getHead().getY_value(),this.head.getZ_value()-vector.getHead().getZ_value());
 		
-		return new Vector(subtractionCoordinates);
+		return (vector.getHead().subtract(this.head));
 	}
 	
 	public Vector scale(double scalar){
@@ -92,4 +89,11 @@ public class Vector {
 	      return this.head.equals(other.head);
 
 	}
+
+	@Override
+	public String toString() {
+		return ""+head;
+	}
+	
+	
 }

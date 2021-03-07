@@ -34,6 +34,10 @@ public class Ray {
 	      return this.p0.equals(other.p0) && this.dir.equals(other.dir);
 
 	}
+	@Override
+	public String toString() {
+		return "t"+dir+" + "+p0;
+	}
 	
 	
 	

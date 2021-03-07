@@ -68,6 +68,11 @@ public class Point3D {
         Point3D other = (Point3D)obj;
         return this.x.equals(other.x)&&this.y.equals(other.y)&&this.z.equals(other.z);
 	}
+
+	@Override
+	public String toString() {
+		return "("+x+", "+y+", "+z+")";
+	}
 	
-	
+
 }
