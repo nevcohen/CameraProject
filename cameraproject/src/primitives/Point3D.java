@@ -1,6 +1,6 @@
 package primitives;
 
-import static primitives.Util.isZero;
+//import static primitives.Util.isZero;
 
 public class Point3D {
 

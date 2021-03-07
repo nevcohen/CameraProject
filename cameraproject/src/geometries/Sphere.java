@@ -9,6 +9,23 @@ public class Sphere implements Geometry {
 	private double radius;
 	
 	
+	
+	public Sphere(Point3D _center, double _radius) {
+		super();
+		this.center = _center;
+		this.radius = _radius;
+	}
+
+	public Point3D getCenter() {
+		return center;
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+
+
 	@Override
 	public Vector getNormal(Point3D point) {
 		// TODO Auto-generated method stub
