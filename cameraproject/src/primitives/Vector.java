@@ -6,11 +6,9 @@ public class Vector {
 	
 	public Vector(Point3D _head) {
 		super();
-		
+		this.head = _head;
 		if(this.head.equals(new Point3D(0,0,0)))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
-		
-		this.head = _head;
 	}
 	
 	public Vector(double x,double y,double z) {
