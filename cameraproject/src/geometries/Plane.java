@@ -31,7 +31,7 @@ public Plane(Point3D point1,Point3D point2,Point3D point3) {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		return normal.crossProduct(new Vector(point));
+		return null;
 	}
 
 	
