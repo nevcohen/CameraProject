@@ -1,7 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
 
 /**
  * Interface for representing all geometric shapes

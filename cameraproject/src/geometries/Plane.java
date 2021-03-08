@@ -1,7 +1,8 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Vector;
+import java.util.List;
+
+import primitives.*;
 
 /**
  * Plane class - represented by a point on it and its normal vector
@@ -57,8 +58,8 @@ public class Plane implements Geometry{
 	 */
 	@Override
 	public String toString() {
-		Point3D head = normal.getHead();
-		return head.getX_value()+"x +"+head.getY_value()+"y +"+head.getZ_value()+"z +"+(-normal.dotProduct(new Vector(q0))+" = 0");
+		String[] xyz = normal.getHead().toString().split(", ");
+		return xyz[0].substring(1)+"x +"+xyz[1]+"y +"+xyz[0].substring(0,-1)+"z +"+(-normal.dotProduct(new Vector(q0))+" = 0");
 	}
 	
 	

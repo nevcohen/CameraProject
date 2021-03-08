@@ -1,7 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
 
 /**
  * Sphere class - represented by the center point and radius
