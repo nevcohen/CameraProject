@@ -2,14 +2,28 @@ package geometries;
 
 import primitives.Point3D;
 
+/**
+ * Triangle class - Represented by the three vertices (3 Points3D)
+ */
 public class Triangle extends Polygon {
-	public Triangle(Point3D point1,Point3D point2,Point3D point3) { // Ctor for the triangle: puts 3 (and only 3) points into the Polygon base.
+	
+	/**
+	 * Ctor for the triangle: puts 3 (and only 3) points into the Polygon base.
+	 * @param Point3D - The three vertices of the triangle
+	 */
+	public Triangle(Point3D point1,Point3D point2,Point3D point3) {
 		super(point1,point2,point3);
 	}
-/*
-	@Override
-	public String toString() {// the tostring of polygon returns the entire list. so there is no do anything different here.
-		return super.toString();
-	}
-	*/
+	
+	/*
+	 * 	
+	 * The tostring of polygon, so there is no do anything different here.
+	 * @return the entire list of point
+	 * 
+	 * @Override
+     * public String toString() {
+	 *	return super.toString();
+	 * }
+	 */
+
 }

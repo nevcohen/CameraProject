@@ -3,7 +3,15 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * Interface for representing all geometric shapes
+ */
 public interface Geometry {
 
-	public Vector getNormal(Point3D point); // returns the normal to the surface
+	/**
+	 * Get the normal to the surface
+	 * @param point - A point3D on the geometric body
+	 * @return A normal vector to the body at this point
+	 */
+	public Vector getNormal(Point3D point);
 }

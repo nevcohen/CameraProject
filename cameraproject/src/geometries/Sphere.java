@@ -3,24 +3,36 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * Sphere class - represented by the center point and radius
+ */
 public class Sphere implements Geometry {
 
 	private Point3D center;
 	private double radius;
-	
-	
-	
-	public Sphere(Point3D _center, double _radius) { // Ctor that gets the center of the sphere and a radius, and inputs the fields.
+		
+	/**
+	 * Ctor that gets the center of the sphere and a radius, and inputs the fields.
+	 * @param _center - Sphere Center (Point3D)
+	 * @param _radius - Sphere radius
+	 */
+	public Sphere(Point3D _center, double _radius) {
 		super();
 		this.center = _center;
 		this.radius = _radius;
 	}
 
-	public Point3D getCenter() {// returns the center point for the sphere.
+	/**
+	 * returns the center point for the sphere.
+	 */
+	public Point3D getCenter() {
 		return center;
 	}
 
-	public double getRadius() {// returns the value of the radius of the sphere.
+	/**
+	 * returns the value of the radius of the sphere.
+	 */
+	public double getRadius() {
 		return radius;
 	}
 
@@ -29,8 +41,11 @@ public class Sphere implements Geometry {
 		return null;
 	}
 
+	/**
+	 * @return The center and radius of the sphere in the classic tostring format.
+	 */
 	@Override
-	public String toString() { // returns the center and radius of the sphere in the classic tostring format.
+	public String toString() {
 		return "Sphere [center=" + center + ", radius=" + radius + "]";
 	}
 	
