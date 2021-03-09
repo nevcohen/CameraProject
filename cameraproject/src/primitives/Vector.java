@@ -22,7 +22,7 @@ public class Vector {
 	 * Ctor gets the vector end by point - 3 doubles - (x,y,z)
 	 */
 	public Vector(double x,double y,double z) {
-		Point3D point = new Point3D(x,y,z);
+		Point3D point = new Point3D(x,y,z); //--------
 		if(point.equals(Point3D.ZERO))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
 		this.head = point;
@@ -45,7 +45,7 @@ public class Vector {
 	public Point3D getHead() {
 		return head;
 	}
-
+	
 	/**
 	 * Vector connection
 	 * @param vector
@@ -117,7 +117,7 @@ public class Vector {
 	 * @return The vector on which the operation was performed
 	 */
 	public Vector normalize(){
-		this.head = this.scale(1/this.length()).getHead();
+		this.head = this.scale(1/this.length()).getHead(); //--------------
 		return this;
 	}
 	/**

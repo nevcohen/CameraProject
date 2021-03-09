@@ -32,7 +32,7 @@ public class Plane implements Geometry{
 		Vector v1 = point1.subtract(point2);
 		Vector v2 = point1.subtract(point3);
 		q0 = point1;
-		normal = v1.crossProduct(v2);
+		normal = v1.crossProduct(v2); //------------
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class Plane implements Geometry{
 	public Plane(Point3D _q0, Vector _normal) {
 		super();
 		this.q0 = _q0;
-		this.normal = _normal;
+		this.normal = _normal; //------
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class Plane implements Geometry{
 	 */
 	@Override
 	public String toString() {
-		String[] xyz = normal.getHead().toString().split(", ");
+		String[] xyz = normal.getHead().toString().split(", "); //(x, y, z)
 		return xyz[0].substring(1)+"x +"+xyz[1]+"y +"+xyz[0].substring(0,-1)+"z +"+(-normal.dotProduct(new Vector(q0))+" = 0");
 	}
 	

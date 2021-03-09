@@ -16,10 +16,11 @@ public class Ray {
 	public Ray(Point3D _p0, Vector _dir) {
 		super();
 		p0 = _p0;
-		dir = _dir;
+		dir = _dir; //-------
 	}
 	
 	/**
+	 * -----
 	 * @return starting point
 	 */
 	public Point3D getP0() {
