@@ -4,11 +4,11 @@
 package unittests.primitives;
 
 import static org.junit.Assert.*;
+import static primitives.Util.isZero;
 
 import org.junit.Test;
 
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
 
 /**
  * 
@@ -20,9 +20,13 @@ public class VectorTest {
 	 */
 	@Test
 	public void testAdd() {
-		Vector newVector = new Vector(3,3,3);
-		Vector result = newVector.add(new Vector(2,3,4));
-		assertTrue("Vector did not add properly",(result.getHead().equals(new Point3D(5,6,7))));
+		Vector newVector1 = new Vector(3,3,3);
+		Vector newVector2 = new Vector(2,3,4);
+		
+		// ============ Equivalence Partitions Tests ==============		
+		// Test that connection works properly
+		Vector result = newVector1.add(newVector2);
+		assertTrue("add() Vector did not add properly",(result.getHead().equals(new Point3D(5,6,7))));
 	}
 
 	/**
@@ -30,7 +34,13 @@ public class VectorTest {
 	 */
 	@Test
 	public void testSubtract() {
-		fail("Not yet implemented");
+		Vector newVector1 = new Vector(5,6,7);
+		Vector newVector2 = new Vector(10,4,7);
+		
+		// ============ Equivalence Partitions Tests ==============		
+		// Test that subtraction works properly
+		Vector result = newVector1.subtract(newVector2);
+		assertTrue("subtract() Vector did not subtract properly",(result.getHead().equals(new Point3D(-5,2,0))));
 	}
 
 	/**
@@ -38,7 +48,13 @@ public class VectorTest {
 	 */
 	@Test
 	public void testScale() {
-		fail("Not yet implemented");
+		Vector newVector = new Vector(5,6,7);
+		double scale = 11.0;
+		
+		// ============ Equivalence Partitions Tests ==============		
+		// Test that product of Vector by a number works properly
+		Vector result = newVector.scale(scale);
+		assertTrue("scale() Vector has not been properly multiplied by the number",(result.getHead().equals(new Point3D(55,66,77))));
 	}
 
 	/**
@@ -74,7 +90,18 @@ public class VectorTest {
 	 */
 	@Test
 	public void testDotProduct() {
-		fail("Not yet implemented");
+		Vector newVector1 = new Vector(1, 2, 3);
+        Vector newVector2 = new Vector(-2, -4, -6);
+        Vector newVector3 = new Vector(0, 3, -2);
+        
+		// ============ Equivalence Partitions Tests ==============
+		// Test that dotProduct of orthogonal vectors works properly
+		double result1 = newVector1.dotProduct(newVector3);
+		assertTrue("dotProduct() for orthogonal vectors is not zero",(isZero(result1)));
+		
+		// Test that dotProduct works properly
+		double result2 = newVector1.dotProduct(newVector2) + 28;
+		assertTrue("dotProduct() wrong value",(isZero(result2)));
 	}
 
 	/**
@@ -82,7 +109,12 @@ public class VectorTest {
 	 */
 	@Test
 	public void testLengthSquared() {
-		fail("Not yet implemented");
+		Vector newVector = new Vector(1, 2, 3);
+		
+		// ============ Equivalence Partitions Tests ==============
+		// Test that lengthSquared() works properly
+		double result = newVector.lengthSquared() - 14;
+		assertTrue("lengthSquared() wrong value",(isZero(result)));
 	}
 
 	/**
@@ -90,7 +122,12 @@ public class VectorTest {
 	 */
 	@Test
 	public void testLength() {
-		fail("Not yet implemented");
+		Vector newVector = new Vector(0, 3, 4);
+		
+		// ============ Equivalence Partitions Tests ==============
+		// Test that length() works properly
+		double result = newVector.length() - 5;
+		assertTrue("length() wrong value",(isZero(result)));
 	}
 
 	/**
@@ -98,7 +135,14 @@ public class VectorTest {
 	 */
 	@Test
 	public void testNormalize() {
-		fail("Not yet implemented");
+        Vector v = new Vector(1, 2, 3);
+        Vector vCopy = new Vector(v.getHead());
+        Vector vCopyNormalize = vCopy.normalize();
+        
+        // ============ Equivalence Partitions Tests ==============
+        // test vector normalization vs vector length and cross-product
+        assertTrue("normalize() function creates a new vector",(vCopy == vCopyNormalize));
+        assertTrue("normalize() result is not a unit vector",(isZero(vCopyNormalize.length() - 1)));
 	}
 
 	/**
@@ -106,7 +150,12 @@ public class VectorTest {
 	 */
 	@Test
 	public void testNormalized() {
-		fail("Not yet implemented");
+		Vector newVector = new Vector(1, 2, 3);
+		Vector resultVector = newVector.normalized();
+        
+        // ============ Equivalence Partitions Tests ==============
+        // test vector normalization
+        assertTrue("normalizated() function does not create a new vector",(newVector != resultVector));
 	}
 
 }
