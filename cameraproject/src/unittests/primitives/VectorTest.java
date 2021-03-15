@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import primitives.Point3D;
 import primitives.Vector;
 
 /**
@@ -19,7 +20,9 @@ public class VectorTest {
 	 */
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		Vector newVector = new Vector(3,3,3);
+		Vector result = newVector.add(new Vector(2,3,4));
+		assertTrue("Vector did not add properly",(result.getHead().equals(new Point3D(5,6,7))));
 	}
 
 	/**
