@@ -15,6 +15,11 @@ public class Triangle extends Polygon {
 		super(point1,point2,point3);
 	}
 	
+	@Override
+	public Vector getNormal(Point3D point) {
+		return null;
+	}
+	
 	/*
 	 * 	
 	 * The tostring of polygon, so there is no do anything different here.
