@@ -12,8 +12,8 @@ public class PlaneTests {
 
 	@Test
 	public void testGetNormalPoint3D() {
-		Plane p = new Plane(new Point3D(1,1,1),new Vector(1,0,0));
-		assertEquals("",p.getNormal(new Point3D(1,2,3)),new Vector(1,1,1));
+		Plane p = new Plane(new Point3D(1,1,1),new Vector(1,2,3));
+		assertEquals("Mistake found with GetNormal",p.getNormal(new Point3D(7,-2,1)),new Vector(1,2,3));
 	}
 
 }
