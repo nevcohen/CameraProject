@@ -9,34 +9,38 @@ public class Vector {
 	
 	/**
 	 * Ctor gets the vector end by Point3D
-	 * @param _head - Point3D
+	 * @param head - Point3D
 	 */
-	public Vector(Point3D _head) {
+	public Vector(Point3D head) {
 		super();
-		this.head = _head;
+		this.head = head;
 		if(this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
 	}
 	
-	/**
-	 * Ctor gets the vector end by point - 3 doubles - (x,y,z)
-	 */
+/**
+ * 
+ * @param x the x value of the coordinate, as in: (x,y,z)
+ * @param y the y value of the coordinate, as in: (x,y,z)
+ * @param z the z value of the coordinate, as in: (x,y,z)
+ */
 	public Vector(double x,double y,double z) {
-		Point3D point = new Point3D(x,y,z); //--------
-		if(point.equals(Point3D.ZERO))
+		this.head = new Point3D(x,y,z); 
+		if((this.head).equals(Point3D.ZERO))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
-		this.head = point;
-		
+
 	}
 	
 	/**
-	 * Ctor gets the vector end by point - 3 coordinates - (x,y,z)
+	 * 
+	 * @param x the x value of the coordinate, as in: (x,y,z)
+	 * @param y the y value of the coordinate, as in: (x,y,z)
+	 * @param z the z value of the coordinate, as in: (x,y,z)
 	 */
 	public Vector(Coordinate x,Coordinate y,Coordinate z) {
-		Point3D point = new Point3D(x,y,z);
-		if(point.equals(Point3D.ZERO))
+		this.head = new Point3D(x,y,z);
+		if((this.head).equals(Point3D.ZERO))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
-		this.head = point;
 	}
 	
 	/**
@@ -61,7 +65,7 @@ public class Vector {
 	 * @return Result vector
 	 */
 	public Vector subtract(Vector vector){		
-		return (vector.getHead().subtract(this.head));
+		return (this.head.subtract(vector.getHead()));
 	}
 	
 	/**
@@ -69,9 +73,8 @@ public class Vector {
 	 * @param scalar
 	 * @return Result vector
 	 */
-	public Vector scale(double scalar){
-		Point3D scaledCoordinates = new Point3D(this.head.getX_value()*scalar, this.head.getY_value()*scalar,this.head.getZ_value()*scalar);		
-		return new Vector(scaledCoordinates);
+	public Vector scale(double scalar){	
+		return new Vector(new Point3D(this.head.getValueOfX()*scalar, this.head.getValueOfY()*scalar,this.head.getValueOfZ()*scalar));
 	}
 	
 	/**
@@ -80,11 +83,10 @@ public class Vector {
 	 * @return Result vector
 	 */
 	public Vector crossProduct(Vector vector){
-		Point3D crossproduct = new Point3D(this.head.getY_value()*vector.getHead().getZ_value()-this.head.getZ_value()*vector.getHead().getY_value(),
-				-(this.head.getX_value()*vector.getHead().getZ_value()-this.head.getZ_value()*vector.getHead().getX_value()),
-				this.head.getX_value()*vector.getHead().getY_value()-this.head.getY_value()*vector.getHead().getX_value()
-				);
-		return new Vector(crossproduct);
+		return new Vector( new Point3D(this.head.getValueOfY()*vector.getHead().getValueOfZ()-this.head.getValueOfZ()*vector.getHead().getValueOfY(),
+				-(this.head.getValueOfX()*vector.getHead().getValueOfZ()-this.head.getValueOfZ()*vector.getHead().getValueOfX()),
+				this.head.getValueOfX()*vector.getHead().getValueOfY()-this.head.getValueOfY()*vector.getHead().getValueOfX()
+				));
 	}
 	
 	/**
@@ -93,7 +95,7 @@ public class Vector {
 	 * @return The result of the product
 	 */
 	public double dotProduct(Vector vector){
-		return this.head.getX_value()*vector.getHead().getX_value()+ this.head.getY_value()*vector.getHead().getY_value()+this.head.getZ_value()*vector.getHead().getZ_value();
+		return this.head.getValueOfX()*vector.getHead().getValueOfX()+ this.head.getValueOfY()*vector.getHead().getValueOfY()+this.head.getValueOfZ()*vector.getHead().getValueOfZ();
 	}
 	
 	/**
@@ -101,7 +103,7 @@ public class Vector {
 	 * @return The length
 	 */
 	public double lengthSquared(){
-		return this.head.getX_value()*this.head.getX_value()+this.head.getY_value()*this.head.getY_value()+this.head.getZ_value()*this.head.getZ_value();
+		return this.head.getValueOfX()*this.head.getValueOfX()+this.head.getValueOfY()*this.head.getValueOfY()+this.head.getValueOfZ()*this.head.getValueOfZ();
 	}
 	
 	/**

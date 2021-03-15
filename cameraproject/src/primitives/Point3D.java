@@ -11,10 +11,11 @@ public class Point3D {
 	
 	public static Point3D ZERO = new Point3D(0,0,0); 
 	
-	/**
-	 * Ctor getting 3 coordinates
-	 * @param  coordinates - x y z
-	 */
+/**
+ * @param x the x coordinate of a given point: (x,y,z)
+ * @param y the y coordinate of a given point: (x,y,z)
+ * @param z the z coordinate of a given point: (x,y,z)
+ */
 	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
 		super();
 		this.x = x;
@@ -22,24 +23,21 @@ public class Point3D {
 		this.z = z;
 	}
 	
-	/**
-	 * Ctor getting 3 doubles
-	 * @param  double - x y z
-	 */
-	public Point3D(double x_value, double y_value, double z_value) {
+
+	public Point3D(double valueForx, double valueFory, double valueForz) {
 		super();
-		this.x = new Coordinate(x_value);
-		this.y = new Coordinate(y_value);
-		this.z = new Coordinate(z_value);
+		this.x = new Coordinate(valueForx);
+		this.y = new Coordinate(valueFory);
+		this.z = new Coordinate(valueForz);
 	}
 
-	protected double getX_value() {
+	protected double getValueOfX() {
 		return x.coord;
 	}
-	protected double getY_value() {
+	protected double getValueOfY() {
 		return y.coord;
 	}
-	protected double getZ_value() {
+	protected double getValueOfZ() {
 		return z.coord;
 	}
 	
@@ -49,7 +47,7 @@ public class Point3D {
 	 * @return New point
 	 */
 	public Point3D add(Vector v){
-		return new Point3D(this.x.coord+v.getHead().getX_value(),this.y.coord+v.getHead().getY_value(),this.z.coord+v.getHead().getZ_value());
+		return new Point3D(this.x.coord+v.getHead().getValueOfX(),this.y.coord+v.getHead().getValueOfY(),this.z.coord+v.getHead().getValueOfZ());
 	}
 	
 	/**
@@ -58,7 +56,7 @@ public class Point3D {
 	 * @return Vector from the second point to the point on which the action is performed
 	 */
 	public Vector subtract(Point3D point){
-		return new Vector(this.x.coord-point.getX_value(),this.y.coord-point.getY_value(),this.z.coord-point.getZ_value());
+		return new Vector(this.x.coord-point.getValueOfX(),this.y.coord-point.getValueOfY(),this.z.coord-point.getValueOfZ());
 	}
 	
 	/**
@@ -67,9 +65,9 @@ public class Point3D {
 	 * @return The Distance (squared)
 	 */
 	public double distanceSquared(Point3D point){
-		return ((this.x.coord-point.getX_value())*(this.x.coord-point.getX_value())+ 
-				(this.y.coord-point.getY_value())*(this.y.coord-point.getY_value())+
-				(this.z.coord-point.getZ_value())*(this.z.coord-point.getZ_value()));
+		return ((this.x.coord-point.getValueOfX())*(this.x.coord-point.getValueOfX())+ 
+				(this.y.coord-point.getValueOfY())*(this.y.coord-point.getValueOfY())+
+				(this.z.coord-point.getValueOfZ())*(this.z.coord-point.getValueOfZ()));
 	}
 	
 	/**

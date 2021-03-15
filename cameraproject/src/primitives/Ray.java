@@ -10,13 +10,13 @@ public class Ray {
 	
 	/**
 	 * Ctor getting normalized vector and a starting point
-	 * @param _p0
-	 * @param _dir
+	 * @param p0
+	 * @param dir
 	 */
-	public Ray(Point3D _p0, Vector _dir) {
+	public Ray(Point3D p0, Vector dir) {
 		super();
-		p0 = _p0;
-		dir = _dir; //-------
+		this.p0 = p0;
+		this.dir = dir.normalize(); 
 	}
 	
 	/**

@@ -32,18 +32,18 @@ public class Plane implements Geometry{
 		Vector v1 = point1.subtract(point2);
 		Vector v2 = point1.subtract(point3);
 		q0 = point1;
-		normal = v1.crossProduct(v2); //------------
+		normal = v1.crossProduct(v2).normalize();
 	}
 
 	/**
 	 * constructor that gets a point, and a possible normal to the plane
-	 * @param _q0 - A point on the plane
-	 * @param _normal - The normal vector of the plane
+	 * @param q0 - A point on the plane
+	 * @param normal - The normal vector of the plane
 	 */
-	public Plane(Point3D _q0, Vector _normal) {
+	public Plane(Point3D q0, Vector normal) {
 		super();
-		this.q0 = _q0;
-		this.normal = _normal; //------
+		this.q0 = q0;
+		this.normal = normal.normalize();
 	}
 
 	@Override

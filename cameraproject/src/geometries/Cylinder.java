@@ -14,13 +14,13 @@ public class Cylinder extends Tube {
 	
 	/**
 	 * Ctor getting the ray and radius for the tube, and the height for the cylinder.
-	 * @param _axisRay Direction and starting point of the Cylinder
-	 * @param _radius Cylinder radius
-	 * @param _height Cylinder height
+	 * @param axisRay Direction and starting point of the Cylinder
+	 * @param radius Cylinder radius
+	 * @param height Cylinder height
 	 */
-	public Cylinder(Ray _axisRay, double _radius, double _height) {
-		super(_axisRay, _radius);
-		this.height = _height;
+	public Cylinder(Ray axisRay, double radius, double height) {
+		super(axisRay, radius);
+		this.height = height;
 	}
 	
 	/**

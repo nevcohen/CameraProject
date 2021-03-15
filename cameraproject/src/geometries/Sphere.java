@@ -12,13 +12,13 @@ public class Sphere implements Geometry {
 		
 	/**
 	 * Ctor that gets the center of the sphere and a radius, and inputs the fields.
-	 * @param _center - Sphere Center (Point3D)
-	 * @param _radius - Sphere radius
+	 * @param center - Sphere Center (Point3D)
+	 * @param radius - Sphere radius
 	 */
-	public Sphere(Point3D _center, double _radius) {
+	public Sphere(Point3D center, double radius) {
 		super();
-		this.center = _center;
-		this.radius = _radius;
+		this.center = center;
+		this.radius = radius;
 	}
 
 	/**
