@@ -7,16 +7,13 @@ import org.junit.Test;
 import geometries.Polygon;
 import geometries.Triangle;
 import primitives.Point3D;
+import primitives.Vector;
 
 public class TriangleTest {
 
 	@Test
 	public void testGetNormal() {
-		Triangle testSubject = new Triangle(
-				new Point3D(1,0,0),
-				new Point3D(0,1,0),
-				new Point3D(0,0,1));
-		Vector projectedNormal = 
+		assertEquals(new Vector(new Point3D(1,2,3)).normalize(),(new Triangle(new Point3D(1,1,1),new Point3D(0,1,2),new Point3D(3,0,1))).getNormal(new Point3D(1,1,1)),"Problematic triangle");
 				
 	}
 
