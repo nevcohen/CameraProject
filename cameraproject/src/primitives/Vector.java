@@ -119,8 +119,10 @@ public class Vector {
 	 * @return The vector on which the operation was performed
 	 */
 	public Vector normalize(){
-		this.head = this.scale(1/this.length()).getHead(); //--------------
+		double scalar = 1/this.length();
+		this.head = new Point3D(this.head.getValueOfX()*scalar, this.head.getValueOfY()*scalar,this.head.getValueOfZ()*scalar);
 		return this;
+
 	}
 	/**
 	 * Vector normalization
