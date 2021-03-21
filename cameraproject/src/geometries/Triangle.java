@@ -15,10 +15,7 @@ public class Triangle extends Polygon {
 		super(point1,point2,point3);
 	}
 	
-	@Override
-	public Vector getNormal(Point3D point) {
-		return null;
-	}
+
 	
 	/*
 	 * 	
