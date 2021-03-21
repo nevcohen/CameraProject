@@ -20,7 +20,7 @@ public class Ray {
 	}
 	
 	/**
-	 * -----
+	 * Get the head point of the Ray
 	 * @return starting point
 	 */
 	public Point3D getP0() {
