@@ -90,7 +90,5 @@ public class Polygon implements Geometry {
 	public String toString() {
 		return "Polygon [vertices=" + vertices + ", plane=" + plane + "]";
 	}
-	
-	
-	
+
 }

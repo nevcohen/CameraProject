@@ -9,9 +9,10 @@ public class Sphere implements Geometry {
 
 	private Point3D center;
 	private double radius;
-		
+
 	/**
 	 * Ctor that gets the center of the sphere and a radius, and inputs the fields.
+	 * 
 	 * @param center - Sphere Center (Point3D)
 	 * @param radius - Sphere radius
 	 */
@@ -46,7 +47,5 @@ public class Sphere implements Geometry {
 	public String toString() {
 		return "Sphere [center=" + center + ", radius=" + radius + "]";
 	}
-	
-	
 
 }
