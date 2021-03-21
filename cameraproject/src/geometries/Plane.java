@@ -41,7 +41,6 @@ public class Plane implements Geometry{
 	 * @param normal - The normal vector of the plane
 	 */
 	public Plane(Point3D q0, Vector normal) {
-		super();
 		this.q0 = q0;
 		this.normal = normal.normalize();
 	}

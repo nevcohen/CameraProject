@@ -11,13 +11,13 @@ public class Point3D {
 	
 	public static Point3D ZERO = new Point3D(0,0,0); 
 	
+	
 /**
  * @param x the x coordinate of a given point: (x,y,z)
  * @param y the y coordinate of a given point: (x,y,z)
  * @param z the z coordinate of a given point: (x,y,z)
  */
 	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -25,7 +25,6 @@ public class Point3D {
 	
 
 	public Point3D(double valueForx, double valueFory, double valueForz) {
-		super();
 		this.x = new Coordinate(valueForx);
 		this.y = new Coordinate(valueFory);
 		this.z = new Coordinate(valueForz);
@@ -53,10 +52,11 @@ public class Point3D {
 	/**
 	 * Vector subtraction
 	 * @param point
-	 * @return Vector from the second point to the point on which the action is performed
+	 * @return Vector from the second point to the point on which the action is performed, null if the subtraction results in the head of the vector
+	 * becoming the point 0
 	 */
 	public Vector subtract(Point3D point){
-		return new Vector(this.x.coord-point.getValueOfX(),this.y.coord-point.getValueOfY(),this.z.coord-point.getValueOfZ());
+		return new Vector(this.x.coord-point.x.coord,this.y.coord-point.y.coord,this.z.coord-point.z.coord);
 	}
 	
 	/**
@@ -65,9 +65,9 @@ public class Point3D {
 	 * @return The Distance (squared)
 	 */
 	public double distanceSquared(Point3D point){
-		return ((this.x.coord-point.getValueOfX())*(this.x.coord-point.getValueOfX())+ 
-				(this.y.coord-point.getValueOfY())*(this.y.coord-point.getValueOfY())+
-				(this.z.coord-point.getValueOfZ())*(this.z.coord-point.getValueOfZ()));
+		return ((this.x.coord-point.x.coord)*(this.x.coord-point.x.coord)+ 
+				(this.y.coord-point.y.coord)*(this.y.coord-point.y.coord)+
+				(this.z.coord-point.z.coord)*(this.z.coord-point.z.coord));
 	}
 	
 	/**

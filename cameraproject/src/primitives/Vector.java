@@ -12,11 +12,11 @@ public class Vector {
 	 * @param head - Point3D
 	 */
 	public Vector(Point3D head) {
-		super();
 		this.head = head;
 		if(this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
 	}
+
 	
 /**
  * 
@@ -26,7 +26,7 @@ public class Vector {
  */
 	public Vector(double x,double y,double z) {
 		this.head = new Point3D(x,y,z); 
-		if((this.head).equals(Point3D.ZERO))
+		if(this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException ("Can't construct an empty vector");
 
 	}
@@ -74,6 +74,8 @@ public class Vector {
 	 * @return Result vector
 	 */
 	public Vector scale(double scalar){	
+		if(scalar == 0)
+			return null;
 		return new Vector(new Point3D(this.head.getValueOfX()*scalar, this.head.getValueOfY()*scalar,this.head.getValueOfZ()*scalar));
 	}
 	

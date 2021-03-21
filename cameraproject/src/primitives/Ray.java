@@ -14,7 +14,6 @@ public class Ray {
 	 * @param dir
 	 */
 	public Ray(Point3D p0, Vector dir) {
-		super();
 		this.p0 = p0;
 		this.dir = dir.normalize(); 
 	}

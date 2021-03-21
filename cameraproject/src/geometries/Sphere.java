@@ -16,7 +16,6 @@ public class Sphere implements Geometry {
 	 * @param radius - Sphere radius
 	 */
 	public Sphere(Point3D center, double radius) {
-		super();
 		this.center = center;
 		this.radius = radius;
 	}
@@ -37,7 +36,7 @@ public class Sphere implements Geometry {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		return (point.subtract(this.center).normalize());
+		return point.subtract(this.center).normalize();
 	}
 
 	/**
