@@ -11,6 +11,8 @@ public class Plane implements Geometry {
 	private Vector normal;
 
 	/**
+	 * Gets q0 value
+	 * 
 	 * @return q0 - the point that will help find the equation for the plane
 	 */
 	public Point3D getQ0() {
@@ -18,6 +20,8 @@ public class Plane implements Geometry {
 	}
 
 	/**
+	 * Gets the normal value
+	 * 
 	 * @return normal - the normal that will help find the equation for the plane
 	 */
 	public Vector getNormal() {
@@ -48,7 +52,7 @@ public class Plane implements Geometry {
 		this.normal = normal.normalize();
 	}
 
-	@Override // get the normal
+	@Override
 	public Vector getNormal(Point3D point) {
 		return this.normal;
 	}

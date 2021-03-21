@@ -11,7 +11,8 @@ public class Sphere implements Geometry {
 	private double radius;
 
 	/**
-	 * Ctor that gets the center of the sphere and a radius, and inputs the fields.
+	 * Constructor that gets the center of the sphere and a radius, and inputs the
+	 * fields.
 	 * 
 	 * @param center - Sphere Center (Point3D)
 	 * @param radius - Sphere radius
@@ -22,14 +23,18 @@ public class Sphere implements Geometry {
 	}
 
 	/**
-	 * returns the center point for the sphere.
+	 * Gets center value
+	 * 
+	 * @return the center point for the sphere.
 	 */
 	public Point3D getCenter() {
 		return center;
 	}
 
 	/**
-	 * returns the value of the radius of the sphere.
+	 * Gets radius value
+	 * 
+	 * @return the value of the radius of the sphere.
 	 */
 	public double getRadius() {
 		return radius;

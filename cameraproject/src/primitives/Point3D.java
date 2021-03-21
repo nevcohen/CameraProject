@@ -12,6 +12,8 @@ public class Point3D {
 	public static Point3D ZERO = new Point3D(0, 0, 0);
 
 	/**
+	 * A constructor who gets three points (Coordinate)
+	 * 
 	 * @param x the x coordinate of a given point: (x,y,z)
 	 * @param y the y coordinate of a given point: (x,y,z)
 	 * @param z the z coordinate of a given point: (x,y,z)
@@ -22,20 +24,42 @@ public class Point3D {
 		this.z = z;
 	}
 
+	/**
+	 * A constructor who gets three points (double)
+	 * 
+	 * @param valueForx the x coordinate of a given point: (x,y,z)
+	 * @param valueFory the y coordinate of a given point: (x,y,z)
+	 * @param valueForz the z coordinate of a given point: (x,y,z)
+	 */
 	public Point3D(double valueForx, double valueFory, double valueForz) {
 		this.x = new Coordinate(valueForx);
 		this.y = new Coordinate(valueFory);
 		this.z = new Coordinate(valueForz);
 	}
 
+	/**
+	 * Gets the value of X in double (from Coordinate)
+	 * 
+	 * @return The X value of the point
+	 */
 	protected double getValueOfX() {
 		return x.coord;
 	}
 
+	/**
+	 * Gets the value of Y in double (from Coordinate)
+	 * 
+	 * @return The Y value of the point
+	 */
 	protected double getValueOfY() {
 		return y.coord;
 	}
 
+	/**
+	 * Gets the value of Z in double (from Coordinate)
+	 * 
+	 * @return The Z value of the point
+	 */
 	protected double getValueOfZ() {
 		return z.coord;
 	}

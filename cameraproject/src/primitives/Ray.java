@@ -9,7 +9,7 @@ public class Ray {
 	private Vector dir;
 
 	/**
-	 * Ctor getting normalized vector and a starting point
+	 * Constructor getting normalized vector and a starting point
 	 * 
 	 * @param p0
 	 * @param dir
@@ -29,6 +29,8 @@ public class Ray {
 	}
 
 	/**
+	 * Get direction of the Ray
+	 * 
 	 * @return normalized vector
 	 */
 	public Vector getDir() {

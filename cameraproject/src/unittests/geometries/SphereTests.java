@@ -20,7 +20,6 @@ public class SphereTests {
 	@Test
 	public void testGetNormal() {
 		Sphere s = new Sphere(new Point3D(1, 1, 1), 2);
-
 		// ============ Equivalence Partitions Tests ==============
 		
 		// TC01: There is a simple single test here

@@ -13,7 +13,7 @@ public class Cylinder extends Tube {
 	private double height;
 
 	/**
-	 * Ctor getting the ray and radius for the tube, and the height for the
+	 * Constructor getting the ray and radius for the tube, and the height for the
 	 * cylinder.
 	 * 
 	 * @param axisRay Direction and starting point of the Cylinder
@@ -26,7 +26,9 @@ public class Cylinder extends Tube {
 	}
 
 	/**
-	 * returns the height of the cylinder
+	 * Gets the height value
+	 * 
+	 * @return the height of the cylinder
 	 */
 	public double getHeight() {
 		return height;

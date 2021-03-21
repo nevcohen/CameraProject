@@ -11,7 +11,7 @@ public class Tube implements Geometry {
 	protected double radius;
 
 	/**
-	 * Ctor getting the ray and radius for the tube.
+	 * Constructor getting the ray and radius for the tube.
 	 * 
 	 * @param axisRay Direction and starting point of the Tube
 	 * @param radius  Tube radius
@@ -22,14 +22,18 @@ public class Tube implements Geometry {
 	}
 
 	/**
-	 * returns the ray of the tube
+	 * Gets the Ray value
+	 * 
+	 * @return the ray of the tube
 	 */
 	public Ray getAxisRay() {
 		return axisRay;
 	}
 
 	/**
-	 * returns the radius of the tube
+	 * Gets the radius value
+	 * 
+	 * @return the radius of the tube
 	 */
 	public double getRadius() {
 		return radius;

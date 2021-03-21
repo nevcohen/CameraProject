@@ -8,7 +8,7 @@ public class Vector {
 	private Point3D head;
 
 	/**
-	 * Ctor gets the vector end by Point3D
+	 * constructor gets the vector end by Point3D
 	 * 
 	 * @param head - Point3D
 	 */
@@ -19,6 +19,7 @@ public class Vector {
 	}
 
 	/**
+	 * A constructor who gets three points (double)
 	 * 
 	 * @param x the x value of the coordinate, as in: (x,y,z)
 	 * @param y the y value of the coordinate, as in: (x,y,z)
@@ -32,6 +33,7 @@ public class Vector {
 	}
 
 	/**
+	 * A constructor who gets three points (Coordinate)
 	 * 
 	 * @param x the x value of the coordinate, as in: (x,y,z)
 	 * @param y the y value of the coordinate, as in: (x,y,z)
@@ -44,6 +46,8 @@ public class Vector {
 	}
 
 	/**
+	 * Gets vector head
+	 * 
 	 * @return The point of the vector end
 	 */
 	public Point3D getHead() {
