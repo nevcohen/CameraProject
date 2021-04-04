@@ -91,6 +91,7 @@ public class Polygon implements Geometry {
 		return "Polygon [vertices=" + vertices + ", plane=" + plane + "]";
 	}
 
+<<<<<<< HEAD
 	@Override
 	public List<Point3D> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub
@@ -99,4 +100,6 @@ public class Polygon implements Geometry {
 	
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
 }

@@ -7,12 +7,14 @@ import primitives.*;
 /**
  * Plane class - represented by a point on it and its normal vector
  */
-public class Plane implements Geometry{
-	
+public class Plane implements Geometry {
+
 	private Point3D q0;
 	private Vector normal;
-	
+
 	/**
+	 * Gets q0 value
+	 * 
 	 * @return q0 - the point that will help find the equation for the plane
 	 */
 	public Point3D getQ0() {
@@ -20,6 +22,8 @@ public class Plane implements Geometry{
 	}
 
 	/**
+	 * Gets the normal value
+	 * 
 	 * @return normal - the normal that will help find the equation for the plane
 	 */
 	public Vector getNormal() {
@@ -27,10 +31,12 @@ public class Plane implements Geometry{
 	}
 
 	/**
-	 * constructor that gets three points, and turns the information into a base point + normal format for a plane.
+	 * constructor that gets three points, and turns the information into a base
+	 * point + normal format for a plane.
+	 * 
 	 * @param Point3D - Three points on the plane
 	 */
-	public Plane(Point3D point1,Point3D point2,Point3D point3) {
+	public Plane(Point3D point1, Point3D point2, Point3D point3) {
 		Vector v1 = point1.subtract(point2);
 		Vector v2 = point1.subtract(point3);
 		q0 = point1;
@@ -39,7 +45,8 @@ public class Plane implements Geometry{
 
 	/**
 	 * constructor that gets a point, and a possible normal to the plane
-	 * @param q0 - A point on the plane
+	 * 
+	 * @param q0     - A point on the plane
 	 * @param normal - The normal vector of the plane
 	 */
 	public Plane(Point3D q0, Vector normal) {
@@ -47,7 +54,7 @@ public class Plane implements Geometry{
 		this.normal = normal.normalize();
 	}
 
-	@Override // get the normal
+	@Override
 	public Vector getNormal(Point3D point) {
 		return this.normal;
 	}
@@ -57,10 +64,12 @@ public class Plane implements Geometry{
 	 */
 	@Override
 	public String toString() {
-		String[] xyz = normal.getHead().toString().split(", "); //(x, y, z)
-		return xyz[0].substring(1)+"x +"+xyz[1]+"y +"+xyz[0].substring(0,-1)+"z +"+(-normal.dotProduct(new Vector(q0))+" = 0");
+		String[] xyz = normal.getHead().toString().split(", "); // (x, y, z)
+		return xyz[0].substring(1) + "x +" + xyz[1] + "y +" + xyz[0].substring(0, -1) + "z +"
+				+ (-normal.dotProduct(new Vector(q0)) + " = 0");
 	}
 
+<<<<<<< HEAD
 	@Override
 	public List<Point3D> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub
@@ -68,4 +77,6 @@ public class Plane implements Geometry{
 	}
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
 }
