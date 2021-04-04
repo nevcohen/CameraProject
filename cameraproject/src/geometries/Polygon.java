@@ -92,7 +92,7 @@ public class Polygon implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntsersections(Ray ray) {
+	public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
 	}

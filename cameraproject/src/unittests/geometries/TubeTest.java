@@ -29,4 +29,11 @@ public class TubeTest {
 		assertEquals("", tube.getNormal(new Point3D(0, 2, 2)), new Vector(0, 1, 0));
 	}
 
+	/**
+     * Test method for {@link geometries.Tube#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    public void testFindIntersections() {
+    	
+    }
 }
