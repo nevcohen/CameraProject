@@ -69,14 +69,9 @@ public class Plane implements Geometry {
 				+ (-normal.dotProduct(new Vector(q0)) + " = 0");
 	}
 
-<<<<<<< HEAD
 	@Override
 	public List<Point3D> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
 }

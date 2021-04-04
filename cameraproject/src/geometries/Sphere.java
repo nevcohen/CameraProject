@@ -54,16 +54,10 @@ public class Sphere implements Geometry {
 	public String toString() {
 		return "Sphere [center=" + center + ", radius=" + radius + "]";
 	}
-<<<<<<< HEAD
 
 	@Override
 	public List<Point3D> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
-
 }
