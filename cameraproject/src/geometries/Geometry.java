@@ -5,7 +5,7 @@ import primitives.*;
 /**
  * Interface for representing all geometric shapes
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
 
 	/**
 	 * Get the normal to the surface

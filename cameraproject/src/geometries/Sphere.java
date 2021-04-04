@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -45,6 +47,12 @@ public class Sphere implements Geometry {
 	@Override
 	public String toString() {
 		return "Sphere [center=" + center + ", radius=" + radius + "]";
+	}
+
+	@Override
+	public List<Point3D> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

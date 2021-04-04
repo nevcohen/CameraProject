@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -57,6 +59,12 @@ public class Plane implements Geometry{
 	public String toString() {
 		String[] xyz = normal.getHead().toString().split(", "); //(x, y, z)
 		return xyz[0].substring(1)+"x +"+xyz[1]+"y +"+xyz[0].substring(0,-1)+"z +"+(-normal.dotProduct(new Vector(q0))+" = 0");
+	}
+
+	@Override
+	public List<Point3D> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -90,6 +90,12 @@ public class Polygon implements Geometry {
 	public String toString() {
 		return "Polygon [vertices=" + vertices + ", plane=" + plane + "]";
 	}
+
+	@Override
+	public List<Point3D> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
