@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.*;
+import static primitives.Util.*;
 
 import primitives.Vector;
 import primitives.Point3D;
@@ -66,7 +67,7 @@ public class Sphere implements Geometry {
 		double tm = 0;
 		double SquaredD = 0;
 		if (u != null) {
-			tm = ray.getDir().dotProduct(u);
+			tm = alignZero(ray.getDir().dotProduct(u));
 			SquaredD = u.lengthSquared() - tm * tm;
 		}
 
