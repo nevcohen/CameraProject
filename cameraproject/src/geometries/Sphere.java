@@ -87,7 +87,7 @@ public class Sphere implements Geometry {
 		// When t1 or t2 is less than zero the points of intersection is before the ray
 		if (t1 <= 0 && t2 <= 0)
 			return null;
-		List<Point3D> allIntersections = new ArrayList<Point3D>();
+		List<Point3D> allIntersections = new LinkedList<Point3D>();
 		if (t1 > 0)
 			allIntersections.add(ray.getP0().add(ray.getDir().scale(t1)));
 		if (t2 > 0)
