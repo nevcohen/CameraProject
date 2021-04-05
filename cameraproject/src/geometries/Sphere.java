@@ -67,21 +67,24 @@ public class Sphere implements Geometry {
 		double tm = 0;
 		double SquaredD = 0;
 		if (u != null) {
-			tm = alignZero(ray.getDir().dotProduct(u));
-			SquaredD = u.lengthSquared() - tm * tm;
+			tm = alignZero(ray.getDir().dotProduct(u)); // The projection of vector u on v
+			SquaredD = u.lengthSquared() - tm * tm; // The minimum distance between the center of the Sphere and the Ray
+													// (Squared)
 		}
 
 		double SquaredR = radius * radius;
-		if (SquaredD >= SquaredR) // there are no intersections
+		if (SquaredD >= SquaredR) // There are no intersections
 			return null;
 
-		double th = radius;
+		double th = radius; // The distance from the point of intersection to the closest point to the
+							// center of the circle that on the Ray
 		if (SquaredD != 0)
 			th = Math.sqrt(SquaredR - SquaredD);
 
-		double t1 = tm + th;
-		double t2 = tm - th;
+		double t1 = tm - th; // The first point of intersection
+		double t2 = tm + th; // The second point of intersection
 
+		// When t1 or t2 is less than zero the points of intersection is before the ray
 		if (t1 <= 0 && t2 <= 0)
 			return null;
 		List<Point3D> allIntersections = new ArrayList<Point3D>();
