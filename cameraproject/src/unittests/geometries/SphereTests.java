@@ -23,7 +23,7 @@ public class SphereTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// TC01: There is a simple single test here
-		assertEquals("", s.getNormal(new Point3D(1, 1, 3)), new Vector(0, 0, 1));
+		assertEquals("getNormal() Bad normal to Sphere", s.getNormal(new Point3D(1, 1, 3)), new Vector(0, 0, 1));
 	}
 
 	/**

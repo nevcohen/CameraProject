@@ -22,7 +22,7 @@ public class TriangleTest {
 		// ============ Equivalence Partitions Tests ==============
 
 		// TC01: There is a simple single test here
-		assertEquals("Problematic triangle", new Vector(new Point3D(1 / x, 2 / x, 3 / x)),
+		assertEquals("getNormal() Bad normal to Triangle", new Vector(new Point3D(1 / x, 2 / x, 3 / x)),
 				newTriangle.getNormal(new Point3D(4, 1d / 4, 1d / 2)));
 	}
 

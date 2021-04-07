@@ -44,10 +44,11 @@ public class Tube implements Geometry {
 	@Override
 	public Vector getNormal(Point3D point) {
 		Vector v = point.subtract(axisRay.getP0());
-		double scaleBy = alignZero(axisRay.getDir().dotProduct(v));
-		if (scaleBy == 0)
+		double scaleBy = alignZero(axisRay.getDir().dotProduct(v)); // The projection of V on the Ray
+		if (scaleBy == 0) // The point is opposite the beginning of the Ray
 			return v.normalize();
-		Point3D o = axisRay.getP0().add(axisRay.getDir().scale(scaleBy));
+		Point3D o = axisRay.getP0().add(axisRay.getDir().scale(scaleBy)); // The point on the Ray that is opposite to
+																			// point
 		return point.subtract(o).normalize();
 	}
 

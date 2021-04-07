@@ -1,5 +1,7 @@
 package geometries;
 
+import static primitives.Util.alignZero;
+
 import primitives.*;
 
 /**
@@ -36,7 +38,19 @@ public class Cylinder extends Tube {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		return null;
+		Point3D p0 = axisRay.getP0();
+		if(p0.equals(point))
+			return axisRay.getDir().scale(-1);
+		Vector v = point.subtract(p0);
+		double scaleBy = alignZero(axisRay.getDir().dotProduct(v)); // The projection of V on the Ray
+		if (scaleBy == 0) // point is on the bottom base (beginning of the Ray)
+			return axisRay.getDir().scale(-1);
+		Point3D o = p0.add(axisRay.getDir().scale(scaleBy)); // The point on the Ray that is opposite to
+																			// point
+		double d = p0.subtract(o).lengthSquared();
+		if (d == height * height) // point is on the top base
+			return axisRay.getDir();
+		return point.subtract(o).normalize();
 	}
 
 	/**

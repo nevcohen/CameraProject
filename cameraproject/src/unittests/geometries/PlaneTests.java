@@ -21,7 +21,7 @@ public class PlaneTests {
 		// ============ Equivalence Partitions Tests ==============
 
         // TC01: There is a simple single test here
-		assertEquals("Mistake found with GetNormal", p.getNormal(new Point3D(7, -2, 1)),
+		assertEquals("getNormal() Mistake found with GetNormal", p.getNormal(new Point3D(7, -2, 1)),
 				new Vector(1, 2, 3).normalize());
 	}
 
