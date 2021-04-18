@@ -21,7 +21,7 @@ public class GeometriesTests {
 	 */
 	@Test
 	public void testFindIntersections() {
-		Ray ray = new Ray(new Point3D(0, 0, 0), new Vector(new Point3D(1, 0, 0)));
+		Ray ray = new Ray(new Point3D(0.5, 0, 0), new Vector(new Point3D(1, 0, 0)));
 
 		// ============ Equivalence Partitions Tests ==============
 
