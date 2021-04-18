@@ -89,9 +89,9 @@ public class Sphere implements Geometry {
 			return null;
 		List<Point3D> allIntersections = new LinkedList<Point3D>();
 		if (t1 > 0)
-			allIntersections.add(ray.getP0().add(ray.getDir().scale(t1)));
+			allIntersections.add(ray.getPoint(t1));
 		if (t2 > 0)
-			allIntersections.add(ray.getP0().add(ray.getDir().scale(t2)));
+			allIntersections.add(ray.getPoint(t2));
 		return allIntersections;
 	}
 }
