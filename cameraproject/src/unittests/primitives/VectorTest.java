@@ -77,7 +77,8 @@ public class VectorTest {
 
 		// =============== Boundary Values Tests ==================
 		// TC11: test zero vector from cross-productof co-lined vectors
-		assertThrows("crossProduct() for parallel vectors does not throw an exceptio", IllegalArgumentException.class,()-> v1.crossProduct(v2));
+		assertThrows("crossProduct() for parallel vectors does not throw an exceptio", IllegalArgumentException.class,
+				() -> v1.crossProduct(v2));
 	}
 
 	/**

@@ -5,7 +5,8 @@ import java.util.*;
 import primitives.*;
 
 /**
- * Interface for representing all geometric shapes that can be intersected with a Ray
+ * Interface for representing all geometric shapes that can be intersected with
+ * a Ray
  */
 public interface Intersectable {
 	/**

@@ -3,8 +3,6 @@
  */
 package geometries;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,15 +63,15 @@ public class Geometries implements Intersectable {
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
 
-		if(allGeometries.isEmpty())
+		if (allGeometries.isEmpty())
 			return null;
 		List<Point3D> allIntersectables = new LinkedList<Point3D>();
 		for (Intersectable current : allGeometries) {
 			List<Point3D> currentIntersections = current.findIntersections(ray);
-			if(!currentIntersections.isEmpty())
+			if (!currentIntersections.isEmpty())
 				allIntersectables.addAll(currentIntersections);
 		}
-		if(allIntersectables.isEmpty())
+		if (allIntersectables.isEmpty())
 			return null;
 		return allIntersectables;
 	}

@@ -47,8 +47,8 @@ public class Tube implements Geometry {
 		double scaleBy = alignZero(axisRay.getDir().dotProduct(v)); // The projection of V on the Ray
 		if (scaleBy == 0) // The point is opposite the beginning of the Ray
 			return v.normalize();
-		Point3D o = axisRay.getP0().add(axisRay.getDir().scale(scaleBy)); // The point on the Ray that is opposite to
-																			// point
+		Point3D o = axisRay.getPoint(scaleBy); // The point on the Ray that is opposite to
+												// point
 		return point.subtract(o).normalize();
 	}
 

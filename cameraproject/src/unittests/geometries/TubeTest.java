@@ -26,6 +26,7 @@ public class TubeTest {
 		// =============== Boundary Values Tests ==================
 
 		// TC11: A point that is on the circle whose starting point is its center
-		assertEquals("getNormal() The point is opposite the beginning of the Ray returns an abnormal normal", tube.getNormal(new Point3D(0, 2, 2)), new Vector(0, 1, 0));
+		assertEquals("getNormal() The point is opposite the beginning of the Ray returns an abnormal normal",
+				tube.getNormal(new Point3D(0, 2, 2)), new Vector(0, 1, 0));
 	}
 }
