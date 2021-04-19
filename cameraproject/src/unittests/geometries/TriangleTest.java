@@ -29,52 +29,36 @@ public class TriangleTest {
 	}
 	
 	@Test
-	public void findIntersections(Ray ray) {
+    public void testFindIntersections() {
 
-        Triangle t = new Triangle(new Point3D(0, 0, 0), new Point3D(2, 1, 0), new Point3D(0, 2, 0));
-        List<Point3D> expected;
-        
-        List<Point3D> expectedPoints;
-		//EP01:Ray intersects with triangle
-		expected = t.findIntersections(new Ray(new Point3D(1, 1, 0), new Vector(0, -1, 1)));
-		assertEquals("Wrong number of points", 1, expected.size());
-		
-		//EP02: Ray does not intersect with the triangle
-		expected = t.findIntersections(new Ray(new Point3D(0, 0, 1), new Vector(1, 0, 0)));
-		assertEquals("Wrong number of points", 0, expected.size());
-		
-        // BVA01: Ray is parallel to the plane - included in triangle
-		expected = t.findIntersections(new Ray(new Point3D(0, 1, 0), new Vector(0, -1, 0)));
-		assertEquals("Wrong number of points", 1, expected.size());
-		
-        // BVA02: Ray is parallel to the plane - not included in triangle
-		expected = t.findIntersections(new Ray(new Point3D(0, 0, 2), new Vector(0, 0, 1)));
-		assertEquals("Wrong number of points", 0, expected.size());
-		
-        // BVA03: Ray is orthogonal to the triangle - before it
-		expected = t.findIntersections(new Ray(new Point3D(-1, -1, -1), new Vector(0, 0, 1)));
-		assertEquals("Wrong number of points", 1, expected.size());
-		
-        // BVA04: Ray is orthogonal to the triangle - after it
-		expected = t.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(0, 0, 1)));
-		assertEquals("Wrong number of points", 0, expected.size());
-		
-        // BVA05: Ray is orthogonal to the triangle - starts in it
-		expected = t.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(0, 0, 1)));
-		assertEquals("Wrong number of points", 1, expected.size());
-		
-        // BVA06: Ray starts at the triangle, if it isn't included in the other BVAs
-		expected = t.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(1, -1, 0)));
-		assertEquals("Wrong number of points", 1, expected.size());
-		
-        // BVA07: Ray begins at the point of the triangle (not its' direction)
-		expected = t.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(1, -1, 0)));
-		assertEquals("Wrong number of points", 1, expected.size());
-		
-        // BVA08: Ray is inside the plane if the triangle continued, but isnt
-		expected = t.findIntersections(new Ray(new Point3D(-1, -1, 3), new Vector(0, 0, -1)));
-		assertEquals("Wrong number of points", 0, expected.size());
-	}
+        Triangle t=new Triangle(new Point3D(2,1,0), new Point3D(0, 0, 0), new Point3D(0, 2, 0));
+        List<Point3D> result;
+        // EP01: ray goes inside the triangle
+        result=t.findIntersections(new Ray(new Point3D(-1, -1, -1), new Vector(2, 2, 1)));
+        assertEquals("Wrong point recieved",List.of(new Point3D(1,1,0)), result);
+
+        // EP02: Outside against edge
+        result=t.findIntersections(new Ray(new Point3D(-1, -2, -1), new Vector(3, 4, 1)));
+        assertNull("Ray doesnt work when it touches the edge",result);
+
+        //EP03: Outside against vertex
+        result=t.findIntersections(new Ray(new Point3D(-2, -2, -1), new Vector(5, 4, 1)));
+        assertNull("Ray doesnt work when it touches the vertex",result);
+
+
+        // BVA01: Ray touches the corner of the triangle
+        result=t.findIntersections(new Ray(new Point3D(-1, -1, -1), new Vector(1, 2, 1)));
+        assertNull("Ray is outside against edge",result);
+
+        // BVA02: Ray intersects with the vertex
+        result=t.findIntersections(new Ray(new Point3D(-1, -2, -1), new Vector(1, 4, 1)));
+        assertNull("Ray is outside against edge",result);
+
+        //BVA03: Ray intersects with the continuation of the vertex
+        result=t.findIntersections(new Ray(new Point3D(-3, -3, -1), new Vector(1, 6, 1)));
+        assertNull("Ray is outside against edge",result);
+
+    }
 
 
 }
