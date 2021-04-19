@@ -70,8 +70,8 @@ public class Plane implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntsersections(Ray ray) {
-		// TODO Auto-generated method stub
+	public List<Point3D> findIntersections(Ray ray) {
+
 		return null;
 	}
 }

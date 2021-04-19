@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -14,4 +16,6 @@ public interface Geometry extends Intersectable {
 	 * @return A normal vector to the body at this point
 	 */
 	public Vector getNormal(Point3D point);
+
+	List<Point3D> findIntersections(Ray ray);
 }
