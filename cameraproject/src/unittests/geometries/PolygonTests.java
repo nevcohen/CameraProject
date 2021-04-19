@@ -4,6 +4,9 @@
 package unittests.geometries;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import geometries.*;
@@ -89,6 +92,45 @@ public class PolygonTests {
 				new Point3D(-1, 1, 1));
 		double sqrt3 = Math.sqrt(1d / 3);
 		assertEquals("Bad normal to trinagle", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+	}
+
+	/**
+	 * Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntersections() {
+
+		// ============ Equivalence Partitions Tests ==============
+		Polygon square = new Polygon(new Point3D(2, 2, 1), new Point3D(2, -2, 1), new Point3D(-2, -2, 1),
+				new Point3D(-2, 2, 1));
+
+		// TC01: Inside square
+		Ray ray = new Ray(new Point3D(1, 1, 0), new Vector(0, 0, 1));
+		List<Point3D> result = square.findIntersections(ray);
+		assertEquals("Ray intersection inside square", result.size(), 1);
+		assertEquals("Wrong point value", List.of(new Point3D(1, 1, 1)), result);
+
+		// TC02: Outside against edge
+		ray = new Ray(new Point3D(3, -1, 0), new Vector(0, 0, 1));
+		assertNull("Ray is outside against edge", square.findIntersections(ray));
+
+		// TC03: Outside against vertex
+		ray = new Ray(new Point3D(-3, 3, 0), new Vector(0, 0, 1));
+		assertNull("Ray is outside against vertex", square.findIntersections(ray));
+
+		// =============== Boundary Values Tests ==================
+
+		// TC10: Ray begins before the plane, intersection on edge
+		ray = new Ray(new Point3D(2, 1, 0), new Vector(0, 0, 1));
+		assertNull("Ray is intersection on edge", square.findIntersections(ray));
+
+		// TC11: Ray begins before the plane, intersection on vertex
+		ray = new Ray(new Point3D(-2, -2, 0), new Vector(0, 0, 1));
+		assertNull("Ray is intersection on vertex", square.findIntersections(ray));
+
+		// TC12: Ray begins before the plane and passes on edge's continuation
+		ray = new Ray(new Point3D(2, 3, 0), new Vector(0, 0, 1));
+		assertNull("Ray is on edge's continuation", square.findIntersections(ray));
 	}
 
 }

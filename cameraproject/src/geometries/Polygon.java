@@ -1,6 +1,8 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import primitives.*;
 import static primitives.Util.*;
 
@@ -93,7 +95,33 @@ public class Polygon implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Point3D> result = plane.findIntersections(ray);
+		if (result == null)
+			return null;
+		Point3D p0 = ray.getP0();
+
+		List<Vector> allNi = new ArrayList<>(vertices.size());
+		Vector v1, v2;
+		for (int i = 0; i < (vertices.size() - 1); i++) {
+			v1 = (vertices.get(i)).subtract(p0);
+			v2 = (vertices.get(i + 1)).subtract(p0);
+			allNi.add(v1.crossProduct(v2).normalize());
+		}
+		v1 = (vertices.get(vertices.size() - 1)).subtract(p0);
+		v2 = (vertices.get(0)).subtract(p0);
+		allNi.add(v1.crossProduct(v2).normalize());
+
+		Vector V = ray.getDir();
+		double vn1 = V.dotProduct(allNi.get(0));
+		for (Vector ni : allNi) {
+			if (isZero(V.dotProduct(ni)) || !checkSign(vn1, V.dotProduct(ni))) // The point is inside if all v.dotProduct(Ni) have
+																				// the same sign or if one or more are
+																				// 0.0 – no intersection (The ray
+																				// intersects with the side of the
+																				// polygon)
+				return null;
+		}
+
+		return result;
 	}
 }
