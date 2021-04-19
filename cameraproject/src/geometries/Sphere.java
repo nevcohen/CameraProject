@@ -60,10 +60,6 @@ public class Sphere implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		return null;
-=======
 		Vector u = null;
 		if (!center.equals(ray.getP0()))
 			u = center.subtract(ray.getP0());
@@ -97,6 +93,5 @@ public class Sphere implements Geometry {
 		if (t2 > 0)
 			allIntersections.add(ray.getPoint(t2));
 		return allIntersections;
->>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
 	}
 }

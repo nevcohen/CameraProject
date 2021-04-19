@@ -30,22 +30,44 @@ public class PlaneTests {
 	
 	@Test
 	public void findIntersections(Ray ray) {
-		Plane p = new Plane(new Point3D(-1, 0, -1), new Vector(1, -3, -5));
+		Plane p = new Plane(new Point3D(0, 0, 0), new Vector(0, 0, 1));
+		List<Point3D> expected;
+		
 		//EP01:Ray intersects with plane
-		List<Point3D> expected 
+		expected = p.findIntersections(new Ray(new Point3D(1, 1, 0), new Vector(0, -1, 0)));
+		assertEquals("Wrong number of points", 1, expected.size());
+		
 		//EP02: Ray does not intersect with the plane
-        // BVA01: There is a simple single test here
-        // BVA02: There is a simple single test here
-        // BVA03: There is a simple single test here
-        // BVA04: There is a simple single test here
-        // BVA05: There is a simple single test here
-        // BVA06: There is a simple single test here
-        // BVA07: There is a simple single test here
+		expected = p.findIntersections(new Ray(new Point3D(0, 0, 1), new Vector(1, 0, 0)));
+		assertEquals("Wrong number of points", 0, expected.size());
 		
+        // BVA01: Ray is parallel to the plane - included in plane
+		expected = p.findIntersections(new Ray(new Point3D(0, 1, 0), new Vector(0, -1, 0)));
+		assertEquals("Wrong number of points", 1, expected.size());
 		
-        // TC01: There is a simple single test here
-		assertEquals("Mistake found with findIntersections", p.findIntersections(new Ray(new Point3D(0,0,0),new Vector(3,1,2))).size(),
-				1);
+        // BVA02: Ray is parallel to the plane - not included in plane
+		expected = p.findIntersections(new Ray(new Point3D(0, 0, 2), new Vector(0, 0, 1)));
+		assertEquals("Wrong number of points", 0, expected.size());
+		
+        // BVA03: Ray is ortogonal to the plane - before it
+		expected = p.findIntersections(new Ray(new Point3D(-1, -1, -1), new Vector(0, 0, 1)));
+		assertEquals("Wrong number of points", 1, expected.size());
+		
+        // BVA04: Ray is ortogonal to the plane - after it
+		expected = p.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(0, 0, 1)));
+		assertEquals("Wrong number of points", 0, expected.size());
+		
+        // BVA05: Ray is ortogonal to the plane - starts in it
+		expected = p.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(0, 0, 1)));
+		assertEquals("Wrong number of points", 1, expected.size());
+		
+        // BVA06: Ray starts at the plane, if it isn't included in the other BVAs
+		expected = p.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(1, -1, 0)));
+		assertEquals("Wrong number of points", 1, expected.size());
+		
+        // BVA07: Ray begins at the point of the plane (not its' direction)
+		expected = p.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(1, -1, 0)));
+		assertEquals("Wrong number of points", 1, expected.size());
 	}
 
 }
