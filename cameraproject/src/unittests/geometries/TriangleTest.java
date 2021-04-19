@@ -34,8 +34,9 @@ public class TriangleTest {
         Triangle t = new Triangle(new Point3D(0, 0, 0), new Point3D(2, 1, 0), new Point3D(0, 2, 0));
         List<Point3D> expected;
         
+        List<Point3D> expectedPoints;
 		//EP01:Ray intersects with triangle
-		expected = t.findIntersections(new Ray(new Point3D(1, 1, 0), new Vector(0, -1, 0)));
+		expected = t.findIntersections(new Ray(new Point3D(1, 1, 0), new Vector(0, -1, 1)));
 		assertEquals("Wrong number of points", 1, expected.size());
 		
 		//EP02: Ray does not intersect with the triangle

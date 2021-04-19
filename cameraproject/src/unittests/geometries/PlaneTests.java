@@ -33,7 +33,7 @@ public class PlaneTests {
 		List<Point3D> expected;
 		
 		//EP01:Ray intersects with plane
-		expected = p.findIntersections(new Ray(new Point3D(1, 1, 0), new Vector(0, -1, 0)));
+		expected = p.findIntersections(new Ray(new Point3D(1, 1, 0), new Vector(0, -1, 1)));
 		assertEquals("Wrong number of points", 1, expected.size());
 		
 		//EP02: Ray does not intersect with the plane
