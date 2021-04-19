@@ -9,8 +9,7 @@ import primitives.*;
  * a Ray
  */
 public interface Intersectable {
-<<<<<<< HEAD
-=======
+
 	/**
 	 * Find all the points of intersection between Ray and the geometric shape
 	 * 
@@ -19,6 +18,5 @@ public interface Intersectable {
 	 * @return A list of all the points that the Ray intersects with the geometric
 	 *         shape
 	 */
->>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
 	List<Point3D> findIntersections(Ray ray);
 }
