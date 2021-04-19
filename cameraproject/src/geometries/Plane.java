@@ -71,7 +71,11 @@ public class Plane implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
+<<<<<<< HEAD
 
+=======
+		// TODO Auto-generated method stub
+>>>>>>> branch 'master' of https://github.com/nevcohen/CameraProject.git
 		return null;
 	}
 }

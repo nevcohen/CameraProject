@@ -1,7 +1,7 @@
 package geometries;
 
 import java.util.List;
-
+import static primitives.Util.*;
 import primitives.*;
 
 /**
@@ -43,11 +43,12 @@ public class Tube implements Geometry {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-
-		double scaleBy = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
-		if (scaleBy == 0)
-			return point.subtract(axisRay.getP0()).normalize();
-		Point3D o = axisRay.getP0().add(axisRay.getDir().scale(scaleBy));
+		Vector v = point.subtract(axisRay.getP0());
+		double scaleBy = alignZero(axisRay.getDir().dotProduct(v)); // The projection of V on the Ray
+		if (scaleBy == 0) // The point is opposite the beginning of the Ray
+			return v.normalize();
+		Point3D o = axisRay.getPoint(scaleBy); // The point on the Ray that is opposite to
+												// point
 		return point.subtract(o).normalize();
 	}
 

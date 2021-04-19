@@ -42,7 +42,7 @@ public class Point3D {
 	 * 
 	 * @return The X value of the point
 	 */
-	protected double getValueOfX() {
+	public double getValueOfX() {
 		return x.coord;
 	}
 
@@ -51,7 +51,7 @@ public class Point3D {
 	 * 
 	 * @return The Y value of the point
 	 */
-	protected double getValueOfY() {
+	public double getValueOfY() {
 		return y.coord;
 	}
 
@@ -60,7 +60,7 @@ public class Point3D {
 	 * 
 	 * @return The Z value of the point
 	 */
-	protected double getValueOfZ() {
+	public double getValueOfZ() {
 		return z.coord;
 	}
 

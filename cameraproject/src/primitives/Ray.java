@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.*;
+
 /**
  * Ray class - By using a vector and a starting point
  */
@@ -35,6 +37,18 @@ public class Ray {
 	 */
 	public Vector getDir() {
 		return dir;
+	}
+
+	/**
+	 * Calculation of a point on a Ray
+	 * 
+	 * @param t Scalar
+	 * @return Point on the Ray
+	 */
+	public Point3D getPoint(double t) {
+		if (isZero(t))
+			return p0;
+		return p0.add(dir.scale(t));
 	}
 
 	@Override
