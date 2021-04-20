@@ -79,8 +79,8 @@ public class Plane implements Geometry {
 		double mone = normal.dotProduct(q0.subtract(ray.getP0())), mechane = (normal.dotProduct(ray.getDir()));
 		if (isZero(mone) || isZero(mechane))
 			return null;
-		double t = mone / mechane;
-		if (t < 0)
+		double t = alignZero(mone / mechane);
+		if (t <= 0)
 			return null;
 		return List.of(ray.getPoint(t));
 

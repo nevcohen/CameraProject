@@ -34,7 +34,7 @@ public class GeometriesTests {
 		Geometries allGeometries = new Geometries(plane, sphere, triangle);
 
 		assertEquals("findIntersections() Some of the geometric shapes are intersected by the Ray",
-				allGeometries.findIntersections(ray), 3);
+				allGeometries.findIntersections(ray).size(), 3);
 
 		// =============== Boundary Values Tests ==================
 
@@ -57,22 +57,22 @@ public class GeometriesTests {
 		// triangle)
 		Plane plane2 = new Plane(new Point3D(-1, 0, 0), new Point3D(-1, 1, 0), new Point3D(-1, 1, 1));
 		Sphere sphere2 = new Sphere(new Point3D(4, 3, 0), 2d);
-		Triangle triangle2 = new Triangle(new Point3D(6, -1, -1), new Point3D(8, 1, 2), new Point3D(11, -2, 2));
+		Triangle triangle2 = new Triangle(new Point3D(6, -1, -1), new Point3D(8, 2, 1), new Point3D(11, -2, 2));
 
 		Geometries allGeometries4 = new Geometries(plane2, sphere2, triangle2);
 
 		assertEquals("findIntersections() Only one geometric shape is intersected by the Ray",
-				allGeometries4.findIntersections(ray), 1);
+				allGeometries4.findIntersections(ray).size(), 1);
 
-		// TC12: All geometric shapes are intersected by the Ray
+		// TC14: All geometric shapes are intersected by the Ray
 		Plane plane3 = new Plane(new Point3D(1, 0, 0), new Point3D(1, 1, 0), new Point3D(1, 1, 1));
 		Sphere sphere3 = new Sphere(new Point3D(4, 1.5, 0), 2d);
-		Triangle triangle3 = new Triangle(new Point3D(6, -1, -1), new Point3D(8, 1, 2), new Point3D(11, -2, 2));
+		Triangle triangle3 = new Triangle(new Point3D(6, -1, -1), new Point3D(8, 2, 1), new Point3D(11, -2, 2));
 
 		Geometries allGeometries5 = new Geometries(plane3, sphere3, triangle3);
 
 		assertEquals("findIntersections() All geometric shapes are intersected by the Ray",
-				allGeometries5.findIntersections(ray), 4);
+				allGeometries5.findIntersections(ray).size(), 4);
 	}
 
 }
