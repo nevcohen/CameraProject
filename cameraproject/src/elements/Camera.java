@@ -55,7 +55,7 @@ public class Camera {
 		return this;
 	}
 
-	public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+	public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {		
 		return null;
 	}
 }
