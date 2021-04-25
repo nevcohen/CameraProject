@@ -37,11 +37,11 @@ public class TriangleTest {
         result=t.findIntersections(new Ray(new Point3D(-1, -1, -1), new Vector(2, 2, 1)));
         assertEquals("Wrong point recieved",List.of(new Point3D(1,1,0)), result);
 
-        // EP02: Outside against edge
+        // EP02: ray goes Outside against edge
         result=t.findIntersections(new Ray(new Point3D(-1, -2, -1), new Vector(3, 4, 1)));
         assertNull("Ray doesnt work when it touches the edge",result);
 
-        //EP03: Outside against vertex
+        //EP03: ray goes Outside against vertex
         result=t.findIntersections(new Ray(new Point3D(-2, -2, -1), new Vector(5, 4, 1)));
         assertNull("Ray doesnt work when it touches the vertex",result);
 
