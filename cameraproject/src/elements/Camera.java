@@ -15,14 +15,13 @@ public class Camera {
 	 * @param vUp
 	 * @param vTo
 	 */
-	public Camera(Point3D location, Vector vUp, Vector vTo) {
-		super();
+	public Camera(Point3D location, Vector vTo, Vector vUp) {
 		if (!isZero(vUp.dotProduct(vTo)))
 			throw new IllegalArgumentException("Vectors are not perpendicular to each other");
 		this.location = location;
 		this.vUp = vUp.normalize();
 		this.vTo = vTo.normalize();
-		this.vRight = vUp.crossProduct(vTo).normalize();
+		this.vRight = vTo.crossProduct(vUp).normalize();
 	}
 
 	public Point3D getLocation() {
