@@ -96,9 +96,9 @@ public class Camera {
 	/**
 	 * Defining the length and width of the view plane (builder design template)
 	 * 
-	 * @param width of the view plane (Greater than zero)
+	 * @param width  of the view plane (Greater than zero)
 	 * @param height of the view plane (Greater than zero)
-	 * @return the camera itself 
+	 * @return the camera itself
 	 */
 	public Camera setViewPlaneSize(double width, double height) {
 		if (width < 0 || isZero(width) || height < 0 && isZero(height))
@@ -112,7 +112,7 @@ public class Camera {
 	 * Defines the distance of the view plane from the camera
 	 * 
 	 * @param distance of the view plane from the camera (Greater than zero)
-	 * @return the camera itself 
+	 * @return the camera itself
 	 */
 	public Camera setViewPlaneDistance(double distance) {
 		if (distance < 0 || isZero(distance))
@@ -126,8 +126,8 @@ public class Camera {
 	 * 
 	 * @param nX - Number of columns in the view plane
 	 * @param nY - Number of rows in the view plane
-	 * @param j - The column number of the pixel
-	 * @param i - The row number of the pixel
+	 * @param j  - The column number of the pixel
+	 * @param i  - The row number of the pixel
 	 * @return Ray from the camera through the desired pixel
 	 */
 	public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {

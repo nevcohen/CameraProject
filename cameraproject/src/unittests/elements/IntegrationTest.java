@@ -76,17 +76,18 @@ public class IntegrationTest {
 		Camera camera = new Camera(new Point3D(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setViewPlaneSize(3, 3);
 		camera.setViewPlaneDistance(1);
-		
+
 		// TC01: Plane is parallel to the view plane
- 		Plane plane = new Plane(new Point3D(2, 0, -1), new Vector(0,0,-1));
- 		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9, getSumIntersections(camera, plane));
- 		
-    	// TC02: Plane has angles that allow for 9 points
+		Plane plane = new Plane(new Point3D(2, 0, -1), new Vector(0, 0, -1));
+		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9,
+				getSumIntersections(camera, plane));
+
+		// TC02: Plane has angles that allow for 9 points
 		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 0.5, -1));
 		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9,
-		getSumIntersections(camera, plane));
- 		
-    	// TC03: Plane has a 90 degree angle with ray
+				getSumIntersections(camera, plane));
+
+		// TC03: Plane has a 90 degree angle with ray
 		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 1, -1));
 		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 6,
 				getSumIntersections(camera, plane));
@@ -103,7 +104,7 @@ public class IntegrationTest {
 		Camera camera = new Camera(new Point3D(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setViewPlaneSize(3, 3);
 		camera.setViewPlaneDistance(1);
-		
+
 		// TC01: small triangle is in range of 1 vector
 		Triangle triangle = new Triangle(new Point3D(0, 1, -2), new Point3D(1, -1, -2), new Point3D(-1, -1, -2));
 		assertEquals("triangle, is small, creating one point, wrong number of intersection points", 1,
