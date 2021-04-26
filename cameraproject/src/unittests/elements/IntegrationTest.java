@@ -77,17 +77,16 @@ public class IntegrationTest {
 		camera.setViewPlaneSize(3, 3);
 		camera.setViewPlaneDistance(1);
 		
-		// TC01: Plane is parralell to the view plane
-		Plane plane = new Plane(new Point3D(0, 0, -2), new Vector(0, 0, 1));
-		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9,
-				getSumIntersections(camera, plane));
-
-		// TC02: Plane is close by to the view plane (9 points within distance of 10)
+		// TC01: Plane is parallel to the view plane
+ 		Plane plane = new Plane(new Point3D(2, 0, -1), new Vector(0,0,-1));
+ 		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9, getSumIntersections(camera, plane));
+ 		
+    	// TC02: Plane has angles that allow for 9 points
 		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 0.5, -1));
 		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9,
-				getSumIntersections(camera, plane));
-
-		// TC03: Plane is far to the view plane (6 points within distance of 10)
+		getSumIntersections(camera, plane));
+ 		
+    	// TC03: Plane has a 90 degree angle with ray
 		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 1, -1));
 		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 6,
 				getSumIntersections(camera, plane));
