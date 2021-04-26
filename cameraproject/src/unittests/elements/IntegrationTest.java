@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import elements.Camera;
 import geometries.Intersectable;
+import geometries.Plane;
 import geometries.Sphere;
+import geometries.Triangle;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -64,21 +66,54 @@ public class IntegrationTest {
 	}
 
 	/**
+	 * Test Camera to Plane
+	 * 
 	 * Test method for
 	 * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
 	 */
 	@Test
 	public void testPlane() {
-		fail("Not yet implemented");
+		Camera camera = new Camera(new Point3D(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0));
+		camera.setViewPlaneSize(3, 3);
+		camera.setViewPlaneDistance(1);
+		
+		// TC01: Plane is parralell to the view plane
+		Plane plane = new Plane(new Point3D(0, 0, -2), new Vector(0, 0, 1));
+		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9,
+				getSumIntersections(camera, plane));
+
+		// TC02: Plane is close by to the view plane (9 points within distance of 10)
+		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 0.5, -1));
+		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 9,
+				getSumIntersections(camera, plane));
+
+		// TC03: Plane is far to the view plane (6 points within distance of 10)
+		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 1, -1));
+		assertEquals("plane, paralell to the view plane, wrong number of intersection points", 6,
+				getSumIntersections(camera, plane));
 	}
 
 	/**
+	 * Test Camera to Triangle
+	 * 
 	 * Test method for
 	 * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
 	 */
 	@Test
 	public void testTriangle() {
-		fail("Not yet implemented");
+		Camera camera = new Camera(new Point3D(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0));
+		camera.setViewPlaneSize(3, 3);
+		camera.setViewPlaneDistance(1);
+		
+		// TC01: small triangle is in range of 1 vector
+		Triangle triangle = new Triangle(new Point3D(0, 1, -2), new Point3D(1, -1, -2), new Point3D(-1, -1, -2));
+		assertEquals("triangle, is small, creating one point, wrong number of intersection points", 1,
+				getSumIntersections(camera, triangle));
+
+		// TC02: triangle is large enough to create two intersection points
+		triangle = new Triangle(new Point3D(0, 20, -2), new Point3D(1, -1, -2), new Point3D(-1, -1, -2));
+		assertEquals("triangle, is small, creating one point, wrong number of intersection points", 2,
+				getSumIntersections(camera, triangle));
 	}
 
 	/**
