@@ -2,6 +2,8 @@ package primitives;
 
 import static primitives.Util.*;
 
+import java.util.List;
+
 /**
  * Ray class - By using a vector and a starting point
  */
@@ -49,6 +51,28 @@ public class Ray {
 		if (isZero(t))
 			return p0;
 		return p0.add(dir.scale(t));
+	}
+	
+	/**
+	 * ----------------------------------
+	 * @param pointsOnRay
+	 * @return
+	 */
+	public Point3D findClosestPoint(List<Point3D> pointsOnRay) {
+		if (pointsOnRay.isEmpty())
+			return null;
+		double minDis = p0.distanceSquared(pointsOnRay.get(0)), temp;
+		Point3D closestPoint3d = pointsOnRay.get(0);
+		for (Point3D point3D : pointsOnRay) {
+			temp = p0.distanceSquared(point3D);
+			if(temp<minDis)
+			{
+				minDis = temp;
+				closestPoint3d = point3D;
+			}
+		}
+		
+		return closestPoint3d;
 	}
 
 	@Override
