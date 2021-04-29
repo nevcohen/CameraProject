@@ -101,7 +101,7 @@ public class Camera {
 	 * @return the camera itself
 	 */
 	public Camera setViewPlaneSize(double width, double height) {
-		if (width < 0 || isZero(width) || height < 0 && isZero(height))
+		if (alignZero(width) < 0 || alignZero(height) < 0)
 			throw new IllegalArgumentException("The size of the view plane is invalid");
 		widthVP = width;
 		heightVP = height;
@@ -115,7 +115,7 @@ public class Camera {
 	 * @return the camera itself
 	 */
 	public Camera setViewPlaneDistance(double distance) {
-		if (distance < 0 || isZero(distance))
+		if (alignZero(distance) < 0)
 			throw new IllegalArgumentException("The distance of the view plane is invalid");
 		distanceVP = distance;
 		return this;
