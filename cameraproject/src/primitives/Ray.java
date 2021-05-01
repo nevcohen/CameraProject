@@ -52,9 +52,10 @@ public class Ray {
 			return p0;
 		return p0.add(dir.scale(t));
 	}
-	
+
 	/**
 	 * ----------------------------------
+	 * 
 	 * @param pointsOnRay
 	 * @return
 	 */
@@ -65,13 +66,12 @@ public class Ray {
 		Point3D closestPoint3d = pointsOnRay.get(0);
 		for (Point3D point3D : pointsOnRay) {
 			temp = p0.distanceSquared(point3D);
-			if(temp<minDis)
-			{
+			if (temp < minDis) {
 				minDis = temp;
 				closestPoint3d = point3D;
 			}
 		}
-		
+
 		return closestPoint3d;
 	}
 

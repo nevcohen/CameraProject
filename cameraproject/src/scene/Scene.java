@@ -1,4 +1,5 @@
 package scene;
+
 import elements.AmbientLight;
 import geometries.Geometries;
 import primitives.Color;
@@ -8,7 +9,7 @@ public class Scene {
 	public Color background = Color.BLACK;
 	public AmbientLight ambientLight = new AmbientLight(background, 0);
 	public Geometries geometries;
-	
+
 	/**
 	 * @param name
 	 */
@@ -31,6 +32,5 @@ public class Scene {
 		this.geometries = geometries;
 		return this;
 	}
-	
-	
+
 }
