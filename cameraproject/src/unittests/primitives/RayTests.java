@@ -15,7 +15,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 /**
- * 
+ * Tests for Ray class
  */
 public class RayTests {
 

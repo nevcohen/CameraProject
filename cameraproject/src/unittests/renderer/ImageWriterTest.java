@@ -9,7 +9,7 @@ import primitives.Color;
 import renderer.ImageWriter;
 
 /**
- * 
+ * Test for ImageWriter class
  */
 public class ImageWriterTest {
 

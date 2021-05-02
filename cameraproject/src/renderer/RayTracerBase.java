@@ -4,6 +4,9 @@ import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
 
+/**
+ * 
+ */
 public abstract class RayTracerBase {
 	protected Scene scene;
 
@@ -15,5 +18,11 @@ public abstract class RayTracerBase {
 		this.scene = scene;
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param ray
+	 * @return
+	 */
 	protected abstract Color traceRay(Ray ray);
 }
