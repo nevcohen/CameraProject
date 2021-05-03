@@ -34,7 +34,7 @@ public class Scene {
 		this.name = name;
 		this.geometries = new Geometries();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -45,7 +45,7 @@ public class Scene {
 		this.background = background;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -56,7 +56,7 @@ public class Scene {
 		this.ambientLight = ambientLight;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * 

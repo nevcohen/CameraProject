@@ -27,32 +27,32 @@ public class RayTests {
 		Ray ray = new Ray(Point3D.ZERO, new Vector(new Point3D(1, 0, 0)));
 		// ============ Equivalence Partitions Tests ==============
 
-		// TC01:
+		// TC01: A point in the middle of the list is closest to the beginning of the Ray
 		List<Point3D> pointsOnRayList = new ArrayList<Point3D>(3);
 		pointsOnRayList.add(new Point3D(3, 0, 0));
 		pointsOnRayList.add(new Point3D(1, 0, 0));
 		pointsOnRayList.add(new Point3D(2, 0, 0));
-		assertEquals("", new Point3D(1, 0, 0), ray.findClosestPoint(pointsOnRayList));
+		assertEquals("findClosestPoint() point in the middle of the list is closest", new Point3D(1, 0, 0), ray.findClosestPoint(pointsOnRayList));
 
 		// =============== Boundary Values Tests ==================
 
-		// TC11:
+		// TC11: An empty list
 		pointsOnRayList = new ArrayList<Point3D>(3);
-		assertNull("", ray.findClosestPoint(pointsOnRayList));
+		assertNull("findClosestPoint() empty list", ray.findClosestPoint(pointsOnRayList));
 
-		// TC12:
+		// TC12: The first point in the list is closest to the beginning of the Ray
 		pointsOnRayList = new ArrayList<Point3D>(3);
 		pointsOnRayList.add(new Point3D(1, 0, 0));
 		pointsOnRayList.add(new Point3D(3, 0, 0));
 		pointsOnRayList.add(new Point3D(2, 0, 0));
-		assertEquals("", new Point3D(1, 0, 0), ray.findClosestPoint(pointsOnRayList));
+		assertEquals("findClosestPoint() first point in the list is closest", new Point3D(1, 0, 0), ray.findClosestPoint(pointsOnRayList));
 
-		// TC13:
+		// TC13: The last point in the list is closest to the beginning of the Ray
 		pointsOnRayList = new ArrayList<Point3D>(3);
 		pointsOnRayList.add(new Point3D(2, 0, 0));
 		pointsOnRayList.add(new Point3D(3, 0, 0));
 		pointsOnRayList.add(new Point3D(1, 0, 0));
-		assertEquals("", new Point3D(1, 0, 0), ray.findClosestPoint(pointsOnRayList));
+		assertEquals("findClosestPoint() last point in the list is closest", new Point3D(1, 0, 0), ray.findClosestPoint(pointsOnRayList));
 	}
 
 }

@@ -9,10 +9,9 @@ import scene.Scene;
 
 /**
  * 
- * 
  */
 public class Render {
-	
+
 	/**
 	 * 
 	 */
@@ -29,7 +28,7 @@ public class Render {
 	 * 
 	 */
 	RayTracerBase rayTracerBase;
-	
+
 	/**
 	 * 
 	 * 
@@ -40,7 +39,7 @@ public class Render {
 		this.imageWriter = imageWriter;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -51,7 +50,7 @@ public class Render {
 		this.scene = scene;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -78,7 +77,7 @@ public class Render {
 	 * 
 	 */
 	public void renderImage() {
-		if(imageWriter == null || scene == null || camera == null || rayTracerBase == null)
+		if (imageWriter == null || scene == null || camera == null || rayTracerBase == null)
 			throw new MissingResourceException("", "Render", "");
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
@@ -101,7 +100,7 @@ public class Render {
 	 * @param color
 	 */
 	public void printGrid(int interval, Color color) {
-		if(imageWriter == null)
+		if (imageWriter == null)
 			throw new MissingResourceException("", "Render", "ImageWriter");
 		for (int x = 0; x < imageWriter.getNx(); x++)
 			for (int y = 0; y < imageWriter.getNy(); y++) {
@@ -114,7 +113,7 @@ public class Render {
 	 * 
 	 */
 	public void writeToImage() {
-		if(imageWriter == null)
+		if (imageWriter == null)
 			throw new MissingResourceException("", "Render", "ImageWriter");
 		imageWriter.writeToImage();
 	}

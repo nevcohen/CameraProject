@@ -25,8 +25,7 @@ public class RenderTests {
 	@Test
 	public void basicRenderTwoColorTest() {
 
-		Scene scene = new Scene("Test scene")//
-				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1)) //
+		Scene scene = new Scene("Test scene").setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1))
 				.setBackground(new Color(75, 127, 90));
 
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50),
@@ -40,7 +39,8 @@ public class RenderTests {
 																													// right
 
 		ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
-		Render render = new Render().setImageWriter(imageWriter).setScene(scene).setCamera(camera).setRayTracer(new RayTracerBasic(scene));
+		Render render = new Render().setImageWriter(imageWriter).setScene(scene).setCamera(camera)
+				.setRayTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -57,7 +57,8 @@ public class RenderTests {
 		// ...
 
 		ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
-		Render render = new Render().setImageWriter(imageWriter).setScene(scene).setCamera(camera).setRayTracer(new RayTracerBasic(scene));
+		Render render = new Render().setImageWriter(imageWriter).setScene(scene).setCamera(camera)
+				.setRayTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.printGrid(100, new Color(java.awt.Color.YELLOW));

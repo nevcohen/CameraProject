@@ -54,21 +54,22 @@ public class Ray {
 	}
 
 	/**
-	 * ----------------------------------
+	 * Finding the closest point to the head of the Ray from a list of points given
+	 * on the Ray, which are points of intersection with different geometric bodies.
 	 * 
-	 * @param pointsOnRay
-	 * @return
+	 * @param pointsOnRay List of points on the Ray
+	 * @return The closest point to the head of the Ray
 	 */
 	public Point3D findClosestPoint(List<Point3D> pointsOnRay) {
 		if (pointsOnRay.isEmpty())
 			return null;
 		double minDis = p0.distanceSquared(pointsOnRay.get(0)), temp;
 		Point3D closestPoint3d = pointsOnRay.get(0);
-		for (Point3D point3D : pointsOnRay) {
-			temp = p0.distanceSquared(point3D);
+		for (Point3D point3d : pointsOnRay) {
+			temp = p0.distanceSquared(point3d);
 			if (temp < minDis) {
 				minDis = temp;
-				closestPoint3d = point3D;
+				closestPoint3d = point3d;
 			}
 		}
 

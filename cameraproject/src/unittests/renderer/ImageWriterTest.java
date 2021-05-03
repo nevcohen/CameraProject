@@ -14,6 +14,8 @@ import renderer.ImageWriter;
 public class ImageWriterTest {
 
 	/**
+	 * Create a red grid (16x10) on a black background (800x500 pixel)
+	 * 
 	 * Test method for {@link renderer.ImageWriter#writeToImage()}.
 	 */
 	@Test
