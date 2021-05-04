@@ -3,12 +3,12 @@ package elements;
 import primitives.Color;
 
 /**
- * Ambient Light of each geometrics
+ * Ambient Light of the scene
  */
 public class AmbientLight {
 
 	/**
-	 * Original fill light of the geometric shape
+	 * Original fill light of the scene
 	 */
 	private Color intensity;
 
@@ -24,7 +24,7 @@ public class AmbientLight {
 	}
 
 	/**
-	 * Gets the color intensity of the Geometric
+	 * Gets the color intensity of the scene
 	 * 
 	 * @return intensity
 	 */
