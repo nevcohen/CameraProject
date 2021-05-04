@@ -79,15 +79,15 @@ public class Render {
 	 */
 	public void renderImage() {
 		if (imageWriter == null || scene == null || camera == null || rayTracerBase == null)
-			throw new MissingResourceException("", "Render", "");
+			throw new MissingResourceException("One of the components is missing", "Render",
+					"ImageWriter/Scene/Camera/RayTracerBase");
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		Color color;
-		RayTracerBasic rayTracerBasic;
+		RayTracerBasic rayTracerBasic = new RayTracerBasic(scene);
 		Ray ray;
 		for (int x = 0; x < nX; x++)
 			for (int y = 0; y < nY; y++) {
-				rayTracerBasic = new RayTracerBasic(scene);
 				ray = camera.constructRayThroughPixel(nX, nY, x, y);
 				color = rayTracerBasic.traceRay(ray);
 				imageWriter.writePixel(x, y, color);
@@ -102,7 +102,7 @@ public class Render {
 	 */
 	public void printGrid(int interval, Color color) {
 		if (imageWriter == null)
-			throw new MissingResourceException("", "Render", "ImageWriter");
+			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
 		for (int x = 0; x < imageWriter.getNx(); x++)
 			for (int y = 0; y < imageWriter.getNy(); y++) {
 				if (y % interval == 0 || x % interval == 0)
@@ -115,7 +115,7 @@ public class Render {
 	 */
 	public void writeToImage() {
 		if (imageWriter == null)
-			throw new MissingResourceException("", "Render", "ImageWriter");
+			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
 		imageWriter.writeToImage();
 	}
 

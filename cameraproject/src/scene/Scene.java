@@ -14,13 +14,15 @@ public class Scene {
 	 */
 	public String name;
 	/**
-	 * The base is black
+	 * The color chosen if the beam did not intersect with any geometric shape - the
+	 * background of the scene, meanwhile black.
 	 */
 	public Color background = Color.BLACK;
 	/**
-	 * Definition of the ambient light for the background
+	 * Definition of the ambient light of the geometric shapes, the default value
+	 * will be black, KA = 0.
 	 */
-	public AmbientLight ambientLight = new AmbientLight(background, 0);
+	public AmbientLight ambientLight = new AmbientLight(Color.BLACK, 0);
 	/**
 	 * All the geometric shapes that exist in the scene
 	 */
@@ -37,7 +39,7 @@ public class Scene {
 	}
 
 	/**
-	 * A function to have a background other than the default of black
+	 * A function to have a background other than the default of black.
 	 * 
 	 * @param background – the new color needed to color the background
 	 * @return the scene itself – with an updated background.

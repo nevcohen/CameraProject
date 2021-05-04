@@ -21,8 +21,8 @@ public abstract class RayTracerBase {
 	}
 
 	/**
-	 * The function receives a Rùè and returns the color of the first point that
-	 * the beam strikes
+	 * The function receives a Ray and returns the color of the first point that the
+	 * beam strikes
 	 * 
 	 * @param ray that we will follow to find the color
 	 * @return The color that will color the pixel from which the Ray was sent
