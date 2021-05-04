@@ -9,6 +9,9 @@ import scene.Scene;
  * pixels
  */
 public abstract class RayTracerBase {
+	/**
+	 * Through a scene, the ray will trace the points of the model
+	 */
 	protected Scene scene;
 
 	/**

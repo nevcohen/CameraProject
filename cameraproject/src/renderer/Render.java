@@ -78,9 +78,14 @@ public class Render {
 	 * A function used to take the image information, and render it into a picture.
 	 */
 	public void renderImage() {
-		if (imageWriter == null || scene == null || camera == null || rayTracerBase == null)
-			throw new MissingResourceException("One of the components is missing", "Render",
-					"ImageWriter/Scene/Camera/RayTracerBase");
+		if (imageWriter == null)
+			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
+		if (scene == null)
+			throw new MissingResourceException("Scene is missing", "Render", "Scene");
+		if (camera == null)
+			throw new MissingResourceException("Camera is missing", "Render", "Camera");
+		if (rayTracerBase == null)
+			throw new MissingResourceException("RayTracerBase is missing", "Render", "RayTracerBase");
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		Color color;
