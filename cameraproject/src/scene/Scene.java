@@ -19,7 +19,7 @@ public class Scene {
 	 */
 	public Color background = Color.BLACK;
 	/**
-	 * Definition of the ambient light of the geometric shapes, the default value
+	 * Definition of the ambient light for the background, the default value
 	 * will be black, KA = 0.
 	 */
 	public AmbientLight ambientLight = new AmbientLight(Color.BLACK, 0);
