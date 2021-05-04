@@ -2,6 +2,8 @@ package primitives;
 
 import static primitives.Util.*;
 
+import java.util.List;
+
 /**
  * Ray class - By using a vector and a starting point
  */
@@ -49,6 +51,29 @@ public class Ray {
 		if (isZero(t))
 			return p0;
 		return p0.add(dir.scale(t));
+	}
+
+	/**
+	 * Finding the closest point to the head of the Ray from a list of points given
+	 * on the Ray, which are points of intersection with different geometric bodies.
+	 * 
+	 * @param pointsOnRay List of points on the Ray
+	 * @return The closest point to the head of the Ray
+	 */
+	public Point3D findClosestPoint(List<Point3D> pointsOnRay) {
+		if (pointsOnRay.isEmpty())
+			return null;
+		double minDis = p0.distanceSquared(pointsOnRay.get(0)), temp;
+		Point3D closestPoint3d = pointsOnRay.get(0);
+		for (Point3D point3d : pointsOnRay) {
+			temp = p0.distanceSquared(point3d);
+			if (temp < minDis) {
+				minDis = temp;
+				closestPoint3d = point3d;
+			}
+		}
+
+		return closestPoint3d;
 	}
 
 	@Override

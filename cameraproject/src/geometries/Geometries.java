@@ -54,25 +54,20 @@ public class Geometries implements Intersectable {
 		}
 	}
 
-	/**
-	 * Implementation of a structural pattern - Composite, Finding all the
-	 * intersections between the Ray we got for all the geometries in the collection
-	 * 
-	 * @return A list of all the points that the Ray intersects with them
-	 */
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
 
 		if (allGeometries.isEmpty())
 			return null;
-		List<Point3D> allIntersectables = new LinkedList<Point3D>();
+		List<Point3D> allIntersectables = null;
 		for (Intersectable current : allGeometries) {
 			List<Point3D> currentIntersections = current.findIntersections(ray);
-			if (!currentIntersections.isEmpty())
+			if (currentIntersections != null) {
+				if (allIntersectables == null)
+					allIntersectables = new LinkedList<Point3D>();
 				allIntersectables.addAll(currentIntersections);
+			}
 		}
-		if (allIntersectables.isEmpty())
-			return null;
 		return allIntersectables;
 	}
 

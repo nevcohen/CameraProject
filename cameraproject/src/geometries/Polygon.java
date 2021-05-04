@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import primitives.*;
 import static primitives.Util.*;
 
@@ -110,10 +111,12 @@ public class Polygon implements Geometry {
 		v2 = (vertices.get(0)).subtract(p0);
 		allNi.add(v1.crossProduct(v2).normalize());
 
-		Vector V = ray.getDir();
-		double vn1 = V.dotProduct(allNi.get(0));
+		Vector rayV = ray.getDir();
+		double vn1 = rayV.dotProduct(allNi.get(0));
+		if(isZero(vn1))
+			return null;
 		for (Vector ni : allNi) {
-			if (isZero(V.dotProduct(ni)) || !checkSign(vn1, V.dotProduct(ni))) // The point is inside if all v.dotProduct(Ni) have
+			if (isZero(rayV.dotProduct(ni)) || !checkSign(vn1, rayV.dotProduct(ni))) // The point is inside if all v.dotProduct(Ni) have
 																				// the same sign or if one or more are
 																				// 0.0 – no intersection (The ray
 																				// intersects with the side of the

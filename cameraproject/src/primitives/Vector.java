@@ -20,7 +20,7 @@ public class Vector {
 
 	/**
 	 * A constructor who gets three points (double)
-	 * 
+	 *
 	 * @param x the x value of the coordinate, as in: (x,y,z)
 	 * @param y the y value of the coordinate, as in: (x,y,z)
 	 * @param z the z value of the coordinate, as in: (x,y,z)
