@@ -13,6 +13,13 @@ public class AmbientLight {
 	private Color intensity;
 
 	/**
+	 * Default constructor, intensity is BLACK.
+	 */
+	public AmbientLight() {
+		this.intensity = Color.BLACK;
+	}
+
+	/**
 	 * Constructor that receives the color that the body produces and promotes the
 	 * attenuation of light
 	 * 
