@@ -71,4 +71,21 @@ public class Geometries implements Intersectable {
 		return allIntersectables;
 	}
 
+	@Override
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+
+		if (allGeometries.isEmpty())
+			return null;
+		List<GeoPoint> allIntersectables = null;
+		for (Intersectable current : allGeometries) {
+			List<GeoPoint> currentIntersections = current.findGeoIntersections(ray);
+			if (currentIntersections != null) {
+				if (allIntersectables == null)
+					allIntersectables = new LinkedList<GeoPoint>();
+				allIntersectables.addAll(currentIntersections);
+			}
+		}
+		return allIntersectables;
+	}
+
 }

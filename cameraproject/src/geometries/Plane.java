@@ -8,7 +8,7 @@ import primitives.*;
 /**
  * Plane class - represented by a point on it and its normal vector
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
 	private Point3D q0;
 	private Vector normal;
@@ -71,7 +71,7 @@ public class Plane implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
 
 		if (q0.equals(ray.getP0()))
 			return null;
@@ -82,7 +82,8 @@ public class Plane implements Geometry {
 		double t = alignZero(mone / mechane);
 		if (t <= 0)
 			return null;
-		return List.of(ray.getPoint(t));
+		GeoPoint geoPoint = new GeoPoint(this, ray.getPoint(t));
+		return List.of(geoPoint);
 
 	}
 }

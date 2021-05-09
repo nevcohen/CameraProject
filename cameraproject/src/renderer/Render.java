@@ -5,7 +5,6 @@ import java.util.MissingResourceException;
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
-import scene.Scene;
 
 /**
  * A class to render the picture, and create the image.
@@ -16,10 +15,6 @@ public class Render {
 	 * A variable used to export the image in the desired format
 	 */
 	ImageWriter imageWriter;
-	/**
-	 * Details of the scene used for the picture
-	 */
-	Scene scene;
 	/**
 	 * Details of the location of the camera
 	 */
@@ -37,17 +32,6 @@ public class Render {
 	 */
 	public Render setImageWriter(ImageWriter imageWriter) {
 		this.imageWriter = imageWriter;
-		return this;
-	}
-
-	/**
-	 * A method to change the scene behind the desired picture.
-	 * 
-	 * @param scene – the new scene used for the picture
-	 * @return the new render, including the updated scene.
-	 */
-	public Render setScene(Scene scene) {
-		this.scene = scene;
 		return this;
 	}
 
@@ -80,8 +64,6 @@ public class Render {
 	public void renderImage() {
 		if (imageWriter == null)
 			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
-		if (scene == null)
-			throw new MissingResourceException("Scene is missing", "Render", "Scene");
 		if (camera == null)
 			throw new MissingResourceException("Camera is missing", "Render", "Camera");
 		if (rayTracerBase == null)
@@ -89,12 +71,11 @@ public class Render {
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		Color color;
-		RayTracerBasic rayTracerBasic = new RayTracerBasic(scene);
 		Ray ray;
 		for (int x = 0; x < nX; x++)
 			for (int y = 0; y < nY; y++) {
 				ray = camera.constructRayThroughPixel(nX, nY, x, y);
-				color = rayTracerBasic.traceRay(ray);
+				color = rayTracerBase.traceRay(ray);
 				imageWriter.writePixel(x, y, color);
 			}
 	}

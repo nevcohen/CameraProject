@@ -10,7 +10,7 @@ import primitives.Ray;
 /**
  * Sphere class - represented by the center point and radius
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
 	private Point3D center;
 	private double radius;
@@ -59,8 +59,8 @@ public class Sphere implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+
 		double tm = 0;
 		double SquaredD = 0;
 		try {
@@ -86,11 +86,11 @@ public class Sphere implements Geometry {
 		// When t1 or t2 is less than zero the points of intersection is before the ray
 		if (t1 <= 0 && t2 <= 0)
 			return null;
-		List<Point3D> allIntersections = new LinkedList<Point3D>();
+		List<GeoPoint> allIntersections = new LinkedList<GeoPoint>();
 		if (t1 > 0)
-			allIntersections.add(ray.getPoint(t1));
+			allIntersections.add(new GeoPoint(this, ray.getPoint(t1)));
 		if (t2 > 0)
-			allIntersections.add(ray.getPoint(t2));
+			allIntersections.add(new GeoPoint(this, ray.getPoint(t2)));
 		return allIntersections;
 	}
 }

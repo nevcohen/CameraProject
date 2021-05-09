@@ -12,7 +12,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -94,8 +94,8 @@ public class Polygon implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		List<Point3D> result = plane.findIntersections(ray);
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		List<GeoPoint> result = plane.findGeoIntersections(ray);
 		if (result == null)
 			return null;
 		Point3D p0 = ray.getP0();
@@ -113,17 +113,19 @@ public class Polygon implements Geometry {
 
 		Vector rayV = ray.getDir();
 		double vn1 = rayV.dotProduct(allNi.get(0));
-		if(isZero(vn1))
+		if (isZero(vn1))
 			return null;
 		for (Vector ni : allNi) {
-			if (isZero(rayV.dotProduct(ni)) || !checkSign(vn1, rayV.dotProduct(ni))) // The point is inside if all v.dotProduct(Ni) have
-																				// the same sign or if one or more are
-																				// 0.0 – no intersection (The ray
-																				// intersects with the side of the
-																				// polygon)
+			if (isZero(rayV.dotProduct(ni)) || !checkSign(vn1, rayV.dotProduct(ni))) // The point is inside if all
+																						// v.dotProduct(Ni) have
+				// the same sign or if one or more are
+				// 0.0 – no intersection (The ray
+				// intersects with the side of the
+				// polygon)
 				return null;
 		}
 
+		result.get(0).geometry = this;
 		return result;
 	}
 }

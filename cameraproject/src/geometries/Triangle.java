@@ -22,8 +22,8 @@ public class Triangle extends Polygon {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		List<Point3D> result = plane.findIntersections(ray);
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		List<GeoPoint> result = plane.findGeoIntersections(ray);
 		if (result == null)
 			return null;
 		Point3D p0 = ray.getP0();
@@ -50,6 +50,7 @@ public class Triangle extends Polygon {
 		if (isZero(vn2) || !checkSign(vn1, vn2))
 			return null;
 
+		result.get(0).geometry = this;
 		return result;
 	}
 }

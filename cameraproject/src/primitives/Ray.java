@@ -4,6 +4,8 @@ import static primitives.Util.*;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Ray class - By using a vector and a starting point
  */
@@ -70,6 +72,30 @@ public class Ray {
 			if (temp < minDis) {
 				minDis = temp;
 				closestPoint3d = point3d;
+			}
+		}
+
+		return closestPoint3d;
+	}
+
+	/**
+	 * Finding the closest point to the head of the Ray from a list of points given
+	 * on the Ray, which are GeoPoints of intersection with different geometric
+	 * bodies.
+	 * 
+	 * @param pointsOnRay List of GeoPoints on the Ray
+	 * @return The closest GeoPoint to the head of the Ray
+	 */
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> pointsOnRay) {
+		if (pointsOnRay.isEmpty())
+			return null;
+		double minDis = p0.distanceSquared(pointsOnRay.get(0).point), temp;
+		GeoPoint closestPoint3d = pointsOnRay.get(0);
+		for (GeoPoint geoPoint : pointsOnRay) {
+			temp = p0.distanceSquared(geoPoint.point);
+			if (temp < minDis) {
+				minDis = temp;
+				closestPoint3d = geoPoint;
 			}
 		}
 
