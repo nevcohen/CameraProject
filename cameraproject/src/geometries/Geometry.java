@@ -8,22 +8,24 @@ import primitives.*;
 public abstract class Geometry implements Intersectable {
 
 	/**
-	 * -------------------
+	 * The color of the geometric shape, default black color.
 	 */
 	protected Color emission = Color.BLACK;
 
 	/**
-	 * -------------------
-	 * @return
+	 * Getter for the color of the geometric shape
+	 * 
+	 * @return emission of the specific geometry
 	 */
 	public Color getEmission() {
 		return emission;
 	}
 
 	/**
-	 * --------------------
-	 * @param emmission
-	 * @return
+	 * Setter for the color of the geometric shape (builder)
+	 * 
+	 * @param emmission of the specific geometry
+	 * @return The object itself (the geometric shape)
 	 */
 	public Geometry setEmission(Color emission) {
 		this.emission = emission;

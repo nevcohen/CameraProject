@@ -91,7 +91,7 @@ public class RayTests {
 		assertNull("findClosestGeoPoint() empty list", ray.findClosestGeoPoint(pointsOnRayList));
 
 		// TC12: The first point in the list is closest to the beginning of the Ray
-		pointsOnRayList = new ArrayList<GeoPoint>(3);		
+		pointsOnRayList = new ArrayList<GeoPoint>(3);
 		pointsOnRayList.add(new GeoPoint(sphere, new Point3D(1, 0, 0)));
 		pointsOnRayList.add(new GeoPoint(triangle, new Point3D(3, 0, 0)));
 		pointsOnRayList.add(new GeoPoint(plane, new Point3D(2, 0, 0)));
@@ -102,7 +102,7 @@ public class RayTests {
 		pointsOnRayList = new ArrayList<GeoPoint>(3);
 		pointsOnRayList.add(new GeoPoint(plane, new Point3D(2, 0, 0)));
 		pointsOnRayList.add(new GeoPoint(triangle, new Point3D(3, 0, 0)));
-		pointsOnRayList.add(new GeoPoint(sphere, new Point3D(1, 0, 0)));		
+		pointsOnRayList.add(new GeoPoint(sphere, new Point3D(1, 0, 0)));
 		assertEquals("findClosestGeoPoint() last point in the list is closest", geoPoint,
 				ray.findClosestGeoPoint(pointsOnRayList));
 	}

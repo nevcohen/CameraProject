@@ -20,8 +20,7 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * --------------------
-	 * Function for finding the color of a point in the scene
+	 * Function to calculate the color of a point in the scene
 	 * 
 	 * @param point3d - A point in the scene, which is on a geometric shape
 	 * @return Color at the given point

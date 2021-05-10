@@ -12,21 +12,23 @@ import primitives.*;
 public interface Intersectable {
 
 	/**
-	 * ----------------
+	 * Class for representing a point on a geometric shape
 	 */
 	public static class GeoPoint {
 		/**
-		 * 
+		 * The geometric shape on which the point is located
 		 */
 		public Geometry geometry;
 		/**
-		 * 
+		 * The point itself on the geometric shape
 		 */
 		public Point3D point;
 
 		/**
-		 * @param geometry
-		 * @param point
+		 * A constructor who gets a point and the geometric shape on which the point is
+		 * 
+		 * @param geometry - The geometric shape on which the point
+		 * @param point    - The point on the geometric shape
 		 */
 		public GeoPoint(Geometry geometry, Point3D point) {
 			this.geometry = geometry;
@@ -64,8 +66,8 @@ public interface Intersectable {
 	 * 
 	 * @param ray The Ray that is examined when it's intersected with the geometric
 	 *            shape
-	 * @return A list of GeoPoints of all the points that the Ray intersects with the geometric
-	 *         shape
+	 * @return A list of GeoPoints of all the points that the Ray intersects with
+	 *         the geometric shape
 	 */
 	List<GeoPoint> findGeoIntersections(Ray ray);
 }
