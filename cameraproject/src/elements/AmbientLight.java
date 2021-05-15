@@ -5,18 +5,13 @@ import primitives.Color;
 /**
  * Ambient Light of the scene
  */
-public class AmbientLight {
-
-	/**
-	 * Original fill light of the scene
-	 */
-	private Color intensity;
+public class AmbientLight extends Light {
 
 	/**
 	 * Default constructor, intensity is BLACK.
 	 */
 	public AmbientLight() {
-		this.intensity = Color.BLACK;
+		super(Color.BLACK);
 	}
 
 	/**
@@ -27,16 +22,7 @@ public class AmbientLight {
 	 * @param kA        The attenuation coefficient of light
 	 */
 	public AmbientLight(Color intensity, double kA) {
-		this.intensity = intensity.scale(kA);
-	}
-
-	/**
-	 * Gets the color intensity of the scene
-	 * 
-	 * @return intensity
-	 */
-	public Color getIntensity() {
-		return intensity;
+		super(intensity.scale(kA));
 	}
 
 }
