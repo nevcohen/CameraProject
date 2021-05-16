@@ -14,7 +14,7 @@ public class SpotLight extends PointLight implements LightSource {
 
 	private Vector direction;
 
-	protected SpotLight(Color intensity, Point3D position, Vector direction) {
+	public SpotLight(Color intensity, Point3D position, Vector direction) {
 		super(intensity, position);
 		this.direction = direction.normalized();
 	}
@@ -22,14 +22,14 @@ public class SpotLight extends PointLight implements LightSource {
 	@Override
 	public Color getIntensity(Point3D p) {
 		double dirL = direction.dotProduct(getL(p));
-		if (dirL < 0)
+		if (dirL <= 0)
 			return Color.BLACK;
-		return getIntensity(p).scale(dirL);
+		return super.getIntensity(p).scale(dirL);
 	}
 
 	@Override
 	public Vector getL(Point3D p) {
-		return getL(p);
+		return super.getL(p);
 	}
 
 }

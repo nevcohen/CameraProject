@@ -10,7 +10,12 @@ public abstract class Geometry implements Intersectable {
 	/**
 	 * The color of the geometric shape, default black color.
 	 */
-	protected Color emission = Color.BLACK;
+	private Color emission = Color.BLACK;
+
+	/**
+	 * -----------------
+	 */
+	private Material material = new Material();
 
 	/**
 	 * Getter for the color of the geometric shape
@@ -22,6 +27,15 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
+	 * -----------------------
+	 * 
+	 * @return
+	 */
+	public Material getMaterial() {
+		return material;
+	}
+
+	/**
 	 * Setter for the color of the geometric shape (builder)
 	 * 
 	 * @param emmission of the specific geometry
@@ -29,6 +43,17 @@ public abstract class Geometry implements Intersectable {
 	 */
 	public Geometry setEmission(Color emission) {
 		this.emission = emission;
+		return this;
+	}
+
+	/**
+	 * ---------------------------
+	 * 
+	 * @param material
+	 * @return
+	 */
+	public Geometry setMaterial(Material material) {
+		this.material = material;
 		return this;
 	}
 
