@@ -32,7 +32,7 @@ public class Scene {
 	 */
 	public Geometries geometries;
 	/**
-	 * -------------------------------
+	 * List of all of the different light sources that are in the area of the scene.
 	 */
 	public List<LightSource> lights = new LinkedList<LightSource>();
 
@@ -81,10 +81,10 @@ public class Scene {
 	}
 
 	/**
-	 * ------------------------
+	 * Sets the various different lightings that may effect the scene.
 	 * 
-	 * @param lights
-	 * @return
+	 * @param lights - The lights that may effect the scene
+	 * @return the scene, but with different lights.
 	 */
 	public Scene setLights(List<LightSource> lights) {
 		this.lights = lights;

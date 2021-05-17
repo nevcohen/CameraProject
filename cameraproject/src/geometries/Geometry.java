@@ -13,7 +13,7 @@ public abstract class Geometry implements Intersectable {
 	private Color emission = Color.BLACK;
 
 	/**
-	 * -----------------
+	 * The material of which the object consists.
 	 */
 	private Material material = new Material();
 
@@ -27,16 +27,17 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
-	 * -----------------------
+	 * Getter designed to convey the coefficients of the material which make the
+	 * geometry.
 	 * 
-	 * @return
+	 * @return the material of which the geometry consists
 	 */
 	public Material getMaterial() {
 		return material;
 	}
 
 	/**
-	 * Setter for the color of the geometric shape (builder)
+	 * Setter for the color of the geometric shape (builder).
 	 * 
 	 * @param emmission of the specific geometry
 	 * @return The object itself (the geometric shape)
@@ -47,10 +48,10 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
-	 * ---------------------------
+	 * Sets the material of which the geometry consists (builder).
 	 * 
-	 * @param material
-	 * @return
+	 * @param material in which the geometry consists
+	 * @return The object itself (the geometric shape)
 	 */
 	public Geometry setMaterial(Material material) {
 		this.material = material;
@@ -58,7 +59,7 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
-	 * Get the normal to the surface
+	 * Get the normal to the surface.
 	 * 
 	 * @param point - A point3D on the geometric body
 	 * @return A normal vector to the body at this point

@@ -18,8 +18,8 @@ public class AmbientLight extends Light {
 	 * Constructor that receives the color that the body produces and promotes the
 	 * attenuation of light
 	 * 
-	 * @param intensity Light intensity according to RGB components
-	 * @param kA        The attenuation coefficient of light
+	 * @param intensity - Light intensity according to RGB components
+	 * @param kA        - The attenuation coefficient of light
 	 */
 	public AmbientLight(Color intensity, double kA) {
 		super(intensity.scale(kA));

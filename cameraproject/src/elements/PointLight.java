@@ -8,13 +8,34 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * 
+ * A class to hold a light source that originates at a given point.
  */
 public class PointLight extends Light implements LightSource {
 
+	/**
+	 * The position in which the light originates.
+	 */
 	private Point3D position;
-	private double kC, kL, kQ;
+	/**
+	 * The constant attenuation of the light.
+	 */
+	private double kC;
+	/**
+	 * The linear attenuation of the light.
+	 */
+	private double kL;
+	/**
+	 * The squared attenuation of the light.
+	 */
+	private double kQ;
 
+	/**
+	 * A constructor that gets a base point, and assumes a constant attenuation of
+	 * 1, at a given intensity.
+	 * 
+	 * @param intensity of the light
+	 * @param position  in which the light originates
+	 */
 	public PointLight(Color intensity, Point3D position) {
 		super(intensity);
 		this.position = position;
@@ -24,6 +45,8 @@ public class PointLight extends Light implements LightSource {
 	}
 
 	/**
+	 * Set the value of the constant attenuation variable (builder)
+	 * 
 	 * @param kC the kC to set
 	 */
 	public PointLight setKc(double kC) {
@@ -32,6 +55,8 @@ public class PointLight extends Light implements LightSource {
 	}
 
 	/**
+	 * Set the value of the linear attenuation variable (builder)
+	 * 
 	 * @param kL the kL to set
 	 */
 	public PointLight setKl(double kL) {
@@ -40,6 +65,8 @@ public class PointLight extends Light implements LightSource {
 	}
 
 	/**
+	 * Set the value of the squared attenuation variable (builder)
+	 * 
 	 * @param kQ the kQ to set
 	 */
 	public PointLight setKq(double kQ) {

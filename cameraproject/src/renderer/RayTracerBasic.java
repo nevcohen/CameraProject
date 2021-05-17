@@ -26,22 +26,24 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Function to calculate the color of a point in the scene
+	 * Function to calculate the color of a point in the scene.
 	 * 
 	 * @param intersection - A point in the scene, which is on a geometric shape
 	 * @param ray          - The ray from the camera that hit the above point
 	 * @return Color at the given point
 	 */
 	private Color calcColor(GeoPoint intersection, Ray ray) {
-		return scene.ambientLight.getIntensity().add(intersection.geometry.getEmission()).add(calcLocalEffects(intersection, ray));
+		return scene.ambientLight.getIntensity().add(intersection.geometry.getEmission())
+				.add(calcLocalEffects(intersection, ray));
 	}
 
 	/**
-	 * Add calculated light contribution from all light sources
-	 * ------------------
-	 * @param intersection
-	 * @param ray
-	 * @return
+	 * Add calculated light contribution from all light sources.
+	 * 
+	 * @param intersection - A point in the scene, which is on a geometric shape
+	 * @param ray          - The ray from the camera that hit the above point
+	 * @return The color of the geometry according to the local variables, such as
+	 *         the material and the light sources.
 	 */
 	private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
 
@@ -70,14 +72,15 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * -----------------
+	 * Calculating the Color of the specular component of the object for the Phong
+	 * model.
 	 * 
-	 * @param kS
-	 * @param r
-	 * @param v
-	 * @param nShininess
-	 * @param lightIntensity
-	 * @return
+	 * @param kS             - The specular coefficient
+	 * @param r              - The reflection of the light
+	 * @param v              - The direction of the camera
+	 * @param nShininess     - The shininess of the object
+	 * @param lightIntensity - The intensity of the light
+	 * @return The total specular component of the current object.
 	 */
 	private Color calcSpecular(double kS, Vector r, Vector v, int nShininess, Color lightIntensity) {
 		double vr = alignZero(0 - v.dotProduct(r));
@@ -88,12 +91,14 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * --------------------
+	 * Calculating the Color of the diffuse component of the object for the Phong
+	 * model.
 	 * 
-	 * @param kD
-	 * @param ln
-	 * @param lightIntensity
-	 * @return
+	 * @param kD             - The diffuse coefficient
+	 * @param ln             - The dot product of the lights' vector with the normal
+	 *                       of the body
+	 * @param lightIntensity - The intensity of the light
+	 * @return The final diffuse component of the given object for the phong model.
 	 */
 	private Color calcDiffusive(double kD, double ln, Color lightIntensity) {
 		return lightIntensity.scale(kD * Math.abs(ln));

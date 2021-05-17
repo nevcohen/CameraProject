@@ -1,11 +1,26 @@
 package primitives;
 
+/**
+ * The material in which the object is made of, may effect the lighting of the
+ * scene.
+ */
 public class Material {
-	public double kD, kS;
+
+	/**
+	 * The diffuse coefficient.
+	 */
+	public double kD;
+	/**
+	 * The specular coefficient.
+	 */
+	public double kS;
+	/**
+	 * The shininess coefficient.
+	 */
 	public int nShininess;
 
 	/**
-	 * 
+	 * Constructor that sets the various coefficients to 0.
 	 */
 	public Material() {
 		this.kD = 0;
@@ -14,6 +29,8 @@ public class Material {
 	}
 
 	/**
+	 * Sets diffuse coefficient.
+	 * 
 	 * @param kD the kD to set
 	 */
 	public Material setKd(double kD) {
@@ -22,6 +39,8 @@ public class Material {
 	}
 
 	/**
+	 * Sets specular coefficient.
+	 * 
 	 * @param kS the kS to set
 	 */
 	public Material setKs(double kS) {
@@ -30,6 +49,8 @@ public class Material {
 	}
 
 	/**
+	 * Sets shininess coefficient.
+	 * 
 	 * @param nShininess the nShininess to set
 	 */
 	public Material setShininess(int nShininess) {
