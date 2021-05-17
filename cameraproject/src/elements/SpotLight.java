@@ -10,21 +10,15 @@ import primitives.Vector;
 /**
  * 
  */
-public class SpotLight extends PointLight implements LightSource {
-
-	private Vector direction;
+public class SpotLight extends FlashLight implements LightSource {
 
 	public SpotLight(Color intensity, Point3D position, Vector direction) {
-		super(intensity, position);
-		this.direction = direction.normalized();
+		super(intensity, position, direction, 1);
 	}
 
 	@Override
 	public Color getIntensity(Point3D p) {
-		double dirL = direction.dotProduct(getL(p));
-		if (dirL <= 0)
-			return Color.BLACK;
-		return super.getIntensity(p).scale(dirL);
+		return super.getIntensity(p);
 	}
 
 	@Override
