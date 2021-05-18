@@ -83,7 +83,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return The total specular component of the current object.
 	 */
 	private Color calcSpecular(double kS, Vector r, Vector v, int nShininess, Color lightIntensity) {
-		double vr = alignZero(0 - v.dotProduct(r));
+		double vr = alignZero(-v.dotProduct(r));
 		if (vr <= 0)
 			return Color.BLACK;
 		vr = Math.pow(vr, nShininess);
@@ -101,7 +101,9 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return The final diffuse component of the given object for the phong model.
 	 */
 	private Color calcDiffusive(double kD, double ln, Color lightIntensity) {
-		return lightIntensity.scale(kD * Math.abs(ln));
+		if (ln < 0)
+			ln = -ln;
+		return lightIntensity.scale(kD * ln);
 	}
 
 	@Override

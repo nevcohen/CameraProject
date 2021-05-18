@@ -9,24 +9,15 @@ public class Material {
 	/**
 	 * The diffuse coefficient.
 	 */
-	public double kD;
+	public double kD = 0;
 	/**
 	 * The specular coefficient.
 	 */
-	public double kS;
+	public double kS = 0;
 	/**
 	 * The shininess coefficient.
 	 */
-	public int nShininess;
-
-	/**
-	 * Constructor that sets the various coefficients to 0.
-	 */
-	public Material() {
-		this.kD = 0;
-		this.kS = 0;
-		this.nShininess = 0;
-	}
+	public int nShininess = 0;
 
 	/**
 	 * Sets diffuse coefficient.

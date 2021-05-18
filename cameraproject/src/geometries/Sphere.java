@@ -69,28 +69,26 @@ public class Sphere extends Geometry {
 			SquaredD = u.lengthSquared() - tm * tm; // The minimum distance between the center of the Sphere and the Ray
 													// (Squared)
 		} catch (IllegalArgumentException e) {
+			return List.of(new GeoPoint(this, ray.getPoint(radius)));
 		}
 
 		double SquaredR = radius * radius;
-		if (SquaredD >= SquaredR) // There are no intersections
+		double diff = alignZero(SquaredR - SquaredD);
+		if (diff <= 0) // There are no intersections
 			return null;
 
-		double th = radius; // The distance from the point of intersection to the closest point to the
-							// center of the circle that on the Ray
-		if (SquaredD != 0)
-			th = Math.sqrt(SquaredR - SquaredD);
+		// The distance from the point of intersection to the closest point to the
+		// center of the circle that on the Ray
+		double th = Math.sqrt(diff);
+
+		double t2 = alignZero(tm + th); // The second point of intersection
+		// When t1 or t2 is less than zero the points of intersection is before the ray
+		if (t2 <= 0)
+			return null;
 
 		double t1 = alignZero(tm - th); // The first point of intersection
-		double t2 = alignZero(tm + th); // The second point of intersection
-
-		// When t1 or t2 is less than zero the points of intersection is before the ray
-		if (t1 <= 0 && t2 <= 0)
-			return null;
-		List<GeoPoint> allIntersections = new LinkedList<GeoPoint>();
-		if (t1 > 0)
-			allIntersections.add(new GeoPoint(this, ray.getPoint(t1)));
-		if (t2 > 0)
-			allIntersections.add(new GeoPoint(this, ray.getPoint(t2)));
-		return allIntersections;
+		return t1 > 0 //
+				? List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2))) //
+				: List.of(new GeoPoint(this, ray.getPoint(t2)));
 	}
 }
