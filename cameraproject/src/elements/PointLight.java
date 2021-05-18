@@ -19,15 +19,15 @@ public class PointLight extends Light implements LightSource {
 	/**
 	 * The constant attenuation of the light.
 	 */
-	private double kC;
+	private double kC = 1;
 	/**
 	 * The linear attenuation of the light.
 	 */
-	private double kL;
+	private double kL = 0;
 	/**
 	 * The squared attenuation of the light.
 	 */
-	private double kQ;
+	private double kQ = 0;
 
 	/**
 	 * A constructor that gets a base point, and assumes a constant attenuation of
@@ -39,9 +39,6 @@ public class PointLight extends Light implements LightSource {
 	public PointLight(Color intensity, Point3D position) {
 		super(intensity);
 		this.position = position;
-		kC = 1;
-		kL = 0;
-		kQ = 0;
 	}
 
 	/**

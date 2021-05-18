@@ -21,7 +21,7 @@ public class Scene {
 	 * The color chosen if the beam did not intersect with any geometric shape - the
 	 * background of the scene, meanwhile black.
 	 */
-	public Color background;// = Color.BLACK;
+	public Color background = Color.BLACK;
 	/**
 	 * Definition of the ambient light for the background, the default value will be
 	 * black.
@@ -30,7 +30,7 @@ public class Scene {
 	/**
 	 * All the geometric shapes that exist in the scene
 	 */
-	public Geometries geometries;
+	public Geometries geometries = new Geometries();;
 	/**
 	 * List of all of the different light sources that are in the area of the scene.
 	 */
@@ -43,8 +43,6 @@ public class Scene {
 	 */
 	public Scene(String name) {
 		this.name = name;
-		this.geometries = new Geometries();
-		background = Color.BLACK;
 	}
 
 	/**
