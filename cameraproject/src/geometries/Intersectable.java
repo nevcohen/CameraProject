@@ -64,10 +64,25 @@ public interface Intersectable {
 	/**
 	 * Find all the points of intersection between Ray and the geometric shape
 	 * 
-	 * @param ray The Ray that is examined when it's intersected with the geometric
-	 *            shape
+	 * @param ray - The Ray that is examined when it's intersected with the
+	 *            geometric shape
 	 * @return A list of GeoPoints of all the points that the Ray intersects with
 	 *         the geometric shape
 	 */
-	List<GeoPoint> findGeoIntersections(Ray ray);
+	default List<GeoPoint> findGeoIntersections(Ray ray) {
+		return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+	}
+
+	/**
+	 * Find all the points of intersection between Ray and the geometric shape,
+	 * within a maximum range from the beginning of the ray.
+	 * 
+	 * @param ray         - The Ray that is examined when it's intersected with the
+	 *                    geometric shape
+	 * @param maxDistance - The maximum distance
+	 * @return A list of GeoPoints of all the points that the Ray intersects with
+	 *         the geometric shape
+	 */
+	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
+
 }

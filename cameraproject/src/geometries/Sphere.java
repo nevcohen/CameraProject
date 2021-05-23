@@ -59,7 +59,7 @@ public class Sphere extends Geometry {
 	}
 
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 
 		double tm = 0;
 		double SquaredD = 0;
@@ -83,11 +83,11 @@ public class Sphere extends Geometry {
 
 		double t2 = alignZero(tm + th); // The second point of intersection
 		// When t1 or t2 is less than zero the points of intersection is before the ray
-		if (t2 <= 0)
+		if (t2 <= 0 || alignZero(t2 - maxDistance) > 0)
 			return null;
 
 		double t1 = alignZero(tm - th); // The first point of intersection
-		return t1 > 0 //
+		return (t1 > 0 && alignZero(t1 - maxDistance) <= 0)//
 				? List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2))) //
 				: List.of(new GeoPoint(this, ray.getPoint(t2)));
 	}

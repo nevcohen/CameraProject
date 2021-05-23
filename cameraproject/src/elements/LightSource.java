@@ -28,4 +28,12 @@ public interface LightSource {
 	 */
 	public Vector getL(Point3D p);
 
+	/**
+	 * The distance from the light to the received point.
+	 * 
+	 * @param point - A point whose light is in its direction (usually this will be
+	 *              a point on a geometric body).
+	 * @return Distance between light and point
+	 */
+	public double getDistance(Point3D point);
 }
