@@ -12,7 +12,18 @@ import geometries.Intersectable.GeoPoint;
  */
 public class Ray {
 
+	/**
+	 * ------------------
+	 */
+	private static final double DELTA = 0.1;
+
+	/**
+	 * 
+	 */
 	private Point3D p0;
+	/**
+	 * 
+	 */
 	private Vector dir;
 
 	/**
@@ -24,6 +35,19 @@ public class Ray {
 	public Ray(Point3D p0, Vector dir) {
 		this.p0 = p0;
 		this.dir = dir.normalize();
+	}
+
+	/**
+	 * -------------------
+	 * 
+	 * @param head
+	 * @param direction
+	 * @param normal
+	 */
+	public Ray(Point3D head, Vector direction, Vector normal) {
+		double dn = alignZero(direction.dotProduct(normal));
+		p0 = dn == 0 ? head : head.add(normal.scale(dn > 0 ? DELTA : -DELTA));
+		dir = direction.normalize();
 	}
 
 	/**
@@ -67,7 +91,8 @@ public class Ray {
 		if (pointsOnRay.isEmpty())
 			return null;
 
-		return findClosestGeoPoint(pointsOnRay.stream().map(p->new GeoPoint(null, p)).collect(Collectors.toList())).point;
+		return findClosestGeoPoint(
+				pointsOnRay.stream().map(p -> new GeoPoint(null, p)).collect(Collectors.toList())).point;
 	}
 
 	/**

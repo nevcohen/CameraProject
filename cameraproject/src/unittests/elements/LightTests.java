@@ -208,9 +208,9 @@ public class LightTests {
 		scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.4).setKs(2).setShininess(120)),
 				triangle2.setMaterial(new Material().setKd(0.25).setKs(2).setShininess(120)));
 
-		scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-2, -2, -1)) //
+		scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(-50, 50, -70), new Vector(1, -1, -150)) //
 				.setKl(0.0001).setKq(0.000005));
-		scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(50, 60, -130)) //
+		scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(60, 50, -130)) //
 				.setKl(0.0005).setKq(0.0005));
 		scene2.lights.add(new DirectionalLight(new Color(150, 75, 75), new Vector(0, 0, -1)));
 
