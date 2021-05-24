@@ -13,24 +13,25 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
 
 	/**
-	 * ------------------
+	 * The margin of error - space we will use to calculate the reflection and
+	 * refraction.
 	 */
 	private static final double DELTA = 0.1;
 
 	/**
-	 * 
+	 * The head of the ray
 	 */
 	private Point3D p0;
 	/**
-	 * 
+	 * The direction of the ray
 	 */
 	private Vector dir;
 
 	/**
-	 * Constructor getting normalized vector and a starting point
+	 * Constructor getting normalized vector and a starting point.
 	 * 
-	 * @param p0
-	 * @param dir
+	 * @param p0  - The head of the ray.
+	 * @param dir - The direction of the ray.
 	 */
 	public Ray(Point3D p0, Vector dir) {
 		this.p0 = p0;
@@ -38,11 +39,12 @@ public class Ray {
 	}
 
 	/**
-	 * -------------------
+	 * Constuctor that gets a point and a vector to create a ray, but also
+	 * recalculates the ray according to a normal, to add the margin of error DELTA.
 	 * 
-	 * @param head
-	 * @param direction
-	 * @param normal
+	 * @param head      - The head of the old ray.
+	 * @param direction - The direction of the ray.
+	 * @param normal    - The normal of head that we wish to add DELTA to.
 	 */
 	public Ray(Point3D head, Vector direction, Vector normal) {
 		double dn = alignZero(direction.dotProduct(normal));

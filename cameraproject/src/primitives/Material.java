@@ -18,13 +18,13 @@ public class Material {
 	 * The shininess coefficient.
 	 */
 	public int nShininess = 0;
-	
+
 	/**
-	 * -------------------
+	 * The transparency coefficient.
 	 */
 	public double kT = 0;
 	/**
-	 * -------------------
+	 * The reflection coefficient.
 	 */
 	public double kR = 0;
 
@@ -62,7 +62,7 @@ public class Material {
 	}
 
 	/**
-	 * ----------------
+	 * Sets transparency coefficient.
 	 * 
 	 * @param kT the kT to set
 	 * @return The material itself that we changed
@@ -71,9 +71,9 @@ public class Material {
 		this.kT = kT;
 		return this;
 	}
-	
+
 	/**
-	 * ----------------
+	 * Sets reflection coefficient.
 	 * 
 	 * @param kR the kR to set
 	 * @return The material itself that we changed

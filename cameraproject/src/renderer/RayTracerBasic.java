@@ -20,14 +20,18 @@ import scene.Scene;
 public class RayTracerBasic extends RayTracerBase {
 
 	/**
-	 * ------------------
+	 * The maximum depth we have determined for the reflection and refraction in
+	 * advance.
 	 */
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	/**
-	 * ------------------
+	 * The lowest we will lower the reflection and refractions coefficient to,
+	 * before we deemed it to become irrelevant.
 	 */
 	private static final double MIN_CALC_COLOR_K = 0.001;
-
+	/**
+	 * The initial value of the reflection and refractions coefficient.
+	 */
 	private static final double INITIAL_K = 1.0;
 
 	/**
@@ -42,8 +46,8 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * Function to calculate the color of a point in the scene.
 	 * 
-	 * @param intersection - A point in the scene, which is on a geometric shape
-	 * @param ray          - The ray from the camera that hit the above point
+	 * @param intersection - A point in the scene, which is on a geometric shape.
+	 * @param ray          - The ray from the camera that hit the above point.
 	 * @return Color at the given point
 	 */
 	private Color calcColor(GeoPoint intersection, Ray ray) {
@@ -51,13 +55,16 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * -----------------------------
+	 * Function to calculate the color of a point in the scene, with additional
+	 * checks for reflection and refraction, to determine global effects and local
+	 * effects.
 	 * 
-	 * @param intersection
-	 * @param ray
-	 * @param level
-	 * @param k
-	 * @return
+	 * @param intersection - A point in the scene, which is on a geometric shape.
+	 * @param ray          - The ray from the camera that hit the above point.
+	 * @param level        - The current depth of the recursion.
+	 * @param k            - The current coefficient of K (depends on the
+	 *                     recursion).
+	 * @return Color at the given point
 	 */
 	private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
 		Color color = intersection.geometry.getEmission().add(calcLocalEffects(intersection, ray, k));
@@ -65,13 +72,14 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * ----------------
+	 * Calculates the color at the given points, taking into account the reflection
+	 * and refraction.
 	 * 
-	 * @param gp
-	 * @param v
-	 * @param level
-	 * @param k
-	 * @return
+	 * @param gp    - A point in the scene, which is on a geometric shape.
+	 * @param v     - The ray from the camera that hit the above point.
+	 * @param level - The current depth of the recursion.
+	 * @param k     - The current coefficient of K (depends on the recursion).
+	 * @return Color at the given point.
 	 */
 	private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
 		Color color = Color.BLACK;
@@ -87,12 +95,13 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * --------------------
+	 * A function to continue the ray of the reflection the refraction, building a
+	 * new one for the next level of the recursion.
 	 * 
-	 * @param ray
-	 * @param level
-	 * @param kx
-	 * @param kkx
+	 * @param ray   - The updated ray of the reflection and refraction.
+	 * @param level - The current depth of the recursion.
+	 * @param kx    - The original coefficient.
+	 * @param kkx   - The current coefficient of K (depends on the recursion).
 	 * @return
 	 */
 	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
@@ -200,24 +209,24 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * -------------------
+	 * Creating a ray of the reflection.
 	 * 
-	 * @param p
-	 * @param v
-	 * @param n
-	 * @return
+	 * @param p - The point of the reflection, the point we hit the object.
+	 * @param v - The vector we hit the object at.
+	 * @param n - The normal to the point hit.
+	 * @return The new reflected ray.
 	 */
 	private Ray constructReflectedRay(Point3D p, Vector v, Vector n) {
 		return new Ray(p, v.subtract(n.scale(2 * alignZero(v.dotProduct(n)))), n);
 	}
 
 	/**
-	 * ------------------
+	 * Creating a ray of the refrection.
 	 * 
-	 * @param p
-	 * @param v
-	 * @param n
-	 * @return
+	 * @param p - The point of the refrection, the point we hit the object.
+	 * @param v - The vector we hit the object at.
+	 * @param n - The normal to the point hit.
+	 * @return The new refracted ray.
 	 */
 	private Ray constructRefractedRay(Point3D p, Vector v, Vector n) {
 		return new Ray(p, v, n);
@@ -230,10 +239,10 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * -------------------
+	 * Finding the closest intersections to the rays origin.
 	 * 
-	 * @param ray
-	 * @return
+	 * @param ray - The ray we will search to find where it lands.
+	 * @return The closest GeoPoint in the rays path.
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
