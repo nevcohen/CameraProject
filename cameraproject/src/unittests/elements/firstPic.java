@@ -168,7 +168,7 @@ public class firstPic {
 				new Polygon(new Point3D(71.54, 2, 33), new Point3D(75, 4, 33), new Point3D(78.46, 2, 33),
 						new Point3D(78.46, -2, 33), new Point3D(75, -4, 33), new Point3D(71.54, -2, 33))
 								.setEmission(new Color(0, 38, 126))
-								.setMaterial(new Material().setKd(0.5).setKs(0.7).setShininess(70).setKt(0.2)), //
+								.setMaterial(new Material().setKd(0.7).setKs(0.7).setShininess(80).setKt(0.2)), //
 
 				// The glass above the box
 				new Triangle(new Point3D(75, 0, 75), new Point3D(50, 25, 25), new Point3D(50, -25, 25))
@@ -192,7 +192,7 @@ public class firstPic {
 		scene.lights
 				.add(new SpotLight(new Color(250, 100, 100), new Point3D(150, 0, 25), new Vector(-20, 0, 1)).setExp(3) //
 						.setKl(4E-5).setKq(2E-7));
-		scene.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(75, 0, 65), new Vector(0, 0, -1)).setExp(2) //
+		scene.lights.add(new SpotLight(new Color(250, 250, 500), new Point3D(75, 0, 65), new Vector(0, 0, -1)).setExp(2) //
 				.setKl(4E-5).setKq(2E-7));
 
 		ImageWriter imageWriter = new ImageWriter("firstPic", 1000, 1000);
