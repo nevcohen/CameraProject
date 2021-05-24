@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import geometries.Cylinder;
-import geometries.Tube;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
