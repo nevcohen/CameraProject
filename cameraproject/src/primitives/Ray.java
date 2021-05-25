@@ -43,13 +43,13 @@ public class Ray {
 	 * recalculates the ray according to a normal, to add the margin of error DELTA.
 	 * 
 	 * @param head      - The head of the old ray.
-	 * @param direction - The direction of the ray.
+	 * @param direction - The direction of the ray, must be normalize.
 	 * @param normal    - The normal of head that we wish to add DELTA to.
 	 */
 	public Ray(Point3D head, Vector direction, Vector normal) {
 		double dn = alignZero(direction.dotProduct(normal));
 		p0 = dn == 0 ? head : head.add(normal.scale(dn > 0 ? DELTA : -DELTA));
-		dir = direction.normalize();
+		dir = direction;
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class Ray {
 	 * @return The closest GeoPoint to the head of the Ray
 	 */
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> pointsOnRay) {
-		if (pointsOnRay.isEmpty())
+		if (pointsOnRay == null)
 			return null;
 		double minDis = Double.POSITIVE_INFINITY;
 		GeoPoint closestPoint3d = null;

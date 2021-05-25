@@ -58,16 +58,4 @@ public class SpotLight extends PointLight implements LightSource {
 			dirL = Math.pow(dirL, exp);
 		return super.getIntensity(p).scale(dirL);
 	}
-
-	@Override
-	public Vector getL(Point3D p) {
-		return super.getL(p);
-	}
-	
-	@Override
-	public double getDistance(Point3D point) {
-		if (getIntensity(point).getColor() == Color.BLACK.getColor())
-			return 0.0;
-		return super.getDistance(point);
-	}
 }

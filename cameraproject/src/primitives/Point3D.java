@@ -5,24 +5,11 @@ package primitives;
  */
 public class Point3D {
 
-	private Coordinate x;
-	private Coordinate y;
-	private Coordinate z;
+	public Coordinate x;
+	public Coordinate y;
+	public Coordinate z;
 
 	public static Point3D ZERO = new Point3D(0, 0, 0);
-
-	/**
-	 * A constructor who gets three points (Coordinate)
-	 * 
-	 * @param x the x coordinate of a given point: (x,y,z)
-	 * @param y the y coordinate of a given point: (x,y,z)
-	 * @param z the z coordinate of a given point: (x,y,z)
-	 */
-	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
 
 	/**
 	 * A constructor who gets three points (double)
@@ -71,8 +58,8 @@ public class Point3D {
 	 * @return New point
 	 */
 	public Point3D add(Vector v) {
-		return new Point3D(this.x.coord + v.getHead().getValueOfX(), this.y.coord + v.getHead().getValueOfY(),
-				this.z.coord + v.getHead().getValueOfZ());
+		return new Point3D(this.x.coord + v.head.x.coord, this.y.coord + v.head.y.coord,
+				this.z.coord + v.head.z.coord);
 	}
 
 	/**

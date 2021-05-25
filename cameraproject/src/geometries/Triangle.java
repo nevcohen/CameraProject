@@ -42,12 +42,12 @@ public class Triangle extends Polygon {
 		Vector rayV = ray.getDir();
 		double vn1 = alignZero(rayV.dotProduct(n1));
 		double vn2 = alignZero(rayV.dotProduct(n2));
-		if (isZero(vn1) || isZero(vn2) || !checkSign(vn1, vn2))
+		if (vn1 == 0 || vn2 == 0 || vn1*vn2 < 0)
 			return null;
 
 		n2 = v3.crossProduct(v1).normalize();
 		vn2 = alignZero(rayV.dotProduct(n2));
-		if (isZero(vn2) || !checkSign(vn1, vn2))
+		if (vn2 == 0 || vn1*vn2 < 0)
 			return null;
 
 		result.get(0).geometry = this;

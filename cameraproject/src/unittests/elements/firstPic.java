@@ -23,9 +23,9 @@ public class firstPic {
 
 	@Test
 	public void test() {
-		Camera camera = new Camera(new Point3D(250, -50, 125), new Vector(-10, 2.2, -5.9),
-				new Vector(-10, 1.5, 103.3 / 5.9)) //
-						.setViewPlaneSize(1000, 1000).setViewPlaneDistance(1000);
+		Camera camera = new Camera(new Point3D(375, -75, 187.5), new Vector(-10, 2.2, -5),
+				new Vector(-10, 1.5, 103.3 / 5.0)) //
+						.setViewPlaneSize(1000, 1000).setViewPlaneDistance(1700);
 
 		Scene scene = new Scene("Test scene");
 		scene.setAmbientLight(new AmbientLight(new Color(64, 64, 64), 0.15));
