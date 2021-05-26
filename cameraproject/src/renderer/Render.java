@@ -1,5 +1,6 @@
 package renderer;
 
+import java.util.List;
 import java.util.MissingResourceException;
 
 import elements.Camera;
@@ -70,13 +71,18 @@ public class Render {
 			throw new MissingResourceException("RayTracerBase is missing", "Render", "RayTracerBase");
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
-		Color color;
-		Ray ray;
+		Color color = Color.BLACK;
+		//Ray ray;
 		for (int x = 0; x < nX; x++)
 			for (int y = 0; y < nY; y++) {
-				ray = camera.constructRayThroughPixel(nX, nY, x, y);
-				color = rayTracerBase.traceRay(ray);
-				imageWriter.writePixel(x, y, color);
+				//ray = camera.constructRayThroughPixel(nX, nY, x, y);
+				List<Ray> allRays = camera.constructRaysThroughPixel(nX, nY, x, y);
+				for (Ray ray : allRays) {
+					color = color.add(rayTracerBase.traceRay(ray));
+				}
+				double s = allRays.size();
+				imageWriter.writePixel(x, y, color.reduce(s));
+				color = Color.BLACK;
 			}
 	}
 
