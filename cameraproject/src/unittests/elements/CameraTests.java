@@ -70,7 +70,7 @@ public class CameraTests {
 		Scene scene = new Scene("Test scene");
 		Camera camera = new Camera(new Point3D(1100, 0, 0), new Vector(-1, 0, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(300, 300).setViewPlaneDistance(1000).setApertureRadius(4).setFocalPlaneDistance(600)
-				.setApertureScale(3);// .setPixelGridLength(4);
+				.setApertureScale(3).setPixelGridLength(4);
 
 		scene.geometries.add(new Sphere(new Point3D(-500, 0, 0), 60) //
 				.setEmission(new Color(java.awt.Color.RED)) //
