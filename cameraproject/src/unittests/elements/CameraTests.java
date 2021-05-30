@@ -2,6 +2,8 @@ package unittests.elements;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import elements.Camera;
@@ -61,7 +63,45 @@ public class CameraTests {
 				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 0, 1));
 
 	}
+	
+	@Test
+	public void testFocusRays() {
+		Camera camera = new Camera(new Point3D(0, 0, 1100), new Vector(0, 0, -1), new Vector(-1, 0, 0)) //
+				.setViewPlaneSize(1, 1).setViewPlaneDistance(1000).setApertureRadius(1).setFocalPlaneDistance(100).setApertureScale(2);
+		
+		List<Ray> rays = camera.focusRays(new Point3D(0, 0, 0));
+		List<Ray> expectedRays = List.of(
+				new Ray(new Point3D(2, 0, 1100), new Vector(new Point3D(-2, 0, -1100))),
+				new Ray(new Point3D(0, -2, 1100), new Vector(new Point3D(0, 2, -1100))),
+				new Ray(new Point3D(0, 2, 1100), new Vector(new Point3D(0, -2, -1100))),
+				new Ray(new Point3D(-2, 0, 1100), new Vector(new Point3D(2, 0, -1100))));
+		
+		assertEquals("-----------", 4,rays.size());
+		assertEquals("-----------", expectedRays.get(0),rays.get(0));
+		assertEquals("-----------", expectedRays.get(1),rays.get(1));
+		assertEquals("-----------", expectedRays.get(2),rays.get(2));
+		assertEquals("-----------", expectedRays.get(3),rays.get(3));
+	}
 
+	@Test
+	public void testPixelRays() {
+		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(-1, 0, 0)) //
+				.setViewPlaneSize(1, 1).setViewPlaneDistance(1000).setPixelGridLength(2);
+		
+		List<Ray> rays = camera.pixelRays(new Point3D(0, 0, 0));
+		List<Ray> expectedRays = List.of(
+				new Ray(new Point3D(0, 0, 1000), new Vector(new Point3D(0.25, -0.25, -1000))),
+				new Ray(new Point3D(0, 0, 1000), new Vector(new Point3D(0.25, 0.25, -1000))),
+				new Ray(new Point3D(0, 0, 1000), new Vector(new Point3D(-0.25, -0.25, -1000))),
+				new Ray(new Point3D(0, 0, 1000), new Vector(new Point3D(-0.25, 0.25, -1000))));
+		
+		assertEquals("-----------", 4,rays.size());
+		assertEquals("-----------", expectedRays.get(0),rays.get(0));
+		assertEquals("-----------", expectedRays.get(1),rays.get(1));
+		assertEquals("-----------", expectedRays.get(2),rays.get(2));
+		assertEquals("-----------", expectedRays.get(3),rays.get(3));
+	}
+	
 	/**
 	 * -----------------
 	 */
@@ -69,8 +109,8 @@ public class CameraTests {
 	public void testConstructRaysThroughPixel() {
 		Scene scene = new Scene("Test scene");
 		Camera camera = new Camera(new Point3D(1100, 0, 0), new Vector(-1, 0, 0), new Vector(0, 0, 1)) //
-				.setViewPlaneSize(300, 300).setViewPlaneDistance(1000).setApertureRadius(4).setFocalPlaneDistance(600)
-				.setApertureScale(3).setPixelGridLength(4);
+				.setViewPlaneSize(300, 300).setViewPlaneDistance(1000).setApertureRadius(6).setFocalPlaneDistance(600)
+				.setApertureScale(8);//.setPixelGridLength(4);
 
 		scene.geometries.add(new Sphere(new Point3D(-500, 0, 0), 60) //
 				.setEmission(new Color(java.awt.Color.RED)) //

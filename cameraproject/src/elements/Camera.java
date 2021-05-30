@@ -45,11 +45,11 @@ public class Camera {
 	private double distanceVP;
 
 	/**
-	 * ----------------
+	 * The radius of the aperture plane
 	 */
 	private double apertureRadius = 0;
 	/**
-	 * ----------------
+	 * The distance between two points on the aperture plane
 	 */
 	private double apertureScale = 1;
 
@@ -240,7 +240,7 @@ public class Camera {
 		return pixelRays(pIJ);
 	}
 
-	private List<Ray> pixelRays(Point3D pIJ) {
+	public List<Ray> pixelRays(Point3D pIJ) {
 		Vector vUpPixel = vUp.scale(1.0 / pixelGridLength);
 		Vector vRightPixel = vRight.scale(1.0 / pixelGridLength);
 
@@ -269,21 +269,22 @@ public class Camera {
 	 * @param intersectionPoint
 	 * @return
 	 */
-	private List<Ray> focusRays(Point3D pixelPoint) {
+	public List<Ray> focusRays(Point3D pixelPoint) {
 		Ray mainRay = new Ray(location, pixelPoint.subtract(location));
 		Point3D intersectionPoint = mainRay.getPoint(distanceVP + focalPlaneDistance);
-		double r = 2 * apertureRadius;
-		Vector startOfLine = vRight.scale(-r*apertureScale);
+		double diameter = 2 * apertureRadius;
+		Vector startOfLine = vRight.scale(-diameter*apertureScale-apertureScale);
 
 		Point3D downLeft = location.add(vUp.scale(-apertureRadius*apertureScale).add(vRight.scale(-apertureRadius*apertureScale)));
 
 		List<Ray> allRays = new LinkedList<Ray>();
 
 		double rr = apertureRadius * apertureRadius * apertureScale * apertureScale;
-		for (int y = 0; y < r; y++, downLeft = downLeft.add(vUp.scale(apertureScale))) {
-			for (int x = 0; x < r; x++, downLeft = downLeft.add(vRight.scale(apertureScale)))
+		
+		for (int y = 0; y <= diameter; y++, downLeft = downLeft.add(vUp.scale(apertureScale))) {
+			for (int x = 0; x <= diameter; x++, downLeft = downLeft.add(vRight.scale(apertureScale)))
 				if (alignZero(downLeft.distanceSquared(location) - rr) <= 0
-						|| !(x == apertureRadius && y == apertureRadius))
+						&& !(x == apertureRadius && y == apertureRadius))
 					allRays.add(new Ray(downLeft, intersectionPoint.subtract(downLeft)));
 			downLeft = downLeft.add(startOfLine);
 		}

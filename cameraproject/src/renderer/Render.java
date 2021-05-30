@@ -77,11 +77,9 @@ public class Render {
 			for (int y = 0; y < nY; y++) {
 				//ray = camera.constructRayThroughPixel(nX, nY, x, y);
 				List<Ray> allRays = camera.constructRaysThroughPixel(nX, nY, x, y);
-				for (Ray ray : allRays) {
+				for (Ray ray : allRays)
 					color = color.add(rayTracerBase.traceRay(ray));
-				}
-				double s = allRays.size();
-				imageWriter.writePixel(x, y, color.reduce(s));
+				imageWriter.writePixel(x, y, color.reduce(allRays.size()));
 				color = Color.BLACK;
 			}
 	}
