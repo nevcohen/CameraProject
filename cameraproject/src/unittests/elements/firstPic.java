@@ -26,7 +26,7 @@ public class firstPic {
 		Camera camera = new Camera(new Point3D(1000, -200, 500), new Vector(-925, 200, -470),
 				new Vector(-925, 200, 179125 / 94.0)) //
 						.setViewPlaneSize(200, 200).setViewPlaneDistance(900).setFocalPlaneDistance(156)
-						.setApertureRadius(2).setPixelGridLength(3);
+						.setApertureRadius(2).setPixelGridSize(3);
 
 		Scene scene = new Scene("Test scene");
 		scene.setAmbientLight(new AmbientLight(new Color(64, 64, 64), 0.15));
