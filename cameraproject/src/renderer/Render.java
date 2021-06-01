@@ -73,13 +73,25 @@ public class Render {
 		int nY = imageWriter.getNy();
 		
 		for (int x = 0; x < nX; x++)
-			for (int y = 0; y < nY; y++) {
-				Color color = Color.BLACK;
-				List<Ray> allRays = camera.constructRaysThroughPixel(nX, nY, x, y);
-				for (Ray ray : allRays)
-					color = color.add(rayTracerBase.traceRay(ray));
-				imageWriter.writePixel(x, y, color.reduce(allRays.size()));
-			}
+			for (int y = 0; y < nY; y++)
+				imageWriter.writePixel(x, y, calcPixelColor(x, y));
+	}
+
+	/**
+	 * Find the color of a particular pixel in the image
+	 * 
+	 * @param nX amount of pixels by Width
+	 * @param nY amount of pixels by height
+	 * @param x The pixel number on the X axis
+	 * @param y The pixel number on the Y axis
+	 * @return The color of the desired pixel
+	 */
+	private Color calcPixelColor(int x, int y) {
+		Color color = Color.BLACK;
+		List<Ray> allRays = camera.constructRaysThroughPixel(imageWriter.getNx(), imageWriter.getNy(), x, y);
+		for (Ray ray : allRays)
+			color = color.add(rayTracerBase.traceRay(ray));
+		return color.reduce(allRays.size());
 	}
 
 	/**
