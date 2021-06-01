@@ -248,8 +248,8 @@ public class Camera {
 	}
 
 	/**
-	 * Creates all of the rays going through a certain pixel, based on the
-	 * pixelGridSize.
+	 * Anti Aliasing - Creates all of the rays going through a certain pixel, based
+	 * on the pixelGridSize.
 	 * 
 	 * @param pIJ - The center of the pixel
 	 * @return A list of the rays going through the pixels
@@ -279,8 +279,8 @@ public class Camera {
 	}
 
 	/**
-	 * Creating all of the rays from the aperture for a part of the pixel, according
-	 * to pixelGridSize.
+	 * Depth of field - Creating all of the rays from the aperture for a part of the
+	 * pixel, according to pixelGridSize.
 	 * 
 	 * @param pixelPoint - A point that is part of a pixel, according to
 	 *                   pixelGridSize.
@@ -308,7 +308,8 @@ public class Camera {
 
 		for (int y = 0; y <= diameter; y++, downLeft = downLeft.add(vUp.scale(apertureScale))) {
 			for (int x = 0; x <= diameter; x++, downLeft = downLeft.add(vRight.scale(apertureScale)))
-				if (alignZero(downLeft.distanceSquared(location) - rr) <= 0 // if the base point is in the range of the updated aperture
+				if (alignZero(downLeft.distanceSquared(location) - rr) <= 0 // if the base point is in the range of the
+																			// updated aperture
 						&& !(x == apertureRadius && y == apertureRadius)) // excluding the main ray
 					allRays.add(new Ray(downLeft, intersectionPoint.subtract(downLeft)));
 			downLeft = downLeft.add(startOfLine);

@@ -71,16 +71,14 @@ public class Render {
 			throw new MissingResourceException("RayTracerBase is missing", "Render", "RayTracerBase");
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
-		Color color = Color.BLACK;
-		//Ray ray;
+		
 		for (int x = 0; x < nX; x++)
 			for (int y = 0; y < nY; y++) {
-				//ray = camera.constructRayThroughPixel(nX, nY, x, y);
+				Color color = Color.BLACK;
 				List<Ray> allRays = camera.constructRaysThroughPixel(nX, nY, x, y);
 				for (Ray ray : allRays)
 					color = color.add(rayTracerBase.traceRay(ray));
 				imageWriter.writePixel(x, y, color.reduce(allRays.size()));
-				color = Color.BLACK;
 			}
 	}
 
