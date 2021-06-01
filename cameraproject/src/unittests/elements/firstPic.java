@@ -25,8 +25,8 @@ public class firstPic {
 	public void test() {
 		Camera camera = new Camera(new Point3D(1000, -200, 500), new Vector(-925, 200, -470),
 				new Vector(-925, 200, 179125 / 94.0)) //
-						.setViewPlaneSize(200, 200).setViewPlaneDistance(900).setFocalPlaneDistance(156)
-						.setApertureRadius(2).setPixelGridSize(3);
+						.setViewPlaneSize(400, 400).setViewPlaneDistance(1100).setPixelGridSize(3);
+						// .setFocalPlaneDistance(156).setApertureRadius(2).setPixelGridSize(3);
 
 		Scene scene = new Scene("Test scene");
 		scene.setAmbientLight(new AmbientLight(new Color(64, 64, 64), 0.15));
@@ -35,10 +35,10 @@ public class firstPic {
 				// Floor and mirror
 				new Polygon(new Point3D(0, 100, 0), new Point3D(0, -100, 0), new Point3D(0, -100, 100),
 						new Point3D(0, 100, 100)).setEmission(new Color(0, 102, 102))
-								.setMaterial(new Material().setKd(0.2).setKs(0.5).setShininess(60)), // .setKr(0.7)
+								.setMaterial(new Material().setKd(0.2).setKs(0.5).setShininess(60).setKr(0.7)),
 				new Polygon(new Point3D(0, 100, 0), new Point3D(150, 100, 0), new Point3D(150, -100, 0),
 						new Point3D(0, -100, 0)).setEmission(new Color(0, 51, 51))
-								.setMaterial(new Material().setKd(0.3).setKs(0.5).setShininess(60)), // .setKr(0.1)
+								.setMaterial(new Material().setKd(0.3).setKs(0.5).setShininess(60).setKr(0.1)),
 
 				// Exterior walls of the box
 				new Polygon(new Point3D(50, -25, 0), new Point3D(50, 25, 0), new Point3D(50, 25, 25),
@@ -196,7 +196,7 @@ public class firstPic {
 		scene.lights.add(new SpotLight(new Color(250, 250, 500), new Point3D(75, 0, 65), new Vector(0, 0, -1)).setExp(2) //
 				.setKl(4E-5).setKq(2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("firstPic", 1000, 1000);
+		ImageWriter imageWriter = new ImageWriter("firstPicAA", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
