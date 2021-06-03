@@ -81,7 +81,7 @@ public class SuperSamplingTests {
 				setImageWriter(new ImageWriter("AntiAliasingOFF", 600, 600)) //
 				.setCamera(camera) //
 				.setRayTracer(new RayTracerBasic(scene));
-		render.renderImageMultiRays();
+		render.renderImage();
 		render.writeToImage();
 	}
 	
