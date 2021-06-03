@@ -63,18 +63,26 @@ public class Render {
 	 * A function used to take the image information, and render it into a picture.
 	 */
 	public void renderImage() {
-		if (imageWriter == null)
-			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
-		if (camera == null)
-			throw new MissingResourceException("Camera is missing", "Render", "Camera");
-		if (rayTracerBase == null)
-			throw new MissingResourceException("RayTracerBase is missing", "Render", "RayTracerBase");
+		integrityCheck();
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		
 		for (int x = 0; x < nX; x++)
 			for (int y = 0; y < nY; y++)
-				imageWriter.writePixel(x, y, calcPixelColor(x, y));
+				imageWriter.writePixel(x, y, rayTracerBase.traceRay(camera.constructRayThroughPixel(nX, nY, x, y)));
+	}
+	
+	/**
+	 * A function used to take the image information, and render it into a picture.
+	 */
+	public void renderImageMultiRays() {
+		integrityCheck();
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
+
+		for (int x = 0; x < nX; x++)
+			for (int y = 0; y < nY; y++)
+				imageWriter.writePixel(x, y, calcPixelColor(x, y, nX, nY));
 	}
 
 	/**
@@ -86,12 +94,15 @@ public class Render {
 	 * @param y The pixel number on the Y axis
 	 * @return The color of the desired pixel
 	 */
-	private Color calcPixelColor(int x, int y) {
+	private Color calcPixelColor(int x, int y, int nX, int nY) {
 		Color color = Color.BLACK;
-		List<Ray> allRays = camera.constructRaysThroughPixel(imageWriter.getNx(), imageWriter.getNy(), x, y);
+		List<Ray> allRays = camera.constructRaysThroughPixel(nX, nY, x, y);
+		int size = allRays.size();
+		if (size == 1)
+			return rayTracerBase.traceRay(allRays.get(0));
 		for (Ray ray : allRays)
 			color = color.add(rayTracerBase.traceRay(ray));
-		return color.reduce(allRays.size());
+		return color.reduce(size);
 	}
 
 	/**
@@ -101,10 +112,11 @@ public class Render {
 	 * @param color    – the color we want to print the grid in.
 	 */
 	public void printGrid(int interval, Color color) {
-		if (imageWriter == null)
-			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
-		for (int x = 0; x < imageWriter.getNx(); x++)
-			for (int y = 0; y < imageWriter.getNy(); y++) {
+		integrityCheck();
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
+		for (int x = 0; x < nX; x++)
+			for (int y = 0; y < nY; y++) {
 				if (y % interval == 0 || x % interval == 0)
 					imageWriter.writePixel(x, y, color);
 			}
@@ -114,9 +126,20 @@ public class Render {
 	 * A function that uses the imageWriter to generate the image
 	 */
 	public void writeToImage() {
+		integrityCheck();
+		imageWriter.writeToImage();
+	}
+	
+	/**
+	 * ----------------
+	 */
+	private void integrityCheck() {
 		if (imageWriter == null)
 			throw new MissingResourceException("ImageWriter is missing", "Render", "ImageWriter");
-		imageWriter.writeToImage();
+		if (camera == null)
+			throw new MissingResourceException("Camera is missing", "Render", "Camera");
+		if (rayTracerBase == null)
+			throw new MissingResourceException("RayTracerBase is missing", "Render", "RayTracerBase");
 	}
 
 }

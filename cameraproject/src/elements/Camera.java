@@ -49,20 +49,27 @@ public class Camera {
 	 */
 	private double apertureRadius = 0;
 	/**
-	 * The distance between two points on the aperture plane
+	 * -------------------- NxN
 	 */
-	private double apertureScale = 1;
-
+	private int apertureSize = 1;
 	/**
-	 * The distance between the view plane and the focal plane
+	 * -------------------
+	 */
+	private List<Point3D> aperturePoints;
+	/**
+	 * The distance between the camera and the focal plane
 	 */
 	private double focalPlaneDistance = 0;
 
 	/**
 	 * The size of the grid we will create to "split" every pixel into, to send rays
-	 * accordingly (X by X).
+	 * accordingly (N by N).
 	 */
 	private int pixelGridSize = 1;
+	/**
+	 * -------------------
+	 */
+	private List<Point3D> pixelPoints;
 
 	/**
 	 * A camera constructor, which gets location and two directions (and calculates
@@ -133,29 +140,20 @@ public class Camera {
 	}
 
 	/**
-	 * Defining the radius of the aperture (builder design template)
+	 * Defining the dimensions of the aperture (builder design template)
 	 * 
 	 * @param radius of the aperture (Greater or equal to zero)
+	 * @param n      - The updated size, N by N (Greater or equal to one)
 	 * @return the camera itself
 	 */
-	public Camera setApertureRadius(double radius) {
+	public Camera setAperture(double radius, int n) {
 		if (alignZero(radius) < 0)
 			throw new IllegalArgumentException("The radius of the aperture is invalid");
+		if (n < 1)
+			throw new IllegalArgumentException("The size of the aperture is invalid");
+		apertureSize = n;
 		apertureRadius = radius;
-		return this;
-	}
-
-	/**
-	 * Defining the distance between two points on the aperture plane (builder
-	 * design template).
-	 * 
-	 * @param t - The updated scaler (Greater or equal to one)
-	 * @return the camera itself
-	 */
-	public Camera setApertureScale(double t) {
-		if (t < 1)
-			throw new IllegalArgumentException("The scale of the aperture is invalid");
-		apertureScale = t;
+		aperturePoints = creatGrid(location, apertureRadius * 2, apertureSize, true);
 		return this;
 	}
 
@@ -173,9 +171,9 @@ public class Camera {
 	}
 
 	/**
-	 * Defines the distance between the view plane and the focal plane.
+	 * Defines the distance between the camera and the focal plane.
 	 * 
-	 * @param distance of the focal plane from the view plane (Greater than zero)
+	 * @param distance of the focal plane from the camera (Greater than zero)
 	 * @return the camera itself
 	 */
 	public Camera setFocalPlaneDistance(double distance) {
@@ -195,6 +193,7 @@ public class Camera {
 		if (alignZero(size) < 1)
 			throw new IllegalArgumentException("The size of the grid is invalid");
 		pixelGridSize = size;
+		pixelPoints = creatGrid(location, 1, size, false);
 		return this;
 	}
 
@@ -255,26 +254,15 @@ public class Camera {
 	 * @return A list of the rays going through the pixels
 	 */
 	public List<Ray> pixelRays(Point3D pIJ) {
-		Vector vUpPixel = vUp.scale(1.0 / pixelGridSize); // A vector to move the target of the ray up
-		Vector vRightPixel = vRight.scale(1.0 / pixelGridSize); // A vector to move the target of the ray to the right
-
-		Vector startOfLine = vRightPixel.scale(-pixelGridSize); // A vector to return us to the far left, after moving
-																// to the end of the line
-
-		Point3D downLeft = pIJ.add(vUpPixel.scale((1 - pixelGridSize) / 2.0) //
-				.add(vRightPixel.scale((1 - pixelGridSize) / 2.0))); // Start the target at the bottom left of the grid
-
+		Vector move = pIJ.subtract(location);
 		List<Ray> allRays = new LinkedList<Ray>();
 
-		for (int y = 0; y < pixelGridSize; y++, downLeft = downLeft.add(vUpPixel)) {
-			for (int x = 0; x < pixelGridSize; x++, downLeft = downLeft.add(vRightPixel)) {
-				if (apertureRadius == 0) // If there is only one ray from the camera
-					allRays.add(new Ray(location, downLeft.subtract(location)));
-				else
-					allRays.addAll(focusRays(downLeft));
-			}
-			downLeft = downLeft.add(startOfLine);
-		}
+		for (Point3D point : pixelPoints)
+			if (apertureRadius == 0) // If there is only one ray from the camera
+				allRays.add(new Ray(location, point.add(move).subtract(location)));
+			else
+				allRays.addAll(focusRays(point.add(move)));
+
 		return allRays;
 	}
 
@@ -289,33 +277,51 @@ public class Camera {
 	 */
 	public List<Ray> focusRays(Point3D pixelPoint) {
 		Ray mainRay = new Ray(location, pixelPoint.subtract(location)); // The ray to determine the center of the focus
-		Point3D intersectionPoint = mainRay.getPoint(distanceVP + focalPlaneDistance); // The center of the focus
-		double diameter = 2 * apertureRadius;
-		Vector startOfLine = vRight.scale(-diameter * apertureScale - apertureScale); // A vector to return us to the
-																						// far left, after moving to the
-																						// end of the line
-
-		Point3D downLeft = location.add(vUp.scale(-apertureRadius * apertureScale) //
-				.add(vRight.scale(-apertureRadius * apertureScale))); // Start the head at the bottom left of the
-																		// aperture
+		double dis = location.distance(pixelPoint); // The distance between the aperture and the point on the desired
+													// pixel
+		Point3D intersectionPoint = mainRay.getPoint(focalPlaneDistance * dis / distanceVP); // The center of the focus
 
 		List<Ray> allRays = new LinkedList<Ray>();
 
-		double rr = apertureRadius * apertureRadius * apertureScale * apertureScale; // The radius squared, to check
-																						// which points are in a
-																						// reasonable distance from the
-																						// center of aperture.
+		for (Point3D point : aperturePoints)
+			allRays.add(new Ray(point, intersectionPoint.subtract(point)));
 
-		for (int y = 0; y <= diameter; y++, downLeft = downLeft.add(vUp.scale(apertureScale))) {
-			for (int x = 0; x <= diameter; x++, downLeft = downLeft.add(vRight.scale(apertureScale)))
-				if (alignZero(downLeft.distanceSquared(location) - rr) <= 0 // if the base point is in the range of the
-																			// updated aperture
-						&& !(x == apertureRadius && y == apertureRadius)) // excluding the main ray
-					allRays.add(new Ray(downLeft, intersectionPoint.subtract(downLeft)));
+		return allRays;
+	}
+
+	/**
+	 * ------------------
+	 * 
+	 * @param center
+	 * @param length
+	 * @param n
+	 * @param isCircle
+	 * @return
+	 */
+	public List<Point3D> creatGrid(Point3D center, double length, int n, boolean isCircle) {
+		Vector vUpGrid = vUp.scale(length / n); // A vector to move the target of the ray up
+		Vector vRightGrid = vRight.scale(length / n); // A vector to move the target of the ray to the right
+
+		Vector startOfLine = vRightGrid.scale(-n); // A vector to return us to the far left, after moving
+													// to the end of the line
+
+		Point3D downLeft = center.add(vUpGrid.scale((1 - n) / 2.0) //
+				.add(vRightGrid.scale((1 - n) / 2.0))); // Start the target at the bottom left of the grid
+
+		List<Point3D> allPoints = new LinkedList<Point3D>();
+
+		double rr = length * length / 4.0; // The radius squared, to check which points are in a reasonable distance
+											// from the center
+		for (int y = 0; y < n; y++, downLeft = downLeft.add(vUpGrid)) {
+			for (int x = 0; x < n; x++, downLeft = downLeft.add(vRightGrid))
+				if (!isCircle || (!(downLeft.equals(center)) // excluding the main ray
+						&& alignZero(downLeft.distanceSquared(center) - rr) <= 0)) // if the base point is in the range
+																					// of the updated aperture
+					allPoints.add(downLeft);
 			downLeft = downLeft.add(startOfLine);
 		}
 
-		return allRays;
+		return allPoints;
 	}
 
 }
