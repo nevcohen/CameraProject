@@ -57,8 +57,11 @@ public class SuperSamplingTests {
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("DepthOfField2", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-		render.renderImageMultiRays();
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.setDebugPrint() //
+				.setAsMultyRays() //
+				.setMultithreading(3);
+		render.renderImage();
 		render.writeToImage();
 	}
 	
@@ -103,8 +106,11 @@ public class SuperSamplingTests {
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("AntiAliasingON", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-		render.renderImageMultiRays();
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.setDebugPrint() //
+				.setAsMultyRays() //
+				.setMultithreading(3);
+		render.renderImage();
 		render.writeToImage();
 	}
 	
@@ -148,8 +154,11 @@ public class SuperSamplingTests {
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("DOFandAA2", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-		render.renderImageMultiRays();
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.setAsMultyRays() //
+				.setDebugPrint() //
+				.setMultithreading(3);
+		render.renderImage();
 		render.writeToImage();
 	}
 }

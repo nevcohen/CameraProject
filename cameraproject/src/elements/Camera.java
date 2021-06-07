@@ -312,9 +312,11 @@ public class Camera {
 
 		double rr = length * length / 4.0; // The radius squared, to check which points are in a reasonable distance
 											// from the center
+
+		int vulCenter = n % 2 == 0 ? -1 : n / 2;
 		for (int y = 0; y < n; y++, downLeft = downLeft.add(vUpGrid)) {
 			for (int x = 0; x < n; x++, downLeft = downLeft.add(vRightGrid))
-				if (!isCircle || (!(downLeft.equals(center)) // excluding the main ray
+				if (!isCircle || (!(vulCenter == x && vulCenter == y) // excluding the main ray
 						&& alignZero(downLeft.distanceSquared(center) - rr) <= 0)) // if the base point is in the range
 																					// of the updated aperture
 					allPoints.add(downLeft);
