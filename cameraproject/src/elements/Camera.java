@@ -76,8 +76,8 @@ public class Camera {
 	 * the third direction), the constructor normalizes the direction vectors.
 	 * 
 	 * @param location of the camera in space
-	 * @param vUp      Vector upward of the camera
 	 * @param vTo      vector to the front of the camera
+	 * @param vUp      Vector upward of the camera 
 	 */
 	public Camera(Point3D location, Vector vTo, Vector vUp) {
 		if (!isZero(vUp.dotProduct(vTo)))

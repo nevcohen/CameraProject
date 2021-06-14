@@ -25,7 +25,7 @@ public class firstPic {
 	public void test() {
 		Camera camera = new Camera(new Point3D(1000, -200, 500), new Vector(-925, 200, -470),
 				new Vector(-925, 200, 179125 / 94.0)) //
-						.setViewPlaneSize(400, 400).setViewPlaneDistance(1100).setPixelGridSize(3);
+						.setViewPlaneSize(250, 250).setViewPlaneDistance(1100).setPixelGridSize(9);
 						// .setFocalPlaneDistance(156).setApertureRadius(2).setPixelGridSize(3);
 
 		Scene scene = new Scene("Test scene");
@@ -196,7 +196,7 @@ public class firstPic {
 		scene.lights.add(new SpotLight(new Color(250, 250, 500), new Point3D(75, 0, 65), new Vector(0, 0, -1)).setExp(2) //
 				.setKl(4E-5).setKq(2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("firstPicAA", 1000, 1000);
+		ImageWriter imageWriter = new ImageWriter("firstPicAA", 800, 800);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //

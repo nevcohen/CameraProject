@@ -30,7 +30,7 @@ public class Scene {
 	/**
 	 * All the geometric shapes that exist in the scene
 	 */
-	public Geometries geometries = new Geometries();;
+	public Geometries geometries = new Geometries();
 	/**
 	 * List of all of the different light sources that are in the area of the scene.
 	 */

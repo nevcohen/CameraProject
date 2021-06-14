@@ -59,6 +59,11 @@ public class Plane extends Geometry {
 	public Vector getNormal(Point3D point) {
 		return this.normal;
 	}
+	
+	@Override
+	public List<GeoPoint> getBoxMinMaxVertices() {
+		return List.of(new GeoPoint(this, q0));
+	}
 
 	/**
 	 * @return The plane as a Ax+By+Cz+D=0 format

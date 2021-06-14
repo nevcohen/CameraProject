@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.*;
+
 import static primitives.Util.*;
 
 import primitives.Vector;
@@ -48,6 +49,12 @@ public class Sphere extends Geometry {
 	@Override
 	public Vector getNormal(Point3D point) {
 		return point.subtract(this.center).normalize();
+	}
+
+	@Override
+	public List<GeoPoint> getBoxMinMaxVertices() {
+		return List.of(new GeoPoint(this, center.add(new Vector(-radius, -radius, -radius))),
+				new GeoPoint(this, center.add(new Vector(radius, radius, radius))));
 	}
 
 	/**

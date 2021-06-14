@@ -8,6 +8,7 @@ import java.util.List;
 
 import primitives.Ray;
 
+
 /**
 *
 */
@@ -51,6 +52,18 @@ public class Geometries implements Intersectable {
 		for (Intersectable current : geometries) {
 			allGeometries.add(current);
 		}
+	}
+
+	@Override
+	public List<GeoPoint> getBoxMinMaxVertices() {
+		if (allGeometries == null || allGeometries.size() == 0)
+			throw new IllegalArgumentException("The list of geometric shapes is empty");
+
+		List<GeoPoint> allVertices = new LinkedList<GeoPoint>();
+		for (Intersectable intersectable : allGeometries)
+			allVertices.addAll(intersectable.getBoxMinMaxVertices());
+
+		return allVertices;
 	}
 
 	@Override

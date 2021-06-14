@@ -11,6 +11,7 @@ import primitives.Material;
 import primitives.Point3D;
 import primitives.Vector;
 import renderer.ImageWriter;
+import renderer.RayTracer;
 import renderer.RayTracerBasic;
 import renderer.Render;
 import scene.Scene;
@@ -25,7 +26,7 @@ public class SuperSamplingTests {
 		Scene scene = new Scene("Test scene");
 		Camera camera = new Camera(new Point3D(1100, 0, 0), new Vector(-1, 0, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(300, 300).setViewPlaneDistance(1000) //
-				.setAperture(15,10).setFocalPlaneDistance(1600);
+				.setAperture(15, 10).setFocalPlaneDistance(1600);
 
 		scene.geometries.add(new Sphere(new Point3D(-500, 0, 0), 60) //
 				.setEmission(new Color(java.awt.Color.RED)) //
@@ -64,7 +65,7 @@ public class SuperSamplingTests {
 		render.renderImage();
 		render.writeToImage();
 	}
-	
+
 	/**
 	 * Test for Anti Aliasing (OFF)
 	 */
@@ -88,6 +89,26 @@ public class SuperSamplingTests {
 		render.writeToImage();
 	}
 	
+	@Test
+	public void tes3() {
+		Scene scene = new Scene("Test scene");
+		Camera camera = new Camera(new Point3D(1000, 0, 0), new Vector(-1, 0, 0), new Vector(0, 0, 1)) //
+				.setViewPlaneSize(20, 20).setViewPlaneDistance(1000);
+
+		scene.geometries.add(new Sphere(new Point3D(-10, 0, 0), 10) //
+				.setEmission(new Color(java.awt.Color.RED)) //
+				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)));
+
+		scene.lights.add(new DirectionalLight(new Color(400, 240, 0), new Vector(-1, 0, 0)));
+
+		Render render = new Render(). //
+				setImageWriter(new ImageWriter("xxx", 200, 200)) //
+				.setCamera(camera) //
+				.setRayTracer(new RayTracer(scene, 3));
+		render.renderImage();
+		render.writeToImage();
+	}
+
 	/**
 	 * Test for Anti Aliasing (ON)
 	 */
@@ -113,7 +134,7 @@ public class SuperSamplingTests {
 		render.renderImage();
 		render.writeToImage();
 	}
-	
+
 	/**
 	 * Test for Depth of Field with Anti Aliasing
 	 */
@@ -122,7 +143,7 @@ public class SuperSamplingTests {
 		Scene scene = new Scene("Test scene");
 		Camera camera = new Camera(new Point3D(1100, 0, 0), new Vector(-1, 0, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(300, 300).setViewPlaneDistance(1000).setPixelGridSize(7) //
-				.setAperture(6,8).setFocalPlaneDistance(1600);
+				.setAperture(6, 8).setFocalPlaneDistance(1600);
 
 		scene.geometries.add(new Sphere(new Point3D(-500, 0, 0), 60) //
 				.setEmission(new Color(java.awt.Color.RED)) //
@@ -154,7 +175,7 @@ public class SuperSamplingTests {
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("DOFandAA2", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene)) //
+				.setRayTracer(new RayTracer(scene, 10)) //
 				.setAsMultyRays() //
 				.setDebugPrint() //
 				.setMultithreading(3);

@@ -51,6 +51,11 @@ public class Tube extends Geometry {
 												// point
 		return point.subtract(o).normalize();
 	}
+	
+	@Override
+	public List<GeoPoint> getBoxMinMaxVertices() {
+		return null;
+	}
 
 	/**
 	 * @return The ray and radius of the tube in the classic tostring format.

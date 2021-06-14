@@ -210,7 +210,7 @@ public class Render {
 		this.tracer = tracer;
 		return this;
 	}
-	
+
 	/**
 	 * ---------------
 	 * 
@@ -240,7 +240,7 @@ public class Render {
 	 * @param row pixel's row number (pixel index in column)
 	 */
 	private void castRay(int nX, int nY, int col, int row) {
-		if(!multyRays) {
+		if (!multyRays) {
 			Ray ray = camera.constructRayThroughPixel(nX, nY, col, row);
 			imageWriter.writePixel(col, row, tracer.traceRay(ray));
 			return;
@@ -309,8 +309,11 @@ public class Render {
 		final int nY = imageWriter.getNy();
 		if (threadsCount == 0)
 			for (int i = 0; i < nY; ++i)
-				for (int j = 0; j < nX; ++j)
+				for (int j = 0; j < nX; ++j) {
+					if (i == 2 && j == nX / 2)
+						i++;
 					castRay(nX, nY, j, i);
+				}
 		else
 			renderImageThreaded();
 	}

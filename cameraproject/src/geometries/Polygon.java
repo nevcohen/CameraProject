@@ -87,6 +87,25 @@ public class Polygon extends Geometry {
 	public Vector getNormal(Point3D point) {
 		return plane.getNormal();
 	}
+	
+	@Override
+	public List<GeoPoint> getBoxMinMaxVertices() {
+		double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY, minZ = Double.POSITIVE_INFINITY;
+		double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY, maxZ = Double.NEGATIVE_INFINITY;
+		
+		for (Point3D point : vertices) {
+			double x = point.getValueOfX(), y = point.getValueOfY(), z = point.getValueOfZ();
+			if (x < minX) minX = x;
+			if (y < minY) minY = y;
+			if (z < minZ) minZ = z;
+			if (x > maxX) maxX = x;
+			if (y > maxY) maxY = y;
+			if (z > maxZ) maxZ = z;
+		}
+
+		return List.of(new GeoPoint(this, new Point3D(minX, minY, minZ)),
+				new GeoPoint(this, new Point3D(maxX, maxY, maxZ)));
+	}
 
 	@Override
 	public String toString() {
