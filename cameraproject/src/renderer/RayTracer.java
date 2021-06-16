@@ -16,7 +16,8 @@ import scene.Scene;
 public class RayTracer extends RayTracerBasic {
 
 	/**
-	 * -------------
+	 * A seperation of the scene, rubix-cube style. the scene is divided into voxels with geometries
+	 * to save time.
 	 */
 	private VoxelsGrid voxelsGrid;
 
@@ -36,10 +37,11 @@ public class RayTracer extends RayTracerBasic {
 	private static final double INITIAL_K = 1.0;
 
 	/**
-	 * --------------
+	 * A function that extends the basic constructor to allow a voxel size, which will allow us to start the building
+	 * of a rubix cube, as requested.
 	 * 
-	 * @param scene
-	 * @param voxelSize
+	 * @param scene - The scene we are working on. with all of its' details.
+	 * @param voxelSize - The designated size of each voxel. i.e if voxel size is 1, each voxel would be 1x1x1 in size, as they are all cubes.
 	 */
 	public RayTracer(Scene scene, double voxelSize) {
 		super(scene);

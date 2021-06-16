@@ -87,7 +87,11 @@ public class Polygon extends Geometry {
 	public Vector getNormal(Point3D point) {
 		return plane.getNormal();
 	}
-	
+	/**
+	 * getBoxMinMaxVertices takes the coordinates in the polygon, and extracts the data to create a cube
+	 * around the polygon.
+	 */
+
 	@Override
 	public List<GeoPoint> getBoxMinMaxVertices() {
 		double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY, minZ = Double.POSITIVE_INFINITY;
