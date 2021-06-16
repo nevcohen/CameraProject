@@ -9,31 +9,33 @@ import geometries.Plane;
 import geometries.Sphere;
 import primitives.Point3D;
 import primitives.Ray;
+
 /**
  * 
  * @author Eli and nevo
  *
- *The Voxel grid functions like a rubix cube:
- *the scene is built into cubes, called voxels, and the idea is to check what geometries are inside each voxel
- *instead of searching for each geometry in the scene.
+ *         The Voxel grid functions like a rubix cube: the scene is built into
+ *         cubes, called voxels, and the idea is to check what geometries are
+ *         inside each voxel instead of searching for each geometry in the
+ *         scene.
  *
  */
 public class VoxelsGrid {
-/**
- * 
- * @author Eli and nevo
- * 
- * The voxel rays are designed to traverse through the voxels.
- */
+	/**
+	 * 
+	 * @author Eli and nevo
+	 * 
+	 *         The voxel rays are designed to traverse through the voxels.
+	 */
 	public class RayVoxels {
 		/**
 		 * The ray reaching the scene
 		 */
 		public Ray mainRay;
 		/**
-		 * x - The x coordinate of the point that the ray hit the voxelGrid.
-		 * y - The y coordinate of the point that the ray hit the voxelGrid.
-		 * z -The z coordinate of the point that the ray hit the voxelGrid.
+		 * x - The x coordinate of the point that the ray hit the voxelGrid. y - The y
+		 * coordinate of the point that the ray hit the voxelGrid. z -The z coordinate
+		 * of the point that the ray hit the voxelGrid.
 		 */
 		private int x, y, z;
 		/**
@@ -41,28 +43,30 @@ public class VoxelsGrid {
 		 */
 		public Geometries voxelGeometries;
 		/**
-		 * stepX - How much we progress on the X axis
-		 * stepY - How much we progress on the Y axis
-		 * stepZ - How much we progress on the Z axis
+		 * stepX - How much we progress on the X axis stepY - How much we progress on
+		 * the Y axis stepZ - How much we progress on the Z axis
 		 */
 		private int stepX = 1, stepY = 1, stepZ = 1;
 		/**
-		 * tMaxX - How much we progress on the X axis - inside the grid itself.
-		 * tMaxY - How much we progress on the Y axis - inside the grid itself.
-		 * tMaxZ - How much we progress on the Z axis - inside the grid itself.
+		 * tMaxX - How much we progress on the X axis - inside the grid itself. tMaxY -
+		 * How much we progress on the Y axis - inside the grid itself. tMaxZ - How much
+		 * we progress on the Z axis - inside the grid itself.
 		 */
 		private double tMaxX = Double.POSITIVE_INFINITY, tMaxY = Double.POSITIVE_INFINITY,
 				tMaxZ = Double.POSITIVE_INFINITY;
 		/**
-		 * tDeltaX - How much we progress on the X axis - as the ray. t is the t(x,y,z) of the ray
-		 * tDeltaY - How much we progress on the Y axis - as the ray. t is the t(x,y,z) of the ray
-		 * tDeltaZ - How much we progress on the Z axis - as the ray. t is the t(x,y,z) of the ray
+		 * tDeltaX - How much we progress on the X axis - as the ray. t is the t(x,y,z)
+		 * of the ray tDeltaY - How much we progress on the Y axis - as the ray. t is
+		 * the t(x,y,z) of the ray tDeltaZ - How much we progress on the Z axis - as the
+		 * ray. t is the t(x,y,z) of the ray
 		 */
 		private double tDeltaX = Double.POSITIVE_INFINITY, tDeltaY = Double.POSITIVE_INFINITY,
 				tDeltaZ = Double.POSITIVE_INFINITY;
+
 		/**
 		 * Calculating the voxels based on the ray
-		 * @param ray - the Basic ray 
+		 * 
+		 * @param ray - the Basic ray
 		 */
 		public RayVoxels(Ray ray) {
 			mainRay = ray;
@@ -76,8 +80,10 @@ public class VoxelsGrid {
 			} else
 				mainRay = null;
 		}
+
 		/**
 		 * A function to check if a point is in a given voxel.
+		 * 
 		 * @param point - the current point we are checking
 		 * @return true if the point is in the voxel, false otherwise
 		 */
@@ -85,36 +91,37 @@ public class VoxelsGrid {
 			double dX = (point.getValueOfX() - minX) / voxelSize;
 			double dY = (point.getValueOfY() - minY) / voxelSize;
 			double dZ = (point.getValueOfZ() - minZ) / voxelSize;
-			return alignZero(dX + DELTA - x) >= 0 && alignZero(1 + x + DELTA - dX) >= 0 && alignZero(dY + DELTA - y) >= 0
-					&& alignZero(1 + y + DELTA - dY) >= 0 && alignZero(dZ + DELTA - z) >= 0 && alignZero(1 + z + DELTA - dZ) >= 0;
+			return alignZero(dX + DELTA - x) >= 0 && alignZero(1 + x + DELTA - dX) >= 0
+					&& alignZero(dY + DELTA - y) >= 0 && alignZero(1 + y + DELTA - dY) >= 0
+					&& alignZero(dZ + DELTA - z) >= 0 && alignZero(1 + z + DELTA - dZ) >= 0;
 		}
+
 		/**
-		 * Find the GeoIntersections of our rubix cube. 
+		 * Find the GeoIntersections of our rubix cube.
+		 * 
 		 * @return ----------
 		 */
 		public GeoPoint findGeoIntersections() {
 			if (voxelGeometries == null)
 				return null;
 			List<GeoPoint> intersections = voxelGeometries.findGeoIntersections(mainRay);
-			if (infiniteGeometries != null) {
-				if (intersections != null)
-					intersections.addAll(infiniteGeometries.findGeoIntersections(mainRay));
-				else
-					intersections = infiniteGeometries.findGeoIntersections(mainRay);
-			}
 			GeoPoint firstIntersections = intersections == null ? null : mainRay.findClosestGeoPoint(intersections);
 			if (firstIntersections != null && isInCurrentVoxel(firstIntersections.point))
 				return firstIntersections;
 			return null;
 		}
-		/** 
-		 * This program is super important. We find the details of the voxel, i.e where it hits,
-		 * and how we ought to traverse the rubix cube.
+
+		/**
+		 * This program is super important. We find the details of the voxel, i.e where
+		 * it hits, and how we ought to traverse the rubix cube.
 		 * 
-		 * So, aside from returning we initialize the 'max' and 'delta' fields, as written above
+		 * So, aside from returning we initialize the 'max' and 'delta' fields, as
+		 * written above
+		 * 
 		 * @return the point the ray hits the rubix cube
 		 */
 		private Point3D firstVoxel() {
+
 			Point3D head = mainRay.getP0();
 			double x = head.getValueOfX();
 			double y = head.getValueOfY();
@@ -126,43 +133,53 @@ public class VoxelsGrid {
 			double zV = vHead.getValueOfZ();
 
 			// minX <= x+t*xV <= maxX
-			double ftMinX = xV == 0 ? Double.NEGATIVE_INFINITY : (xV > 0 ? (minX - x) / xV : (maxX - x) / xV);
-			double ftMaxX = xV == 0 ? Double.POSITIVE_INFINITY : (xV > 0 ? (maxX - x) / xV : (minX - x) / xV);
 
-			double ftMinY = yV == 0 ? Double.NEGATIVE_INFINITY : (yV > 0 ? (minY - y) / yV : (maxY - y) / yV);
-			double ftMaxY = yV == 0 ? Double.POSITIVE_INFINITY : (yV > 0 ? (maxY - y) / yV : (minY - y) / yV);
+			double tXmin = (minX - x) / xV;
+			double tXmax = (maxX - x) / xV;
 
-			double ftMinZ = zV == 0 ? Double.NEGATIVE_INFINITY : (zV > 0 ? (minZ - z) / zV : (maxZ - z) / zV);
-			double ftMaxZ = zV == 0 ? Double.POSITIVE_INFINITY : (zV > 0 ? (maxZ - z) / zV : (minZ - z) / zV);
-
-			double minT, maxT;
-			if (ftMinX > ftMinZ) {
-				if (ftMinX > ftMinY)
-					minT = ftMinX;
-				else
-					minT = ftMinY;
-			} else {
-				if (ftMinZ > ftMinY)
-					minT = ftMinZ;
-				else
-					minT = ftMinY;
-			}
-			if (ftMaxX < ftMaxZ) {
-				if (ftMaxX < ftMaxY)
-					maxT = ftMaxX;
-				else
-					maxT = ftMaxY;
-			} else {
-				if (ftMaxZ < ftMaxY)
-					maxT = ftMaxZ;
-				else
-					maxT = ftMaxY;
+			double temp;
+			if (tXmin > tXmax) {
+				temp = tXmin;
+				tXmin = tXmax;
+				tXmax = temp;
 			}
 
-			if (maxT <= minT)
+			double tYmin = (minY - y) / yV;
+			double tYmax = (maxY - y) / yV;
+
+			if (tYmin > tYmax) {
+				temp = tYmin;
+				tYmin = tYmax;
+				tYmax = temp;
+			}
+
+			if ((tXmin > tYmax) || (tYmin > tXmax))
 				return null;
 
-			head = mainRay.getPoint(minT < 0 ? 0 : minT);
+			if (tYmin > tXmin)
+				tXmin = tYmin;
+
+			if (tYmax < tXmax)
+				tXmax = tYmax;
+
+			double tZmin = (minZ - z) / zV;
+			double tZmax = (maxZ - z) / zV;
+
+			if (tZmin > tZmax) {
+				temp = tZmin;
+				tZmin = tZmax;
+				tZmax = temp;
+			}
+			if ((tXmin > tZmax) || (tZmin > tXmax))
+				return null;
+
+			if (tZmin > tXmin)
+				tXmin = tZmin;
+
+			if (tZmax < tXmax)
+				tXmax = tZmax;
+
+			head = mainRay.getPoint(tXmin < 0 ? 0 : tXmin);
 			x = head.getValueOfX();
 			y = head.getValueOfY();
 			z = head.getValueOfZ();
@@ -198,9 +215,11 @@ public class VoxelsGrid {
 			return head;
 
 		}
+
 		/**
-		 * A function to check when we leave the grid, i.e is there another voxel the ray hits that needs
-		 * examining.
+		 * A function to check when we leave the grid, i.e is there another voxel the
+		 * ray hits that needs examining.
+		 * 
 		 * @return True if there is another voxel to check, False otherwise.
 		 */
 		public boolean nextVoxel() {
@@ -237,21 +256,26 @@ public class VoxelsGrid {
 			return true;
 		}
 	}
+
 	/**
-	 * As we discussed, the grid of voxels resembles a rubix cube. 
-	 * The information on each cube is held in a 3 dimentional array, holding the indexes of each voxel.
+	 * As we discussed, the grid of voxels resembles a rubix cube. The information
+	 * on each cube is held in a 3 dimentional array, holding the indexes of each
+	 * voxel.
 	 */
 	private Geometries[][][] allVoxels;
 	/**
-	 * A seperate calculation is needed for any geometries that can't fit into voxels, a.k.a infinite geometries.
+	 * A seperate calculation is needed for any geometries that can't fit into
+	 * voxels, a.k.a infinite geometries.
 	 */
-	private Geometries infiniteGeometries;
+	public Geometries infiniteGeometries;
 	/**
-	 * The size of each voxel. i.e if voxel size is 1, each voxel would be 1x1x1 in size, as they are all cubes.
+	 * The size of each voxel. i.e if voxel size is 1, each voxel would be 1x1x1 in
+	 * size, as they are all cubes.
 	 */
 	private double voxelSize;
 	/**
-	 * parameters to check the size of the rubix cube. we get the max and min of each coordinate.
+	 * parameters to check the size of the rubix cube. we get the max and min of
+	 * each coordinate.
 	 */
 	private double minX, minY, minZ, maxX, maxY, maxZ;
 	/**
@@ -267,26 +291,51 @@ public class VoxelsGrid {
 	 */
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
 	/**
-	 * The margain of error for a few calculations. 
+	 * The margain of error for a few calculations.
 	 */
-	private static final double DELTA = 0.1;
+	private static final double DELTA = 2;
+
 	/**
-	 * A constructor that gets the geometries and the designated size of each voxel. And builds the rubix cube!
+	 * A constructor that gets the geometries and the designated size of each voxel.
+	 * And builds the rubix cube!
+	 * 
 	 * @param sceneGeometries - All of the geometries in the given scene
-	 * @param voxelSize - The designated size of each voxel. i.e if voxel size is 1, each voxel would be 1x1x1 in size, as they are all cubes.
+	 * @param voxelSize       - The designated size of each voxel. i.e if voxel size
+	 *                        is 1, each voxel would be 1x1x1 in size, as they are
+	 *                        all cubes.
 	 */
 	public VoxelsGrid(Geometries sceneGeometries, double voxelSize) {
 		this.voxelSize = voxelSize;
+		if (voxelSize <= 0)
+			throw new IllegalArgumentException("Voxel size must be more then 0");
 		allVoxels = setGeometriesInVoxel(sceneGeometries);
 	}
+
 	/**
 	 * A function to place the geometries inside the voxels.
+	 * 
 	 * @param sceneGeometries - All of the geometries in the given scene
-	 * @return The three dimentional array with each voxel, and what geometries are hidden inside it.
+	 * @return The three dimentional array with each voxel, and what geometries are
+	 *         hidden inside it.
 	 */
 	private Geometries[][][] setGeometriesInVoxel(Geometries sceneGeometries) {
 		List<GeoPoint> sceneMinMax = sceneGeometries.getBoxMinMaxVertices();
-		int sceneAllBoxLen = sceneMinMax.size();
+
+		int sceneAllBoxLen = sceneMinMax != null ? sceneMinMax.size() : 0;
+		for (int i = 0; i < sceneAllBoxLen; i += 1) {
+			Geometry current = sceneMinMax.get(i).geometry;
+			if (current instanceof Plane) {
+				if (infiniteGeometries == null)
+					infiniteGeometries = new Geometries();
+				infiniteGeometries.add(current);
+				sceneMinMax.remove(i);
+				sceneAllBoxLen--;
+				i--;
+			}
+		}
+
+		if (sceneAllBoxLen == 0)
+			return null;
 
 		setGridSize(voxelSize, sceneMinMax, sceneAllBoxLen);
 
@@ -294,49 +343,43 @@ public class VoxelsGrid {
 
 		for (int i = 0; i < sceneAllBoxLen; i += 2) {
 			Geometry current = sceneMinMax.get(i).geometry;
+			Point3D min = sceneMinMax.get(i).point;
+			Point3D max = sceneMinMax.get(i + 1).point;
 
-			if (current instanceof Plane) {
-				if (infiniteGeometries == null)
-					infiniteGeometries = new Geometries();
-				infiniteGeometries.add(current);
-				i -= 1;
-			} else {
-				Point3D min = sceneMinMax.get(i).point;
-				Point3D max = sceneMinMax.get(i + 1).point;
+			int xMinI = (int) ((min.getValueOfX() - minX) / voxelSize),
+					yMinI = (int) ((min.getValueOfY() - minY) / voxelSize),
+					zMinI = (int) ((min.getValueOfZ() - minZ) / voxelSize);
+			int xMaxI = (int) ((max.getValueOfX() - minX) / voxelSize),
+					yMaxI = (int) ((max.getValueOfY() - minY) / voxelSize),
+					zMaxI = (int) ((max.getValueOfZ() - minZ) / voxelSize);
 
-				int xMinI = (int) ((min.getValueOfX() - minX) / voxelSize),
-						yMinI = (int) ((min.getValueOfY() - minY) / voxelSize),
-						zMinI = (int) ((min.getValueOfZ() - minZ) / voxelSize);
-				int xMaxI = (int) ((max.getValueOfX() - minX) / voxelSize),
-						yMaxI = (int) ((max.getValueOfY() - minY) / voxelSize),
-						zMaxI = (int) ((max.getValueOfZ() - minZ) / voxelSize);
-
-				double d; // 2*d = 2r - The size of the cube inside the sphere = 2r - r*root(2) =(about)
-							// 0.6r
-				int range = 0;
-				boolean isSphere = false;
-				if (current instanceof Sphere) {
-					d = ((Sphere) current).getRadius() * DISTANCE_K;
-					range = (int) (d / voxelSize) + 1;
-					isSphere = true;
-				}
-				for (int iZ = zMinI; iZ <= zMaxI; iZ++)
-					for (int iY = yMinI; iY <= yMaxI; iY++)
-						for (int iX = xMinI; iX <= xMaxI; iX++) {
-							if (!isSphere || ((iX - xMinI <= range) || (iY - yMinI <= range) || (iZ - zMinI <= range)
-									|| (xMaxI - iX <= range) || (yMaxI - iY <= range) || (zMaxI - iZ <= range))) {
-								if (voxelList[iZ][iY][iX] == null)
-									voxelList[iZ][iY][iX] = new Geometries(current);
-								else
-									voxelList[iZ][iY][iX].add(current);
-							}
-						}
+			double d; // 2*d = 2r - The size of the cube inside the sphere = 2r - r*root(2) =(about)
+						// 0.6r
+			int range = 0;
+			boolean isSphere = false;
+			if (current instanceof Sphere) {
+				d = ((Sphere) current).getRadius() * DISTANCE_K;
+				range = (int) (d / voxelSize) + 1;
+				isSphere = true;
 			}
+			for (int iZ = zMinI; iZ <= zMaxI; iZ++)
+				for (int iY = yMinI; iY <= yMaxI; iY++)
+					for (int iX = xMinI; iX <= xMaxI; iX++) {
+						if (!isSphere || ((iX - xMinI <= range) || (iY - yMinI <= range) || (iZ - zMinI <= range)
+								|| (xMaxI - iX <= range) || (yMaxI - iY <= range) || (zMaxI - iZ <= range))) {
+							if (voxelList[iZ][iY][iX] == null)
+								voxelList[iZ][iY][iX] = new Geometries(current);
+							else
+								voxelList[iZ][iY][iX].add(current);
+						}
+					}
 		}
 		return voxelList;
 	}
+
 	/**
 	 * A function that gets a point and returns a list of -----
+	 * 
 	 * @param point - the point we will search from
 	 * @return A list with ----
 	 */
@@ -347,12 +390,18 @@ public class VoxelsGrid {
 
 		return List.of((x == justOutX ? x - 1 : x), (y == justOutY ? y - 1 : y), (z == justOutZ ? z - 1 : z));
 	}
-/**
- * A function that sets the grid and determines it. Most of the calculations, the idea is to expand the grid to fit the voxel size.
- * @param voxelSize - The designated size of each voxel. i.e if voxel size is 1, each voxel would be 1x1x1 in size, as they are all cubes.
- * @param sceneMinMax - A list holding the minimum and max points, of each box. ----
- * @param sceneAllBoxLen - ----
- */
+
+	/**
+	 * A function that sets the grid and determines it. Most of the calculations,
+	 * the idea is to expand the grid to fit the voxel size.
+	 * 
+	 * @param voxelSize      - The designated size of each voxel. i.e if voxel size
+	 *                       is 1, each voxel would be 1x1x1 in size, as they are
+	 *                       all cubes.
+	 * @param sceneMinMax    - A list holding the minimum and max points, of each
+	 *                       box. ----
+	 * @param sceneAllBoxLen - ----
+	 */
 	private void setGridSize(double voxelSize, List<GeoPoint> sceneMinMax, int sceneAllBoxLen) {
 		minX = Double.POSITIVE_INFINITY;
 		minY = Double.POSITIVE_INFINITY;

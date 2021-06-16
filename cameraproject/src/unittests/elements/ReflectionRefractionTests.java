@@ -74,11 +74,11 @@ public class ReflectionRefractionTests {
 		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
 				.setKl(0.00001).setKq(0.000005));
 
-		ImageWriter imageWriter = new ImageWriter("reflectionTwoSpheresMirrored2", 500, 500);
+		ImageWriter imageWriter = new ImageWriter("reflectionTwoSpheresMirrored", 500, 500);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracer(scene, 500));
+				.setRayTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.writeToImage();

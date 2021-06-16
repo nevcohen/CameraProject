@@ -2,6 +2,8 @@ package renderer;
 
 import static primitives.Util.alignZero;
 
+import java.util.List;
+
 import elements.LightSource;
 import geometries.Geometry;
 import geometries.Intersectable.GeoPoint;
@@ -16,8 +18,8 @@ import scene.Scene;
 public class RayTracer extends RayTracerBasic {
 
 	/**
-	 * A seperation of the scene, rubix-cube style. the scene is divided into voxels with geometries
-	 * to save time.
+	 * A seperation of the scene, rubix-cube style. the scene is divided into voxels
+	 * with geometries to save time.
 	 */
 	private VoxelsGrid voxelsGrid;
 
@@ -37,15 +39,16 @@ public class RayTracer extends RayTracerBasic {
 	private static final double INITIAL_K = 1.0;
 
 	/**
-	 * A function that extends the basic constructor to allow a voxel size, which will allow us to start the building
-	 * of a rubix cube, as requested.
+	 * A function that extends the basic constructor to allow a voxel size, which
+	 * will allow us to start the building of a rubix cube, as requested.
 	 * 
-	 * @param scene - The scene we are working on. with all of its' details.
-	 * @param voxelSize - The designated size of each voxel. i.e if voxel size is 1, each voxel would be 1x1x1 in size, as they are all cubes.
+	 * @param scene     - The scene we are working on. with all of its' details.
+	 * @param voxelSize - The designated size of each voxel. i.e if voxel size is 1,
+	 *                  each voxel would be 1x1x1 in size, as they are all cubes.
 	 */
 	public RayTracer(Scene scene, double voxelSize) {
 		super(scene);
-		if(voxelSize <= 0)
+		if (voxelSize <= 0)
 			throw new IllegalArgumentException("Voxel size must be more then 0");
 		voxelsGrid = new VoxelsGrid(scene.geometries, voxelSize);
 	}
@@ -216,7 +219,7 @@ public class RayTracer extends RayTracerBasic {
 			}
 			firstGP = findClosestIntersection(new Ray(firstGP.point, lightDirection, lightDirection));
 		} while (firstGP != null);
-		
+
 		return ktr;
 	}
 
@@ -257,16 +260,21 @@ public class RayTracer extends RayTracerBasic {
 	 * @return The closest GeoPoint in the rays path.
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
+		GeoPoint closestInf = voxelsGrid.infiniteGeometries == null ? null
+				: ray.findClosestGeoPoint(voxelsGrid.infiniteGeometries.findGeoIntersections(ray));
 		RayVoxels current = voxelsGrid.new RayVoxels(ray);
 		if (current.mainRay == null)
-			return null;
+			return closestInf;
 
 		do {
 			GeoPoint gp = current.findGeoIntersections();
-			if (gp != null)
+			if (gp != null) {
+				if (closestInf != null)
+					return ray.findClosestGeoPoint(List.of(gp, closestInf));
 				return gp;
+			}
 		} while (current.nextVoxel());
 
-		return null;
+		return closestInf;
 	}
 }
