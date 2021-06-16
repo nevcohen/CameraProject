@@ -95,19 +95,23 @@ public class SuperSamplingTests {
 		Camera camera = new Camera(new Point3D(1000, 0, 0), new Vector(-1, 0, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(20, 20).setViewPlaneDistance(1000);
 
-		scene.geometries.add(new Sphere(new Point3D(-10, 0, 0), 10) //
-				.setEmission(new Color(java.awt.Color.RED)) //
-				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)));
-		//scene.geometries.add(new Triangle(new Point3D(-2, 5, 5), new Point3D(-12, 0, -10), new Point3D(-2, -5, 5)) //
+		//scene.geometries.add(new Sphere(new Point3D(-10, 0, 0), 20) //
 		//		.setEmission(new Color(java.awt.Color.RED)) //
 		//		.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)));
+		scene.geometries.add(new Triangle(new Point3D(-20, -4, 2), new Point3D(0, 0, -2), new Point3D(-20, 4, 2)) //
+				.setEmission(new Color(java.awt.Color.RED)) //
+				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30).setKr(0.8)));
+		scene.geometries.add(new Triangle(new Point3D(-15, 1, 1), new Point3D(-15, 0, 2), new Point3D(-15, -1, 1)) //
+				.setEmission(new Color(java.awt.Color.BLUE)) //
+				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)));
+		
 
-		scene.lights.add(new DirectionalLight(new Color(400, 240, 0), new Vector(-1, 0, 0)));
+		scene.lights.add(new DirectionalLight(new Color(400, 240, 0), new Vector(-1, 1, 0)));
 
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("xxx", 200, 200)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracer(scene, 5));
+				.setRayTracer(new RayTracer(scene, 4));
 		render.renderImage();
 		render.writeToImage();
 	}

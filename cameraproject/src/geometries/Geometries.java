@@ -69,7 +69,7 @@ public class Geometries implements Intersectable {
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 
-		if (allGeometries.isEmpty())
+		if (allGeometries == null)
 			return null;
 		List<GeoPoint> allIntersectables = null;
 		for (Intersectable current : allGeometries) {

@@ -17,7 +17,8 @@ public class VoxelsGrid {
 		private int x, y, z;
 		public Geometries voxelGeometries;
 		private int stepX = 1, stepY = 1, stepZ = 1;
-		private double tMaxX = 0, tMaxY = 0, tMaxZ = 0;
+		private double tMaxX = Double.POSITIVE_INFINITY, tMaxY = Double.POSITIVE_INFINITY,
+				tMaxZ = Double.POSITIVE_INFINITY;
 		private double tDeltaX = Double.POSITIVE_INFINITY, tDeltaY = Double.POSITIVE_INFINITY,
 				tDeltaZ = Double.POSITIVE_INFINITY;
 
@@ -35,14 +36,11 @@ public class VoxelsGrid {
 		}
 
 		private boolean isInCurrentVoxel(Point3D point) {
-			Point3D head = mainRay.getP0();
-			Point3D dir = mainRay.getDir().head;
-			// h + tv = p => t = (p-h)/v
-			double tX = (point.getValueOfX() - head.getValueOfX()) / dir.getValueOfX();
-			double tY = (point.getValueOfY() - head.getValueOfY()) / dir.getValueOfY();
-			double tZ = (point.getValueOfZ() - head.getValueOfZ()) / dir.getValueOfZ();
-
-			return alignZero(tMaxX - tX) >= 0 || alignZero(tMaxY - tY) >= 0 || alignZero(tMaxZ - tZ) >= 0;
+			double dX = (point.getValueOfX() - minX) / voxelSize;
+			double dY = (point.getValueOfY() - minY) / voxelSize;
+			double dZ = (point.getValueOfZ() - minZ) / voxelSize;
+			return alignZero(dX + DELTA - x) >= 0 && alignZero(1 + x + DELTA - dX) >= 0 && alignZero(dY + DELTA - y) >= 0
+					&& alignZero(1 + y + DELTA - dY) >= 0 && alignZero(dZ + DELTA - z) >= 0 && alignZero(1 + z + DELTA - dZ) >= 0;
 		}
 
 		public GeoPoint findGeoIntersections() {
@@ -188,6 +186,7 @@ public class VoxelsGrid {
 	private int justOutX, justOutY, justOutZ;
 	private double xDimension, yDimension, zDimension;
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
+	private static final double DELTA = 0.1;
 
 	public VoxelsGrid(Geometries sceneGeometries, double voxelSize) {
 		this.voxelSize = voxelSize;
@@ -233,9 +232,8 @@ public class VoxelsGrid {
 				for (int iZ = zMinI; iZ <= zMaxI; iZ++)
 					for (int iY = yMinI; iY <= yMaxI; iY++)
 						for (int iX = xMinI; iX <= xMaxI; iX++) {
-							if (!isSphere || ((iX - xMinI <= range) || (iY - yMinI <= range)
-									|| (iZ - zMinI <= range) || (xMaxI - iX <= range)
-									|| (yMaxI - iY <= range) || (zMaxI - iZ <= range))) {
+							if (!isSphere || ((iX - xMinI <= range) || (iY - yMinI <= range) || (iZ - zMinI <= range)
+									|| (xMaxI - iX <= range) || (yMaxI - iY <= range) || (zMaxI - iZ <= range))) {
 								if (voxelList[iZ][iY][iX] == null)
 									voxelList[iZ][iY][iX] = new Geometries(current);
 								else

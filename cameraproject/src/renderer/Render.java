@@ -309,8 +309,11 @@ public class Render {
 		final int nY = imageWriter.getNy();
 		if (threadsCount == 0)
 			for (int i = 0; i < nY; ++i)
-				for (int j = 0; j < nX; ++j) 
+				for (int j = 0; j < nX; ++j) {
+					if(j == 194 && i == 181)
+						i*=1;
 					castRay(nX, nY, j, i);
+				}
 		else
 			renderImageThreaded();
 	}

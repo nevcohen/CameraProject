@@ -43,6 +43,8 @@ public class RayTracer extends RayTracerBasic {
 	 */
 	public RayTracer(Scene scene, double voxelSize) {
 		super(scene);
+		if(voxelSize <= 0)
+			throw new IllegalArgumentException("Voxel size must be more then 0");
 		voxelsGrid = new VoxelsGrid(scene.geometries, voxelSize);
 	}
 
@@ -204,14 +206,15 @@ public class RayTracer extends RayTracerBasic {
 			return 1.0;
 		double ktr = 1.0;
 
-		while (firstGP != null) {
+		do {
 			if (alignZero(firstGP.point.distance(geoPoint.point) - lightDistance) <= 0) {
 				ktr *= firstGP.geometry.getMaterial().kT;
 				if (ktr < MIN_CALC_COLOR_K)
 					return 0.0;
 			}
 			firstGP = findClosestIntersection(new Ray(firstGP.point, lightDirection, lightDirection));
-		}
+		} while (firstGP != null);
+		
 		return ktr;
 	}
 
