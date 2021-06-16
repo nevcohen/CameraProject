@@ -1,7 +1,7 @@
 package renderer;
 
 import java.util.List;
-
+import static primitives.Util.*;
 import geometries.Geometries;
 import geometries.Geometry;
 import geometries.Intersectable.GeoPoint;
@@ -9,7 +9,6 @@ import geometries.Plane;
 import geometries.Sphere;
 import primitives.Point3D;
 import primitives.Ray;
-import scene.Scene;
 
 public class VoxelsGrid {
 
@@ -17,9 +16,10 @@ public class VoxelsGrid {
 		public Ray mainRay;
 		private int x, y, z;
 		public Geometries voxelGeometries;
-		private int stepX = 0, stepY = 0, stepZ = 0;
+		private int stepX = 1, stepY = 1, stepZ = 1;
 		private double tMaxX = 0, tMaxY = 0, tMaxZ = 0;
-		private double tDeltaX = 0, tDeltaY = 0, tDeltaZ = 0;
+		private double tDeltaX = Double.POSITIVE_INFINITY, tDeltaY = Double.POSITIVE_INFINITY,
+				tDeltaZ = Double.POSITIVE_INFINITY;
 
 		public RayVoxels(Ray ray) {
 			mainRay = ray;
@@ -34,9 +34,31 @@ public class VoxelsGrid {
 				mainRay = null;
 		}
 
-		public boolean isInCurrentVoxel(Point3D point) {
-			List<Integer> index = getVoxelIndex(point);
-			return x == index.get(0) && y == index.get(1) && z == index.get(2);
+		private boolean isInCurrentVoxel(Point3D point) {
+			Point3D head = mainRay.getP0();
+			Point3D dir = mainRay.getDir().head;
+			// h + tv = p => t = (p-h)/v
+			double tX = (point.getValueOfX() - head.getValueOfX()) / dir.getValueOfX();
+			double tY = (point.getValueOfY() - head.getValueOfY()) / dir.getValueOfY();
+			double tZ = (point.getValueOfZ() - head.getValueOfZ()) / dir.getValueOfZ();
+
+			return alignZero(tMaxX - tX) >= 0 || alignZero(tMaxY - tY) >= 0 || alignZero(tMaxZ - tZ) >= 0;
+		}
+
+		public GeoPoint findGeoIntersections() {
+			if (voxelGeometries == null)
+				return null;
+			List<GeoPoint> intersections = voxelGeometries.findGeoIntersections(mainRay);
+			if (infiniteGeometries != null) {
+				if (intersections != null)
+					intersections.addAll(infiniteGeometries.findGeoIntersections(mainRay));
+				else
+					intersections = infiniteGeometries.findGeoIntersections(mainRay);
+			}
+			GeoPoint firstIntersections = intersections == null ? null : mainRay.findClosestGeoPoint(intersections);
+			if (firstIntersections != null && isInCurrentVoxel(firstIntersections.point))
+				return firstIntersections;
+			return null;
 		}
 
 		private Point3D firstVoxel() {
@@ -90,74 +112,69 @@ public class VoxelsGrid {
 			head = mainRay.getPoint(minT < 0 ? 0 : minT);
 			x = head.getValueOfX();
 			y = head.getValueOfY();
-			z = head.getValueOfZ(); 
-			
+			z = head.getValueOfZ();
+			mainRay = new Ray(head, mainRay.getDir());
+
 			if (xV < 0) {
 				stepX = -1;
-				tMaxX = (((int) ((x - minX) / xDimension)) * xDimension - (x - minX)) / xV;
-				tDeltaX = -xDimension / xV;
+				tMaxX = (((int) ((x - minX) / voxelSize)) * voxelSize - (x - minX)) / xV;
+				tDeltaX = -voxelSize / xV;
+			} else if (xV > 0) {
+				tMaxX = (((int) ((x - minX) / voxelSize) + 1) * voxelSize - (x - minX)) / xV;
+				tDeltaX = voxelSize / xV;
 			}
-			else if (xV > 0) {
-				stepX = 1;
-				tMaxX = (((int) ((x - minX) / xDimension) + 1) * xDimension - (x - minX)) / xV;
-				tDeltaX = xDimension / xV;
-			}
-			
+
 			if (yV < 0) {
 				stepY = -1;
-				tMaxY = (((int) ((y - minY) / yDimension) + 1) * yDimension - (y - minY)) / yV;
-				tDeltaY = -yDimension / yV;
+				tMaxY = (((int) ((y - minY) / voxelSize)) * voxelSize - (y - minY)) / yV;
+				tDeltaY = -voxelSize / yV;
+			} else if (yV > 0) {
+				tMaxY = (((int) ((y - minY) / voxelSize) + 1) * voxelSize - (y - minY)) / yV;
+				tDeltaY = voxelSize / yV;
 			}
-			else if (yV > 0) {
-				stepY = 1;
-				tMaxY = (((int) ((y - minY) / yDimension) + 1) * yDimension - (y - minY)) / yV;
-				tDeltaY = yDimension / yV;
-			}
-			
+
 			if (zV < 0) {
 				stepZ = -1;
-				tMaxZ = (((int) ((y - minZ) / zDimension) + 1) * zDimension - (z - minZ)) / zV;
-				tDeltaZ = -zDimension / zV;
-			}
-			else if (xV > 0) {
-				stepZ = 1;
-				tMaxZ = (((int) ((z - minZ) / zDimension) + 1) * zDimension - (z - minZ)) / zV;
-				tDeltaZ = zDimension / zV;
+				tMaxZ = (((int) ((z - minZ) / voxelSize)) * voxelSize - (z - minZ)) / zV;
+				tDeltaZ = -voxelSize / zV;
+			} else if (zV > 0) {
+				tMaxZ = (((int) ((z - minZ) / voxelSize) + 1) * voxelSize - (z - minZ)) / zV;
+				tDeltaZ = voxelSize / zV;
 			}
 
 			return head;
 
 		}
 
-		public Boolean nextVoxelGeometries() {
+		public boolean nextVoxel() {
 			Geometries geometries = null;
 			while (geometries == null) {
 				if (tMaxX < tMaxY) {
 					if (tMaxX < tMaxZ) {
 						x = x + stepX;
-						if (x <= justOutX)
+						if (x >= justOutX || x < 0)
 							return false; // outside grid
 						tMaxX = tMaxX + tDeltaX;
 					} else {
 						z = z + stepZ;
-						if (z <= justOutZ)
+						if (z >= justOutZ || z < 0)
 							return false;
 						tMaxZ = tMaxZ + tDeltaZ;
 					}
 				} else {
 					if (tMaxY < tMaxZ) {
 						y = y + stepY;
-						if (y <= justOutY)
+						if (y >= justOutY || y < 0)
 							return false;
 						tMaxY = tMaxY + tDeltaY;
 					} else {
 						z = z + stepZ;
-						if (z <= justOutZ)
+						if (z >= justOutZ || z < 0)
 							return false;
 						tMaxZ = tMaxZ + tDeltaZ;
 					}
 				}
-				geometries = allVoxels[x][y][z];
+				geometries = allVoxels[z][y][x];
 			}
 			voxelGeometries = geometries;
 			return true;
@@ -172,25 +189,25 @@ public class VoxelsGrid {
 	private double xDimension, yDimension, zDimension;
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
 
-	public VoxelsGrid(Scene scene, double voxelSize) {
+	public VoxelsGrid(Geometries sceneGeometries, double voxelSize) {
 		this.voxelSize = voxelSize;
-		setGeometriesInVoxel(scene);
+		allVoxels = setGeometriesInVoxel(sceneGeometries);
 	}
 
-	private void setGeometriesInVoxel(Scene scene) {
-		List<GeoPoint> sceneMinMax = scene.geometries.getBoxMinMaxVertices();
+	private Geometries[][][] setGeometriesInVoxel(Geometries sceneGeometries) {
+		List<GeoPoint> sceneMinMax = sceneGeometries.getBoxMinMaxVertices();
 		int sceneAllBoxLen = sceneMinMax.size();
 
 		setGridSize(voxelSize, sceneMinMax, sceneAllBoxLen);
 
-		allVoxels = new Geometries[(int) (zDimension / voxelSize)][(int) (yDimension / voxelSize)][(int) (xDimension
-				/ voxelSize)];
-		infiniteGeometries = new Geometries();
+		Geometries[][][] voxelList = new Geometries[justOutZ][justOutY][justOutX];
 
 		for (int i = 0; i < sceneAllBoxLen; i += 2) {
 			Geometry current = sceneMinMax.get(i).geometry;
 
 			if (current instanceof Plane) {
+				if (infiniteGeometries == null)
+					infiniteGeometries = new Geometries();
 				infiniteGeometries.add(current);
 				i -= 1;
 			} else {
@@ -209,25 +226,25 @@ public class VoxelsGrid {
 				int range = 0;
 				boolean isSphere = false;
 				if (current instanceof Sphere) {
-
 					d = ((Sphere) current).getRadius() * DISTANCE_K;
 					range = (int) (d / voxelSize) + 1;
 					isSphere = true;
 				}
-				for (int iZ = zMinI; iZ < zMaxI; iZ++)
-					for (int iY = yMinI; iY < yMaxI; iY++)
-						for (int iX = xMinI; iX < xMaxI; iX++) {
-							if (!isSphere || ((abs(iX - xMinI) <= range) || (abs(iY - yMinI) <= range)
-									|| (abs(iZ - zMinI) <= range) || (abs(xMaxI - iX) <= range)
-									|| (abs(yMaxI - iY) <= range) || (abs(zMaxI - iZ) <= range))) {
-								if (allVoxels[iZ][iY][iX] == null)
-									allVoxels[iZ][iY][iX] = new Geometries(current);
+				for (int iZ = zMinI; iZ <= zMaxI; iZ++)
+					for (int iY = yMinI; iY <= yMaxI; iY++)
+						for (int iX = xMinI; iX <= xMaxI; iX++) {
+							if (!isSphere || ((iX - xMinI <= range) || (iY - yMinI <= range)
+									|| (iZ - zMinI <= range) || (xMaxI - iX <= range)
+									|| (yMaxI - iY <= range) || (zMaxI - iZ <= range))) {
+								if (voxelList[iZ][iY][iX] == null)
+									voxelList[iZ][iY][iX] = new Geometries(current);
 								else
-									allVoxels[iZ][iY][iX].add(current);
+									voxelList[iZ][iY][iX].add(current);
 							}
 						}
 			}
 		}
+		return voxelList;
 	}
 
 	public List<Integer> getVoxelIndex(Point3D point) {
@@ -236,10 +253,6 @@ public class VoxelsGrid {
 		int z = (int) ((point.getValueOfZ() - minZ) / voxelSize);
 
 		return List.of((x == justOutX ? x - 1 : x), (y == justOutY ? y - 1 : y), (z == justOutZ ? z - 1 : z));
-	}
-
-	private double abs(double num) {
-		return num < 0 ? -num : num;
 	}
 
 	private void setGridSize(double voxelSize, List<GeoPoint> sceneMinMax, int sceneAllBoxLen) {
@@ -271,9 +284,9 @@ public class VoxelsGrid {
 				maxZ = z;
 		}
 
-		double xAdd = ((maxX - minX) % voxelSize) / 2;
-		double yAdd = ((maxY - minY) % voxelSize) / 2;
-		double zAdd = ((maxZ - minZ) % voxelSize) / 2;
+		double xAdd = (voxelSize - ((maxX - minX) % voxelSize)) / 2.0;
+		double yAdd = (voxelSize - ((maxY - minY) % voxelSize)) / 2.0;
+		double zAdd = (voxelSize - ((maxZ - minZ) % voxelSize)) / 2.0;
 		minX -= xAdd;
 		minY -= yAdd;
 		minZ -= zAdd;

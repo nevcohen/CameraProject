@@ -88,7 +88,7 @@ public class SuperSamplingTests {
 		render.renderImage();
 		render.writeToImage();
 	}
-	
+
 	@Test
 	public void tes3() {
 		Scene scene = new Scene("Test scene");
@@ -98,13 +98,16 @@ public class SuperSamplingTests {
 		scene.geometries.add(new Sphere(new Point3D(-10, 0, 0), 10) //
 				.setEmission(new Color(java.awt.Color.RED)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)));
+		//scene.geometries.add(new Triangle(new Point3D(-2, 5, 5), new Point3D(-12, 0, -10), new Point3D(-2, -5, 5)) //
+		//		.setEmission(new Color(java.awt.Color.RED)) //
+		//		.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)));
 
 		scene.lights.add(new DirectionalLight(new Color(400, 240, 0), new Vector(-1, 0, 0)));
 
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("xxx", 200, 200)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracer(scene, 3));
+				.setRayTracer(new RayTracer(scene, 5));
 		render.renderImage();
 		render.writeToImage();
 	}
@@ -175,7 +178,7 @@ public class SuperSamplingTests {
 		Render render = new Render(). //
 				setImageWriter(new ImageWriter("DOFandAA2", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracer(scene, 10)) //
+				.setRayTracer(new RayTracer(scene, 100)) //
 				.setAsMultyRays() //
 				.setDebugPrint() //
 				.setMultithreading(3);

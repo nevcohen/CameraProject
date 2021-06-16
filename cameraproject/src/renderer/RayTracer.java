@@ -2,8 +2,6 @@ package renderer;
 
 import static primitives.Util.alignZero;
 
-import java.util.List;
-
 import elements.LightSource;
 import geometries.Geometry;
 import geometries.Intersectable.GeoPoint;
@@ -17,6 +15,9 @@ import scene.Scene;
 
 public class RayTracer extends RayTracerBasic {
 
+	/**
+	 * -------------
+	 */
 	private VoxelsGrid voxelsGrid;
 
 	/**
@@ -34,9 +35,15 @@ public class RayTracer extends RayTracerBasic {
 	 */
 	private static final double INITIAL_K = 1.0;
 
+	/**
+	 * --------------
+	 * 
+	 * @param scene
+	 * @param voxelSize
+	 */
 	public RayTracer(Scene scene, double voxelSize) {
 		super(scene);
-		voxelsGrid = new VoxelsGrid(scene, voxelSize);
+		voxelsGrid = new VoxelsGrid(scene.geometries, voxelSize);
 	}
 
 	/**
@@ -203,7 +210,7 @@ public class RayTracer extends RayTracerBasic {
 				if (ktr < MIN_CALC_COLOR_K)
 					return 0.0;
 			}
-			firstGP = findClosestIntersection(new Ray(firstGP.point, lightRay.getDir()));
+			firstGP = findClosestIntersection(new Ray(firstGP.point, lightDirection, lightDirection));
 		}
 		return ktr;
 	}
@@ -248,21 +255,13 @@ public class RayTracer extends RayTracerBasic {
 		RayVoxels current = voxelsGrid.new RayVoxels(ray);
 		if (current.mainRay == null)
 			return null;
-		
-		if (current.voxelGeometries != null) {
-			List<GeoPoint> intersections = current.voxelGeometries.findGeoIntersections(ray);
-			GeoPoint firstIntersections = intersections == null ? null : ray.findClosestGeoPoint(intersections);
-			if (firstIntersections != null && current.isInCurrentVoxel(firstIntersections.point))
-				return firstIntersections;
-		}
-		
-		while (current.nextVoxelGeometries()) {
-				List<GeoPoint> intersections = current.voxelGeometries.findGeoIntersections(ray);
-				GeoPoint firstIntersections = intersections == null ? null : ray.findClosestGeoPoint(intersections);
-				if (firstIntersections != null && current.isInCurrentVoxel(firstIntersections.point))
-					return firstIntersections;
-		}
-		
+
+		do {
+			GeoPoint gp = current.findGeoIntersections();
+			if (gp != null)
+				return gp;
+		} while (current.nextVoxel());
+
 		return null;
 	}
 }

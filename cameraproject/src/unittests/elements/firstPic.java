@@ -15,7 +15,7 @@ import primitives.Material;
 import primitives.Point3D;
 import primitives.Vector;
 import renderer.ImageWriter;
-import renderer.RayTracerBasic;
+import renderer.*;
 import renderer.Render;
 import scene.Scene;
 
@@ -196,11 +196,11 @@ public class firstPic {
 		scene.lights.add(new SpotLight(new Color(250, 250, 500), new Point3D(75, 0, 65), new Vector(0, 0, -1)).setExp(2) //
 				.setKl(4E-5).setKq(2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("firstPicAA", 800, 800);
+		ImageWriter imageWriter = new ImageWriter("firstPicAA2", 800, 800);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene)) //
+				.setRayTracer(new RayTracer(scene, 10)) //
 				.setAsMultyRays() //
 				.setDebugPrint() //
 				.setMultithreading(3);

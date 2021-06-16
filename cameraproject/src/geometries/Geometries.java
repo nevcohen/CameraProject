@@ -56,7 +56,7 @@ public class Geometries implements Intersectable {
 
 	@Override
 	public List<GeoPoint> getBoxMinMaxVertices() {
-		if (allGeometries == null || allGeometries.size() == 0)
+		if (allGeometries == null)
 			throw new IllegalArgumentException("The list of geometric shapes is empty");
 
 		List<GeoPoint> allVertices = new LinkedList<GeoPoint>();
