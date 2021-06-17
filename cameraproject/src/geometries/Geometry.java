@@ -16,6 +16,11 @@ public abstract class Geometry implements Intersectable {
 	 * The material of which the object consists.
 	 */
 	private Material material = new Material();
+	
+	/**
+	 * 
+	 */
+	public int rayID = 0;
 
 	/**
 	 * Getter for the color of the geometric shape

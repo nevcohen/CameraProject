@@ -205,23 +205,23 @@ public class RayTracer extends RayTracerBasic {
 		Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
 		double lightDistance = light.getDistance(geoPoint.point);
 
-		GeoPoint firstGP = findClosestIntersection(lightRay);
+		GeoPoint firstGP = findClosestIntersection(lightRay, lightDistance);
 
 		if (firstGP == null)
 			return 1.0;
 		double ktr = 1.0;
 
 		do {
-			if (alignZero(firstGP.point.distance(geoPoint.point) - lightDistance) <= 0) {
-				ktr *= firstGP.geometry.getMaterial().kT;
-				if (ktr < MIN_CALC_COLOR_K)
-					return 0.0;
-			}
-			firstGP = findClosestIntersection(new Ray(firstGP.point, lightDirection, lightDirection));
+			ktr *= firstGP.geometry.getMaterial().kT;
+			if (ktr < MIN_CALC_COLOR_K)
+				return 0.0;
+			firstGP = findClosestIntersection(new Ray(firstGP.point, lightDirection, lightDirection), lightDistance);
 		} while (firstGP != null);
 
 		return ktr;
 	}
+
+
 
 	/**
 	 * Creating a ray of the reflection.
@@ -253,6 +253,7 @@ public class RayTracer extends RayTracerBasic {
 		return intersections == null ? scene.background : calcColor(intersections, ray);
 	}
 
+	
 	/**
 	 * Finding the closest intersections to the rays origin.
 	 * 
@@ -260,9 +261,13 @@ public class RayTracer extends RayTracerBasic {
 	 * @return The closest GeoPoint in the rays path.
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
+		return findClosestIntersection(ray, Double.POSITIVE_INFINITY);
+	}
+	
+	private GeoPoint findClosestIntersection(Ray ray, double maxDistance) {
 		GeoPoint closestInf = voxelsGrid.infiniteGeometries == null ? null
-				: ray.findClosestGeoPoint(voxelsGrid.infiniteGeometries.findGeoIntersections(ray));
-		RayVoxels current = voxelsGrid.new RayVoxels(ray);
+				: ray.findClosestGeoPoint(voxelsGrid.infiniteGeometries.findGeoIntersections(ray, maxDistance));
+		RayVoxels current = voxelsGrid.new RayVoxels(ray, maxDistance);
 		if (current.mainRay == null)
 			return closestInf;
 
@@ -275,6 +280,6 @@ public class RayTracer extends RayTracerBasic {
 			}
 		} while (current.nextVoxel());
 
-		return closestInf;
+		return null;
 	}
 }

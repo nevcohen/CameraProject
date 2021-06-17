@@ -63,13 +63,20 @@ public class VoxelsGrid {
 		private double tDeltaX = Double.POSITIVE_INFINITY, tDeltaY = Double.POSITIVE_INFINITY,
 				tDeltaZ = Double.POSITIVE_INFINITY;
 
+		private int rayID;
+
+		private double maxDistance;
+		
+		private List<GeoPoint> oldIntersections;
+
 		/**
 		 * Calculating the voxels based on the ray
 		 * 
 		 * @param ray - the Basic ray
 		 */
-		public RayVoxels(Ray ray) {
+		public RayVoxels(Ray ray, double maxDistance) {
 			mainRay = ray;
+			this.maxDistance = maxDistance;
 			if (startInFirstVoxel()) {
 				Point3D firstIndex = getFirstVoxelIndex(mainRay.getP0());
 				x = (int) firstIndex.getValueOfX();
@@ -102,8 +109,17 @@ public class VoxelsGrid {
 		public GeoPoint findGeoIntersections() {
 			if (voxelGeometries == null)
 				return null;
-			List<GeoPoint> intersections = voxelGeometries.findGeoIntersections(mainRay);
-			GeoPoint firstIntersections = intersections == null ? null : mainRay.findClosestGeoPoint(intersections);
+
+			List<GeoPoint> intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance, rayID);
+			GeoPoint firstIntersections = null;
+			if (intersections != null) {
+				if (oldIntersections != null)
+					oldIntersections.addAll(intersections);
+				else
+					oldIntersections = intersections;
+			}
+			if (oldIntersections != null)
+				firstIntersections = mainRay.findClosestGeoPoint(oldIntersections);
 			if (firstIntersections != null && isInCurrentVoxel(firstIntersections.point))
 				return firstIntersections;
 			return null;
@@ -214,6 +230,8 @@ public class VoxelsGrid {
 			if (isZero(tMaxZ))
 				tMaxZ = tDeltaZ;
 
+			sourceRayID++;
+			rayID = sourceRayID;
 			return true;
 
 		}
@@ -257,6 +275,7 @@ public class VoxelsGrid {
 			voxelGeometries = geometries;
 			return true;
 		}
+
 	}
 
 	/**
@@ -294,6 +313,8 @@ public class VoxelsGrid {
 	 * near the center.
 	 */
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
+
+	private int sourceRayID = 0;
 
 	/**
 	 * A constructor that gets the geometries and the designated size of each voxel.
@@ -384,9 +405,9 @@ public class VoxelsGrid {
 	 * @return
 	 */
 	public Point3D getFirstVoxelIndex(Point3D head) {
-		int iX = (int) (head.getValueOfX() - minX / voxelSize);
-		int iY = (int) (head.getValueOfY() - minY / voxelSize);
-		int iZ = (int) (head.getValueOfZ() - minZ / voxelSize);
+		int iX = (int) ((head.getValueOfX() - minX) / voxelSize);
+		int iY = (int) ((head.getValueOfY() - minY) / voxelSize);
+		int iZ = (int) ((head.getValueOfZ() - minZ) / voxelSize);
 
 		return new Point3D((iX == justOutX ? iX - 1 : iX), (iY == justOutY ? iY - 1 : iY),
 				(iZ == justOutZ ? iZ - 1 : iZ));

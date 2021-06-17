@@ -72,8 +72,8 @@ public interface Intersectable {
 	default List<GeoPoint> findGeoIntersections(Ray ray) {
 		return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
 	}
-	
-	/** 
+
+	/**
 	 * --------------------
 	 * 
 	 * @return
@@ -91,5 +91,4 @@ public interface Intersectable {
 	 *         the geometric shape
 	 */
 	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
-
 }

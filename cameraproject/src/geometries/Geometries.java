@@ -8,7 +8,6 @@ import java.util.List;
 
 import primitives.Ray;
 
-
 /**
 *
 */
@@ -79,6 +78,25 @@ public class Geometries implements Intersectable {
 					allIntersectables = new LinkedList<GeoPoint>(currentIntersections);
 				else
 					allIntersectables.addAll(currentIntersections);
+			}
+		}
+		return allIntersectables;
+	}
+
+	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance, int rayID) {
+		if (allGeometries == null)
+			return null;
+		List<GeoPoint> allIntersectables = null;
+		for (Intersectable current : allGeometries) {
+			if (((Geometry) current).rayID != rayID) {
+				List<GeoPoint> currentIntersections = current.findGeoIntersections(ray, maxDistance);
+				if (currentIntersections != null) {
+					((Geometry) current).rayID = rayID;
+					if (allIntersectables == null)
+						allIntersectables = new LinkedList<GeoPoint>(currentIntersections);
+					else
+						allIntersectables.addAll(currentIntersections);
+				}
 			}
 		}
 		return allIntersectables;
