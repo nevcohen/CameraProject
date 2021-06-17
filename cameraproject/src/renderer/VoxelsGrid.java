@@ -99,7 +99,7 @@ public class VoxelsGrid {
 		/**
 		 * Find the GeoIntersections of our rubix cube.
 		 * 
-		 * @return ----------
+		 * @return the closest GeoPoint to the head of the ray ; in the current voxel.
 		 */
 		public GeoPoint findGeoIntersections() {
 			if (voxelGeometries == null)
@@ -279,15 +279,15 @@ public class VoxelsGrid {
 	 */
 	private double minX, minY, minZ, maxX, maxY, maxZ;
 	/**
-	 * pramaters to ----
+	 * pramaters to store the final coordinate of the rubix cube, to determine when we left it.
 	 */
 	private int justOutX, justOutY, justOutZ;
 	/**
-	 * parameters to -----
+	 * parameters to store the size of each side. (total)
 	 */
 	private double xDimension, yDimension, zDimension;
 	/**
-	 * ----
+	 * A distance used to calculate an area in the sphere that is in the sphere, not near the center.
 	 */
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
 	/**
@@ -378,10 +378,10 @@ public class VoxelsGrid {
 	}
 
 	/**
-	 * A function that gets a point and returns a list of -----
+	 * A function that gets a point and returns a list of coordinates in a list.
 	 * 
-	 * @param point - the point we will search from
-	 * @return A list with ----
+	 * @param point - the point we will search from (on the rubix cube)	
+	 * @return A list with coordinates of the voxel that its' in.
 	 */
 	public List<Integer> getVoxelIndex(Point3D point) {
 		int x = (int) ((point.getValueOfX() - minX) / voxelSize);
@@ -399,8 +399,8 @@ public class VoxelsGrid {
 	 *                       is 1, each voxel would be 1x1x1 in size, as they are
 	 *                       all cubes.
 	 * @param sceneMinMax    - A list holding the minimum and max points, of each
-	 *                       box. ----
-	 * @param sceneAllBoxLen - ----
+	 *                       box.
+	 * @param sceneAllBoxLen - the length of the list of the last parameter 
 	 */
 	private void setGridSize(double voxelSize, List<GeoPoint> sceneMinMax, int sceneAllBoxLen) {
 		minX = Double.POSITIVE_INFINITY;
