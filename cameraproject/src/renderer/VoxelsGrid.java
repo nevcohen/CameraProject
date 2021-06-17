@@ -66,7 +66,7 @@ public class VoxelsGrid {
 		private int rayID;
 
 		private double maxDistance;
-		
+
 		private List<GeoPoint> oldIntersections;
 
 		/**
@@ -110,7 +110,11 @@ public class VoxelsGrid {
 			if (voxelGeometries == null)
 				return null;
 
-			List<GeoPoint> intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance, rayID);
+			List<GeoPoint> intersections;
+			if(useRayID)
+				intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance, rayID);
+			else
+				intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance);
 			GeoPoint firstIntersections = null;
 			if (intersections != null) {
 				if (oldIntersections != null)
@@ -314,7 +318,16 @@ public class VoxelsGrid {
 	 */
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
 
+	private boolean useRayID = false;
+
 	private int sourceRayID = 0;
+
+	/**
+	 * ---------------
+	 */
+	public void setRayID() {
+		useRayID = true;
+	}
 
 	/**
 	 * A constructor that gets the geometries and the designated size of each voxel.

@@ -282,4 +282,9 @@ public class RayTracer extends RayTracerBasic {
 
 		return null;
 	}
+
+	public RayTracerBase setRayID() {
+		voxelsGrid.setRayID();
+		return this;
+	}
 }
