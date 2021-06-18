@@ -280,10 +280,10 @@ public class RayTracer extends RayTracerBasic {
 			}
 		} while (current.nextVoxel());
 
-		return null;
+		return closestInf;
 	}
 
-	public RayTracerBase setRayID() {
+	public RayTracer setRayID() {
 		voxelsGrid.setRayID();
 		return this;
 	}

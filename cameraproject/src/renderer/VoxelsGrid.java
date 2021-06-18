@@ -111,19 +111,22 @@ public class VoxelsGrid {
 				return null;
 
 			List<GeoPoint> intersections;
-			if(useRayID)
-				intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance, rayID);
-			else
-				intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance);
 			GeoPoint firstIntersections = null;
-			if (intersections != null) {
+			if (useRayID) {
+				intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance, rayID);
+				if (intersections != null) {
+					if (oldIntersections != null)
+						oldIntersections.addAll(intersections);
+					else
+						oldIntersections = intersections;
+				}
 				if (oldIntersections != null)
-					oldIntersections.addAll(intersections);
-				else
-					oldIntersections = intersections;
+					firstIntersections = mainRay.findClosestGeoPoint(oldIntersections);
+			} else {
+				intersections = voxelGeometries.findGeoIntersections(mainRay, maxDistance);
+				firstIntersections = mainRay.findClosestGeoPoint(intersections);
 			}
-			if (oldIntersections != null)
-				firstIntersections = mainRay.findClosestGeoPoint(oldIntersections);
+
 			if (firstIntersections != null && isInCurrentVoxel(firstIntersections.point))
 				return firstIntersections;
 			return null;

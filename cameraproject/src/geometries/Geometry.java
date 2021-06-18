@@ -18,7 +18,7 @@ public abstract class Geometry implements Intersectable {
 	private Material material = new Material();
 	
 	/**
-	 * 
+	 * -----------
 	 */
 	public int rayID = 0;
 

@@ -83,6 +83,13 @@ public class Geometries implements Intersectable {
 		return allIntersectables;
 	}
 
+	/**
+	 * 
+	 * @param ray
+	 * @param maxDistance
+	 * @param rayID
+	 * @return
+	 */
 	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance, int rayID) {
 		if (allGeometries == null)
 			return null;
