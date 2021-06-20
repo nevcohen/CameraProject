@@ -26,8 +26,8 @@ public class NoahsArk {
 		Camera camera = new Camera(new Point3D(2500, 500, 600), new Vector(-10, -4, -3),
 				new Vector(-10, -4, 116.0 / 3.0)) //
 						.setViewPlaneDistance(1000).setViewPlaneSize(800, 800) //
-						.setPixelGridSize(9);
-						//.setAperture(8, 8).setFocalPlaneDistance(1700);
+						.setAperture(8, 8).setFocalPlaneDistance(1700);
+						//.setPixelGridSize(9);
 		Scene scene = new Scene("Test scene").setAmbientLight(new AmbientLight(new Color(java.awt.Color.GRAY), 0.2))
 				.setBackground(new Color(255, 255, 224));
 
@@ -147,9 +147,9 @@ public class NoahsArk {
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(imageWriter) //
-				.setRayTracer(new RayTracer(scene, 200)) //
-				.setMultithreading(3).setDebugPrint(); //
-				//.setAsMultyRays();
+				.setRayTracer(new RayTracer(scene, 35)) //
+				.setMultithreading(3).setDebugPrint() //
+				.setAsMultyRays();
 		render.renderImage();
 		render.writeToImage();
 	}
