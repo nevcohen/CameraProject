@@ -221,8 +221,6 @@ public class RayTracer extends RayTracerBasic {
 		return ktr;
 	}
 
-
-
 	/**
 	 * Creating a ray of the reflection.
 	 * 
@@ -253,7 +251,6 @@ public class RayTracer extends RayTracerBasic {
 		return intersections == null ? scene.background : calcColor(intersections, ray);
 	}
 
-	
 	/**
 	 * Finding the closest intersections to the rays origin.
 	 * 
@@ -263,7 +260,7 @@ public class RayTracer extends RayTracerBasic {
 	private GeoPoint findClosestIntersection(Ray ray) {
 		return findClosestIntersection(ray, Double.POSITIVE_INFINITY);
 	}
-	
+
 	private GeoPoint findClosestIntersection(Ray ray, double maxDistance) {
 		GeoPoint closestInf = voxelsGrid.infiniteGeometries == null ? null
 				: ray.findClosestGeoPoint(voxelsGrid.infiniteGeometries.findGeoIntersections(ray, maxDistance));
@@ -283,6 +280,12 @@ public class RayTracer extends RayTracerBasic {
 		return closestInf;
 	}
 
+	/**
+	 * for each ray tracer, we can control the flag deciding if we will use the
+	 * improved ray tracking.
+	 * 
+	 * @return The RayTracer itself
+	 */
 	public RayTracer setRayID() {
 		voxelsGrid.setRayID();
 		return this;

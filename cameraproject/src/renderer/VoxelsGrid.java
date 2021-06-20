@@ -63,10 +63,21 @@ public class VoxelsGrid {
 		private double tDeltaX = Double.POSITIVE_INFINITY, tDeltaY = Double.POSITIVE_INFINITY,
 				tDeltaZ = Double.POSITIVE_INFINITY;
 
+		/**
+		 * The number of the ray, used to make sure we don't find the same points twice
+		 * on the same ray.
+		 */
 		private int rayID;
 
+		/**
+		 * If we are far enough, don't calculate the points, as they are considered to
+		 * far to matter.
+		 */
 		private double maxDistance;
 
+		/**
+		 * A list of all of the found points with information.
+		 */
 		private List<GeoPoint> oldIntersections;
 
 		/**
@@ -321,12 +332,19 @@ public class VoxelsGrid {
 	 */
 	private static final double DISTANCE_K = (2.0 - Math.sqrt(2)) / 2.0;
 
+	/**
+	 * A flag used to control weather we would like to use the feature of the ray
+	 * having an ID, with its' benefits.
+	 */
 	private boolean useRayID = false;
 
+	/**
+	 * A counter to grantee each ID of a ray is unique.
+	 */
 	private int sourceRayID = 0;
 
 	/**
-	 * ---------------
+	 * A Set function to activate the new system, without a way to deactivate it.
 	 */
 	public void setRayID() {
 		useRayID = true;
@@ -415,10 +433,11 @@ public class VoxelsGrid {
 	}
 
 	/**
-	 * --------------------------
+	 * A function that gets the head point that the ray cut the grid, and returns
+	 * the intersection on the rubix cube.
 	 * 
-	 * @param mainRay
-	 * @return
+	 * @param head - A point to the rubix cube where we cut with the ray.
+	 * @return The voxel with the intersection of the head.
 	 */
 	public Point3D getFirstVoxelIndex(Point3D head) {
 		int iX = (int) ((head.getValueOfX() - minX) / voxelSize);
